@@ -11,11 +11,11 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#66ac81",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "养生问答大全",
+    "navigationBarTextStyle":"#fff"
   },
   "tabBar":{
-    "selectedColor": "#93c53e",
+    "selectedColor": "#66ac81",
     "list": [
       {
         "pagePath": "pages/choicest/list",
