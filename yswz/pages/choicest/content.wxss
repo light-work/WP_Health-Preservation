@@ -1,0 +1,32 @@
+/* pages/news/news.wxss */
+@import '../css/newsItem.wxss';
+
+.wxParse-div {
+  margin:0;
+  padding:0 10px;
+}
+.wxParse-h1{
+    font-size:48rpx;
+    font-weight: bold;
+    margin:20px 0;
+}
+
+.wxParse-p{
+    font-size:40rpx;
+    line-height: 2;
+    color:#222;
+    margin:5px 0;
+    padding:15px 10px;
+    background: #f5f5f5;
+    border-radius:3px;
+}
+.p_time{
+    font-size:28rpx;
+    color:#999;
+    padding:5px;
+    line-height: 1;
+    display: none;
+}
+.wxParse-img{
+    width:100%!important;
+}

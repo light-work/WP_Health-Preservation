@@ -1,0 +1,45 @@
+/**index.wxss**/
+@import '../css/newsItem.wxss';
+
+swiper {
+  background: #f2f4f4;
+  position: relative;
+  height: 350rpx;
+}
+.swiper-item{
+  height: 350rpx;
+}
+swiper-item image {
+  width: 100%;
+  height: 350rpx;
+}
+
+.news-mask {
+  position: absolute;
+  height: 100rpx;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10rpx 20rpx;
+  font-size: 14px;
+}
+
+.add-fork{
+  position: fixed;
+  width:80rpx;
+  height:80rpx;
+  border-radius:50%;
+  background: rgba(0, 0, 0, 0.3);
+  right:20rpx;
+  bottom:180rpx;
+  z-index: 999;
+  box-shadow: 0 0 5px #999;
+  text-align: center;
+}
+.add-fork image{
+  width: 56rpx;
+  height:56rpx;
+  margin-top:10rpx;
+}

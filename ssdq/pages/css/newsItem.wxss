@@ -1,0 +1,128 @@
+/* pages/news/newsItem.wxss */
+.tj-content{
+    padding:10px;
+    margin-top:20px;
+}
+.tj-title{
+    color:#ed4040;
+    border-left:4px solid #ed4040;
+    padding-left:10px;
+    margin-bottom:20px;
+    font-size:40rpx;
+}
+.share-item{
+    width:460rpx;
+    height:80rpx;
+    line-height:80rpx;
+    border-radius:20px;
+    background: rgba(0, 0, 0, .8);
+    position: fixed;
+    left:50%;
+    bottom:10px;
+    margin-left:-230rpx;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    font-size:28rpx;
+    justify-content: center;
+    color:#66AC81;
+}
+.share-item view{
+    width: 50%;
+    float: left;
+    text-align: center;
+    font-size:28rpx;
+}
+.share-item view:first-child{
+    border-right:1px solid #666;
+    color:#66AC81;
+}
+.share-item view image{
+    width:40rpx;
+    height:40rpx;
+    vertical-align:-8rpx;
+
+}
+.share-item view button{
+    background:none;
+    border:0;
+    font-size:28rpx;
+    line-height:80rpx;
+    color:#66AC81;
+}
+.news-list {
+  padding: 0 20rpx 5rpx 20rpx;
+}
+.tj-content .news-list {
+  padding: 0 0 5rpx 0;
+}
+.news-item {
+  height: 155rpx;
+  clear: both;
+  padding: 25rpx 0;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.6);
+  position: relative;
+}
+
+.news-item .news-img {
+  float: left;
+  width: 240rpx;
+  height: 155rpx;
+  overflow: hidden;
+  border-radius:5px;
+}
+
+.news-item .news-img image {
+  width: 100%;
+  height: 155rpx;
+}
+
+.news-txt {
+  margin-left: 260rpx;
+  font-size: 40rpx;
+}
+
+.news-item text {
+    line-height: 1.3;
+    color: #333;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.user-like{
+  width:412rpx;
+  position: absolute;
+  bottom:10rpx;
+  left:260rpx;
+}
+.user-like text{
+  display: inline-block;
+  color:#999;
+  font-size:12px;
+  margin-left: 3px;
+  margin-right:15px;
+}
+.icon-eye,.icon-share,.icon-hand{
+  display: inline-block;
+  width:38rpx;
+  height:24rpx;
+  vertical-align: 2rpx;
+}
+.icon-share,.icon-hand{
+  width:30rpx;
+  height:30rpx;
+  vertical-align:2rpx;
+}
+.clearfix:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.clearfix{
+    zoom:1;
+}

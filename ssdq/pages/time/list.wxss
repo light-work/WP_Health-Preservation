@@ -1,0 +1,23 @@
+.time-clock{
+    font-size:32rpx;
+    padding:40rpx 20rpx;
+    border-bottom:1px solid #ccc;
+}
+.time-left{
+    width:130rpx;
+    height:130rpx;
+    line-height: 180rpx;
+    float: left;
+    text-align: center;
+    font-size:50rpx;
+    font-weight:bold;
+}
+.time-right{
+    margin-left:160rpx;
+}
+
+.jl-txt,.jl-time{color:#888;}
+.jl-title{color:#07793e;font-weight:bold;margin:0 10rpx 0 20rpx;}
+.jl-img{width: 45rpx;height:45rpx;vertical-align: -10rpx;margin-right: 10rpx;}
+.jl-help{display:block;border-radius:5px;background: #93c53e;color:#fff;padding:10rpx;margin:20rpx 0;}
+.jl-time{margin-right: 20rpx;}

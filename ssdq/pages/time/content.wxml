@@ -1,0 +1,25 @@
+<import src="../wxParse/wxParse.wxml"/>
+<view>
+    <view class='time-title'>
+        <text>{{data.timeName}}</text>
+        <image src='../img/clock.png' class='clock'></image>
+        <text class='time-txt'>{{data.timeHour}}</text>
+        <view class='time-jy'>{{data.timeKey}}</view> 
+    </view>
+    <view class='title'>
+        <text>{{data.timeName}} ==> </text>
+        <text class='jing-item'>{{data.meridian}}</text>
+        <image src='{{data.meridianPic}}' class='jing-pic'></image>
+    </view>
+    <view class='jing-txt'><text>{{data.meridianDesc}}</text></view>
+</view>
+<view class='title'>养生之道</view>
+<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+<view class="tj-content">
+    <view class='tj-title'>推荐食物</view>
+    <view class='tj-food'>
+        <text wx:for="{{foodList}}" wx:key="id" data-item="{{item}}" bindtap="bindFoodItemTap">{{item.name}}</text>
+    </view>
+</view>
+
+<recommend-list list="{{articleArray}}" binditemtap="bindTapNewsView" title="相关文章"></recommend-list>

@@ -1,0 +1,74 @@
+@import '../css/newsItem.wxss';
+.yiji,.hour_zz{
+    background: #f5f5f5;
+    padding:20rpx;
+}
+.wxParse-p{
+    font-size:34rpx;
+    line-height: 1.6;
+    padding:10rpx 0;
+}
+.wxParse-h4{
+    font-size:32rpx;
+    width:80rpx;
+    padding:10rpx 20rpx;
+    text-align: center;
+    border-radius:10rpx;
+    background: #f5f5f5;
+    margin:40rpx 0 10rpx 0;
+    border:2px dotted #93c53e;
+    font-weight:bold;
+}
+.title{
+    padding:10rpx 0;
+    font-size:40rpx;
+    border-bottom: 1px solid #ccc;
+    color:#93c53e;
+}
+page{
+    width: auto;
+    padding:20rpx 20rpx;
+    color:#444;
+}
+.wxParse-strong{
+    font-weight: bold;
+}
+.hour_zz{
+    margin-top:40rpx;
+}
+.wxParse-h2{
+    font-weight:bold;
+    background:#07793e;
+    color:#fff;
+    text-indent: 20rpx;
+    padding:20rpx 0;
+    border-radius:5px;
+}
+.time-title{
+    padding:20rpx 0;
+}
+.clock{
+    width:40rpx;
+    height:40rpx;
+    vertical-align: -6rpx;
+    margin: 0 20rpx 0 10rpx;
+}
+.time-txt{
+    color:#a5a5a5;
+    font-size:28rpx;
+}
+.time-jy{
+    font-size:30rpx;
+    background: #93c53e;
+    padding:10rpx;
+    color:#fff;
+    margin-top:10rpx;
+    border-radius:5px;
+}
+.jing-item{color:#07793e;}
+.jing-pic{width:50rpx;height:50rpx;vertical-align:-6rpx;margin-left:15rpx;}
+.jing-txt{padding:30rpx 20rpx;background: #f5f5f5;border-radius:5px;font-size:34rpx;
+line-height:1.6;margin-bottom:50rpx;}
+.tj-food text{display:inline-block;margin-right:15rpx;text-decoration: underline;}
+
+

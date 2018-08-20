@@ -1,0 +1,21 @@
+<view>
+    <view class='time-clock clearfix' bindtap='bindItemTap' wx:for="{{list}}" wx:key="id" data-item="{{item}}">
+        <view class='time-left'>
+            <text>{{item.timeName}}</text>
+        </view>
+        <view class='time-right'>
+            <view>
+                <image src='../img/clock.png' class='jl-img'></image>
+                <text class='jl-time'>{{item.timeHour}}</text>
+                <text class='jl-title'>{{item.meridian}}</text>
+                <image src='{{item.meridianPic}}' class='jl-img'></image>
+            </view>
+            <view>
+                <text class='jl-help'>{{item.timeKey}}</text>
+            </view>
+            <view class='jl-txt'>
+                <text>{{item.meridianDesc}}</text>
+            </view>
+        </view>
+    </view>
+</view>
