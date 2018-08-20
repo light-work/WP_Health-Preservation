@@ -11,8 +11,8 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#66ac81",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "养生文摘",
+    "navigationBarTextStyle":"#fff"
   },
   "tabBar":{
     "selectedColor": "#93c53e",
