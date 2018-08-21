@@ -7,7 +7,7 @@
         <view class='time-jy'>{{data.timeKey}}</view> 
     </view>
     <view class='title'>
-        <text>{{data.timeName}} ==> </text>
+        <text>{{data.timeName}}经络: </text>
         <text class='jing-item'>{{data.meridian}}</text>
         <image src='{{data.meridianPic}}' class='jing-pic'></image>
     </view>

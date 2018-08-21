@@ -2,6 +2,14 @@
 <!-- <view class="add-fork">
     <image src='../img/icon-add.png'></image>
 </view> -->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{bannerList}}" wx:key="*this">
+        <swiper-item bindtap="bindBannerTap" data-item="{{item}}">
+            <image src="{{item.imgSrc}}" class="slide-image" />
+            <view class='news-mask'>{{item.title}}</view>
+        </swiper-item>
+    </block>
+</swiper>
 <view class='news-list' wx:for="{{newList}}" wx:key="*this" bindtap='bindTapNewsView' data-item='{{item}}'>
     <view class='news-item'>
         <view class='news-img'>

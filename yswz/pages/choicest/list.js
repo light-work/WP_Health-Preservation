@@ -1,11 +1,18 @@
 //index.js
 //获取应用实例
 const app = getApp()
-const { host, share, aritleType } = require('../../utils/common.js')
+const { host, share, aritleType, mealappid, infoAppid, foodAppId } = require('../../utils/common.js')
 
 
 Page({
   data: {
+    bannerList: [],
+    indicatorDots: true,
+    indicatorColor: "#000",
+    indicatorActiveColor: "#fff",
+    autoplay: true,
+    interval: 5000,
+    duration: 500,
     page:0,
     newList: []
   },
@@ -36,6 +43,16 @@ Page({
       },
       fail: function (r) {
         wx.hideLoading()
+      }
+    })
+    wx.request({
+      url: `${host}/app/banner/${infoAppid}`,
+      success: function ({ data }) {
+        if (data.errorCode === 0 && data.errorMsg === 'ok') {
+          that.setData({
+            bannerList: data.list
+          })
+        }
       }
     })
   },
@@ -103,5 +120,29 @@ Page({
   },
   onShareAppMessage: function (options) {
     return share()
+  },
+  bindBannerTap: (e) => {
+    const item = e.currentTarget.dataset.item
+    if (item) {
+      if (item.redirect === 'call') {
+        wx.navigateToMiniProgram({
+          appId: item.target,
+          path: item.target === foodAppId ?'pages/food/main':'pages/choicest/main?',
+          envVersion: 'develop'
+        })
+      } else if (item.redirect === 'self') {
+        var url = ''
+        if (item.action === 'main') {
+          url = 'pages/choicest/main'
+          wx.navigateTo({
+            url: url
+          })
+        } else if (item.action === 'regimen') {
+          wx.switchTab({
+            url: '/pages/time/list'
+          })
+        }
+      }
+    }
   }
 })

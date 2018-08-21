@@ -1,0 +1,26 @@
+<!--foodlist.wxml-->
+<view class='tz-title'>阳虚质</view>
+<view class='food-list'>
+    <view class='food-item clearfix' bindtap='showDetail' wx:for="{{list}}" wx:key="*this" data-item='{{item}}' bindtap='bindItemTap'>
+        <view class='food-img'>
+            <text class='food-name'>{{item.name}}</text>
+            <image src='{{item.picUrl}}'></image>
+            
+        </view>
+        <view class='food-txt'>
+            <view>
+                <text class='tag' wx:if="{{item.tip==='宜'}}">宜</text>
+                <text wx:elif="{{item.tip==='忌'}}" class='tag ji'>忌</text>
+                <text>{{item.brief}}</text>
+            </view>
+            <view>
+                <text>功效：</text>
+                <text>{{item.effect}}</text>
+            </view>
+            <view>
+                <text>禁忌人群：</text>
+                <text>{{item.taboo}}</text>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,5 +1,5 @@
 var WxParse = require('../wxParse/wxParse.js');
-const { host, cloudHost, share, foodAppId} = require('../../utils/common.js')
+const { host, cloudHost, share, mealappid, foodAppId, aritleType} = require('../../utils/common.js')
 Page({
     data: {
       cloudHost,
@@ -41,27 +41,36 @@ Page({
               articleArray: data.articleArray
             })
           }
-          wx.hideToast()
+          wx.hideLoading()
         },
         fail: function () {
-          wx.hideToast()
+          wx.hideLoading()
         }
       })   
     },
   bindTapNewsView: (e) => {
     const item = e.detail
     if (item && item.articleType) {
-      wx.navigateTo({
-        url: '../time/article?type=' + item.articleType + '&id=' + item.id + '&category=' + item.category,
-      })
+      if (item.articleType === aritleType){
+        wx.navigateTo({
+          url: `../choicest/content?id=${item.id}&category=${item.category}&type=${item.articleType}`
+        })
+      } else if (item.articleType==='meal'){
+        wx.navigateToMiniProgram({
+          appId: mealappid,
+          path: `pages/choicest/main?id=${item.id}&category=${item.category}&type=${item.articleType}`,
+          envVersion: 'develop'
+        })
+      }
     }
   },
   bindFoodItemTap:(e)=>{
     const item=e.currentTarget.dataset.item
+    console.info(foodAppId)
     if(item){
       wx.navigateToMiniProgram({
         appId: foodAppId,
-        path: 'pages/food/foodinfo?id=' + item.id,
+        path: `pages/food/foodinfo?id=${item.id}`,
         envVersion: 'develop'
       })
     }

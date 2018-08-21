@@ -1,0 +1,58 @@
+<import src="../wxParse/wxParse.wxml"/>
+<view class='food-content'>
+    <view class='food-title'>
+        <text class='food-name'>{{foodInfo.name}}</text>
+        <text style='margin-left:10rpx;font-size:28rpx;'>{{foodInfo.brief}}</text>
+    </view>
+    <view class='food-info clearfix'>
+        <image src="{{foodInfo.picUrl?foodInfo.picUrl:''}}"class='info-img' 
+        ></image>
+        <view class="food-txt" style='min-height:155rpx;margin-left:240rpx;'>
+            <view>功效：</view>
+            <view class='txt-gx'>{{foodInfo.effect}}</view>
+        </view>
+        <view class="food-txt" wx:for="{{property}}"wx:for-index="*this" wx:for-item="item" wx:key="key">
+            <view>{{item.key}}</view>
+            <view>{{item.value}}</view>
+        </view>
+    </view>
+    <view class='foodke-box'>
+        <view class='pbm wxParse-h3'>
+            <view class='WxEmojiView wxParse-inline' wx:if="{{foodInfo.name}}">{{foodInfo.name}}的食物相克表</view>
+        </view>
+        <view wx:if="{{good.length>0}}">
+            <view class='x-x'>相生</view>
+            <view class='x-list'>
+                <view wx:for="{{good}}" wx:key="*this">
+                  {{item.side==='L'?foodInfo.name+'+':''}}<text>{{item.food}}</text>{{item.side==='R'?'+'+foodInfo.name:''}}:{{item.text}}
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{bad.length>0}}">
+            <view class='x-ke' style='margin-top:50rpx;'>相克</view>
+            <view class='x-list'>
+                <view wx:for="{{bad}}" wx:key="*this">
+                  {{item.side==='L'?foodInfo.name+'+':''}}<text>{{item.food}}</text>{{item.side==='R'?'+'+foodInfo.name:''}}:{{item.text}}
+                </view>
+            </view>
+        </view>
+    </view>
+    
+</view>
+
+<recommend-list binditemtap="bindTapNewsView" list="{{articleArray}}" title="相关文章" bindtap='bindTapNewsView'></recommend-list>
+<view class='share-item'>
+    <view style='border:0;'>
+        <button open-type="share">
+            <image src='../img/icon-share2.png'></image> 转给朋友
+        </button>
+    </view>
+</view>
+
+
+
+
+
+
+
+
