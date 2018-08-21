@@ -1,5 +1,5 @@
 <!--pages/components/recommend-list.wxml-->
-<view class="tj-content">
+<view class="tj-content" wx:if="{{list.length>0}}">
     <view class='tj-title'>{{title}}</view>
     <view class='news-list' wx:for="{{list}}" wx:key="id" bindtap='bindItemTap' data-item='{{item}}'>
     <view class='news-item'>
