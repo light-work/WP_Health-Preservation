@@ -1,0 +1,29 @@
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{bannerList}}" wx:key="*this">
+        <swiper-item bindtap="bindBannerTap" data-item="{{item}}">
+            <image src="{{item.imgSrc}}" class="slide-image" />
+            <view class='news-mask'>{{item.title}}</view>
+        </swiper-item>
+    </block>
+</swiper>
+<view class='food-main' wx:for="{{list}}" wx:key="id" >
+    <view class='f-title clearfix'>
+        <text>{{item.name}}</text>
+    </view>
+    <view class='f-list'>
+        <view class='f-one clearfix'  wx:for="{{item.list}}" wx:key="id"  wx:for-item="food"  data-item="{{food}}" bindtap='bindItemTap'>
+            <image src='{{food.picUrl}}'></image>
+            <view>
+                <text>{{food.name}}</text>
+                <text class='tag' wx:if="{{food.tip==='宜'}}" >{{food.tip}}</text>
+                  <text class='tag ji' wx:elif="{{food.tip==='忌'}}" >{{food.tip}}</text>
+            </view>
+            <view>
+              <text class='gx'>{{food.effect}}</text>
+            </view>
+        </view>
+        <view class='get-more' bindtap='bindViewMoreTap' data-item="{{item}}">
+            <view>查看更多{{item.name}}食物</view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,2 @@
+/* pages/components/recommend-list.wxss */
+@import '../pages/css/newsItem.wxss';

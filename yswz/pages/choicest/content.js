@@ -1,6 +1,6 @@
 // pages/news/news.js
 var WxParse = require('../wxParse/wxParse.js');
-const { host, cloudHost,share } = require('../../utils/common.js')
+const { host, cloudHost, share, aritleType, mealappid} = require('../../utils/common.js')
 const {postView,postRelay,postLike}  =require('../../utils/increase.js')
 
 Page({
@@ -87,9 +87,17 @@ Page({
   bindTapNewsView: function (e) {
     const item = e.detail
     if (item) {
-      wx.redirectTo({
-        url: '../choicest/content?id=' + item.id + '&category=' + item.category + '&type=' + item.articleType
-      })
+      if (item.articleType === aritleType){
+        wx.redirectTo({
+          url: `../choicest/content?id=${item.id}&category=${item.category}&type=${item.articleType}`
+        })
+      }else{
+        wx.navigateToMiniProgram({
+          appId: mealappid,
+          path: `pages/choicest/main?id=${item.id}&category=${item.category}&type=${item.articleType}`,
+          envVersion: 'develop'
+        })
+      }
     }
   },
   bindTapUpvote:function(e){

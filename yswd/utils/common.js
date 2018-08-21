@@ -1,8 +1,10 @@
 exports.aritleType='meal'//小程序名称
-exports.aldKey ='c32ac2cdf3107c0f6ee9a550b2e63588'//阿拉丁key
-exports.host = 'https://www.jinrongzhushou.com/v1'//web host
+exports.host = 'https://www.jinrongzhushou.com/v1'//host
 exports.cloudHost ='https:///yspic.oss-cn-beijing.aliyuncs.com/'
-exports.foodAppId ='wx6256dbc93eae7488'
+exports.foodAppId = 'wx6256dbc93eae7488'
+exports.mealappid = 'wxca42881e5a26343e'
+exports.infoAppid = 'wxb9ed9bd8f7f0fd79'
+
 
 exports.share = (title, successCallbak, failCallback) => {
   const pages = getCurrentPages()
