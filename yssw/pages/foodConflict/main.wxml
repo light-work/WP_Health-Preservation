@@ -1,0 +1,22 @@
+<!--foodlist.wxml-->
+<view class='food-list'>
+    <view class='food-item clearfix' bindtap='showDetail' wx:for="{{list}}" wx:key="*this" data-item='{{item}}'>
+        <view class='food-img'>
+            <text class='food-name'>{{item.name}}</text>
+            <image src='{{item.picUrl}}'></image>
+        </view>
+        <view class='food-txt'>
+            <view>
+                <text>{{item.brief}}</text>
+            </view>
+            <view>
+                <text style='color:#07793e'>相生：</text>
+                <text>{{item.good}}</text>
+            </view>
+            <view>
+                <text style='color:#b1251b'>相克：</text>
+                <text>{{item.bad}}</text>
+            </view>
+        </view>
+    </view>
+</view>

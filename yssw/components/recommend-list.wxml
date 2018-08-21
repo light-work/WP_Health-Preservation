@@ -1,0 +1,22 @@
+<!--pages/components/recommend-list.wxml-->
+<view class="tj-content" wx:if="{{list.length>0}}">
+    <view class='tj-title'>{{title}}</view>
+    <view class='news-list' wx:for="{{list}}" wx:key="id" bindtap='bindItemTap' data-item='{{item}}'>
+    <view class='news-item'>
+        <view class='news-img'>
+            <image src='{{item.picUrl}}'></image>
+        </view>
+        <view class='news-txt'>
+            <text>{{item.title}}</text>
+            <view class='user-like'>
+                <image src='../pages/img/icon-eye.png' class='icon-eye'></image>
+                <text>{{item.viewCount}}</text>
+                <image src='../pages/img/icon-share.png' class='icon-share'></image>
+                <text>{{item.relayCount}}</text>
+                <image src='../pages/img/icon-hand.png' class='icon-hand'></image>
+                <text>{{item.likeCount}}</text>
+            </view>
+        </view>
+    </view>
+</view>
+</view>

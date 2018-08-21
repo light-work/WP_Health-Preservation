@@ -19,5 +19,6 @@
 .jl-txt,.jl-time{color:#888;}
 .jl-title{color:#07793e;font-weight:bold;margin:0 10rpx 0 20rpx;}
 .jl-img{width: 45rpx;height:45rpx;vertical-align: -10rpx;margin-right: 10rpx;}
-.jl-help{display:block;border-radius:5px;background: #93c53e;color:#fff;padding:10rpx;margin:20rpx 0;}
+.jl-help{display:block;border-bottom:2px solid #66ac81;
+color:#444;padding:10rpx 0;margin:20rpx 0;font-weight:bold;}
 .jl-time{margin-right: 20rpx;}
