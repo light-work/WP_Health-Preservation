@@ -63,7 +63,12 @@ Page({
                   path = 'pages/food/main'
                 }
               } else if (item.target === infoAppid || item.target === mealappid) {
-                path = 'pages/choicest/main'
+                if (item.action.indexOf('article_') > -1) {
+                  const infoArray = item.action.split('_')
+                  path = `pages/choicest/content?id=${infoArray[2]}&category=${infoArray[3]}&type=${infoArray[1]}` 
+                } else {
+                  path = 'pages/choicest/main'
+                }
               } else if (!item.target) {//food
                 if (item.action === 'foodFit'){
                   path = '/pages/foodConflict/main'
@@ -81,7 +86,6 @@ Page({
                 imgSrc: item.imgSrc
               })
             })
-            console.info(array)
             that.setData({
               bannerList: array
             })
