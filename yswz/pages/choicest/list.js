@@ -45,13 +45,44 @@ Page({
         wx.hideLoading()
       }
     })
+
     wx.request({
       url: `${host}/app/banner/${infoAppid}`,
       success: function ({ data }) {
         if (data.errorCode === 0 && data.errorMsg === 'ok') {
-          that.setData({
-            bannerList: data.list
-          })
+          const list = data.list
+          if (list && list.length > 0) {
+            const array = new Array()
+
+            list.forEach((item) => {
+              const target = item.redirect === 'call' ? 'miniProgram' : ''
+              const openType = item.action === 'regimen' ? 'switchTab' : 'navigate'
+              var path = ''
+              if (item.target === foodAppId) {
+                if (item.action === 'foodFit') {
+                  path = 'pages/foodConflict/main'
+                } else if (item.action === 'main') {
+                  path = 'pages/food/main'
+                }
+              } else if (item.target === infoAppid || item.target === mealappid) {
+                path = 'pages/choicest/main'
+              } else if (!item.target) {
+                path = '/pages/time/list'
+              }
+              array.push({
+                target: target,
+                open: openType,
+                path: path,
+                appId: item.target,
+                title: item.title,
+                imgSrc: item.imgSrc
+              })
+            })
+            console.info(array)
+            that.setData({
+              bannerList: array
+            })
+          }
         }
       }
     })
@@ -120,29 +151,5 @@ Page({
   },
   onShareAppMessage: function (options) {
     return share()
-  },
-  bindBannerTap: (e) => {
-    const item = e.currentTarget.dataset.item
-    if (item) {
-      if (item.redirect === 'call') {
-        wx.navigateToMiniProgram({
-          appId: item.target,
-          path: item.target === foodAppId ?'pages/food/main':'pages/choicest/main?',
-          envVersion: 'develop'
-        })
-      } else if (item.redirect === 'self') {
-        var url = ''
-        if (item.action === 'main') {
-          url = 'pages/choicest/main'
-          wx.navigateTo({
-            url: url
-          })
-        } else if (item.action === 'regimen') {
-          wx.switchTab({
-            url: '/pages/time/list'
-          })
-        }
-      }
-    }
   }
 })

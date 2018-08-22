@@ -1,5 +1,5 @@
 // pages/food/main.js
-const { host, cloudHost, share, appid } = require('../../utils/common.js')
+const { host, cloudHost, share, foodAppId, mealappid,infoAppid} = require('../../utils/common.js')
 Page({
   data: {
     bannerList:[],
@@ -45,12 +45,47 @@ Page({
     })
 
     wx.request({
-      url: `${host}/app/banner/${appid}`,
+      url: `${host}/app/banner/${foodAppId}`,
       success: function ({ data }) {
         if (data.errorCode === 0 && data.errorMsg === 'ok') {
-          that.setData({
-            bannerList:data.list
-          })
+          const list = data.list
+          if (list && list.length > 0) {
+            const array = new Array()
+
+            list.forEach((item) => {
+              const target = item.redirect === 'call' ? 'miniProgram' : ''
+              const openType = item.action === 'regimen'  ? 'switchTab' : 'navigate'
+              var path = ''
+              if (item.target === foodAppId) {
+                if (item.action === 'foodFit') {
+                  path = 'pages/foodConflict/main'
+                } else if (item.action === 'main') {
+                  path = 'pages/food/main'
+                }
+              } else if (item.target === infoAppid || item.target === mealappid) {
+                path = 'pages/choicest/main'
+              } else if (!item.target) {//food
+                if (item.action === 'foodFit'){
+                  path = '/pages/foodConflict/main'
+                }else{
+                  path = '/pages/time/list'
+                }
+                
+              }
+              array.push({
+                target: target,
+                open: openType,
+                path: path,
+                appId: item.target,
+                title: item.title,
+                imgSrc: item.imgSrc
+              })
+            })
+            console.info(array)
+            that.setData({
+              bannerList: array
+            })
+          }
         }
       }
     })
@@ -84,10 +119,10 @@ Page({
     wx.hideNavigationBarLoading();
   },
   bindViewMoreTap:(e)=>{
-    const _type = e.currentTarget.dataset.item
-    if (_type){
+    const item = e.currentTarget.dataset.item
+    if (item){
       wx.navigateTo({
-        url: '../food/moreList?id=' + _type.id,
+        url: `../food/moreList?id=${item.id}&title=${item.name}`,
       })
     }
   },

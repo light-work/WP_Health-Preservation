@@ -3,7 +3,7 @@
 
 <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
 
-<recommend-list list="{{recommendList}}" binditemtap="bindTapNewsView" title="热门推荐"></recommend-list>
+<recommend-list list="{{recommendList}}" articleType="{{aritleType}}" title="热门推荐"></recommend-list>
 <view class='share-item'>
     <view bindtap='bindTapUpvote'><image src='../img/hand-like.png'></image> {{upvoteText}}</view>
     <view>

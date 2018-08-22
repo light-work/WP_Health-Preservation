@@ -49,9 +49,38 @@ Page({
       url: `${host}/app/banner/${mealappid}`,
       success: function ({ data }) {
         if (data.errorCode === 0 && data.errorMsg === 'ok') {
-          that.setData({
-            bannerList: data.list
-          })
+          const list =data.list
+          if(list && list.length>0){
+            const array=new Array()
+           
+            list.forEach((item)=>{
+              const target = item.redirect === 'call' ?'miniProgram':''
+              const openType = item.action === 'regimen' ? 'switchTab' :'navigate'
+              var path=''
+              if(item.target===foodAppId){
+                if (item.action ==='foodFit'){
+                  path ='pages/foodConflict/main'
+                }else if(item.action==='main'){
+                  path = 'pages/food/main'
+                }
+              } else if (item.target === infoAppid || item.target === mealappid){
+                path = 'pages/choicest/main'
+              }else if(!item.target){
+                path = '/pages/time/list'
+              }
+              array.push({
+                target:target,
+                open:openType,
+                path:path,
+                appId: item.target,
+                title:item.title,
+                imgSrc:item.imgSrc
+              })
+            })
+            that.setData({
+              bannerList: array
+            })
+          }
         }
       }
     })
@@ -59,32 +88,6 @@ Page({
   onLoad: function () {
     this.loadNewsList()
     var that=this
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse) {
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -120,29 +123,5 @@ Page({
   },
   onShareAppMessage: function (options) {
     return share()
-  },
-  bindBannerTap: (e) => {
-    const item = e.currentTarget.dataset.item
-    if (item) {
-      if (item.redirect === 'call') {
-        wx.navigateToMiniProgram({
-          appId: item.target,
-          path: item.target === foodAppId ? 'pages/food/main' : 'pages/choicest/main?',
-          envVersion: 'develop'
-        })
-      } else if (item.redirect === 'self') {
-        var url = ''
-        if (item.action === 'main') {
-          url = 'pages/choicest/main'
-          wx.navigateTo({
-            url: url
-          })
-        } else if (item.action === 'regimen') {
-          wx.switchTab({
-            url: '/pages/time/list'
-          })
-        }
-      }
-    }
   }
 })
