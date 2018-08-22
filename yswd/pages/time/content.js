@@ -2,14 +2,21 @@ var WxParse = require('../wxParse/wxParse.js');
 const { host, cloudHost, share, infoAppid, foodAppId, aritleType} = require('../../utils/common.js')
 Page({
     data: {
+      aritleType,
       cloudHost,
+      infoAppid,
+      foodAppId,
       data:'',
+      id:'',
       foodList:[],
       articleArray: []
     },
     onLoad: function (options) {
       const that = this;
       const id = options.id
+      that.setData({
+        id:id
+      })
       wx.showLoading({
         title: '加载中',
       });
@@ -32,22 +39,40 @@ Page({
         }
 
       })
-
-      wx.request({
-        url: host + '/regimen/time/recommend/'+id,
-        success: function ({ data }) {
-          if (data.errorCode === 0 && data.errorMsg === 'ok') {
+      this.loadRecommendList(this)
+    },
+  loadRecommendList:(that,append)=>{
+    const id=that.data.id
+    if (append) {
+      wx.showLoading({
+        title: '加载更多...',
+      })
+    }
+    wx.request({
+      url: host + '/regimen/time/recommend/' + id,
+      success: function ({ data }) {
+        if (data.errorCode === 0 && data.errorMsg === 'ok') {
+          if (append) {
+            that.setData({
+              articleArray: that.data.articleArray.concat(data.articleArray)
+            })
+          } else {
             that.setData({
               articleArray: data.articleArray
             })
           }
-          wx.hideLoading()
-        },
-        fail: function () {
+        }
+        if (append) {
           wx.hideLoading()
         }
-      })   
-    },
+      },
+      fail: function () {
+        if (append) {
+          wx.hideLoading()
+        }
+      }
+    })
+  },
   bindTapNewsView: (e) => {
     const item = e.detail
     if (item && item.articleType) {
@@ -66,7 +91,6 @@ Page({
   },
   bindFoodItemTap:(e)=>{
     const item=e.currentTarget.dataset.item
-    console.info(foodAppId)
     if(item){
       wx.navigateToMiniProgram({
         appId: foodAppId,
@@ -77,5 +101,13 @@ Page({
   },
   onShareAppMessage:function(options){
     return  share()
+  },
+  onReachBottom: function (options) {
+    this.setData({
+      page: this.data.page + 1
+    })
+    wx.showNavigationBarLoading();
+    this.loadRecommendList(this, true)
+    wx.hideNavigationBarLoading();
   }
 })

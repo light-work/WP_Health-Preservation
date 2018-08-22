@@ -2,14 +2,21 @@ var WxParse = require('../wxParse/wxParse.js');
 const { host, cloudHost, share, mealappid, foodAppId, aritleType} = require('../../utils/common.js')
 Page({
     data: {
+      aritleType,
+      foodAppId,
+      mealappid,
       cloudHost,
       data:'',
+      id:'',
       foodList:[],
       articleArray: []
     },
     onLoad: function (options) {
       const that = this;
       const id = options.id
+      that.setData({
+        id:id
+      })
       wx.showLoading({
         title: '加载中',
       });
@@ -33,49 +40,49 @@ Page({
 
       })
 
-      wx.request({
-        url: host + '/regimen/time/recommend/'+id,
-        success: function ({ data }) {
-          if (data.errorCode === 0 && data.errorMsg === 'ok') {
+      this.loadRecommendList(this)   
+    },
+  loadRecommendList: (that, append) => {
+    const id = that.data.id
+    if (append) {
+      wx.showLoading({
+        title: '加载更多...',
+      })
+    }
+    wx.request({
+      url: host + '/regimen/time/recommend/' + id,
+      success: function ({ data }) {
+        if (data.errorCode === 0 && data.errorMsg === 'ok') {
+          if (append) {
+            that.setData({
+              articleArray: that.data.articleArray.concat(data.articleArray)
+            })
+          } else {
             that.setData({
               articleArray: data.articleArray
             })
           }
-          wx.hideLoading()
-        },
-        fail: function () {
+        }
+        if (append) {
           wx.hideLoading()
         }
-      })   
-    },
-  bindTapNewsView: (e) => {
-    const item = e.detail
-    if (item && item.articleType) {
-      if (item.articleType === aritleType){
-        wx.navigateTo({
-          url: `../choicest/content?id=${item.id}&category=${item.category}&type=${item.articleType}`
-        })
-      } else if (item.articleType==='meal'){
-        wx.navigateToMiniProgram({
-          appId: mealappid,
-          path: `pages/choicest/main?id=${item.id}&category=${item.category}&type=${item.articleType}`,
-          envVersion: 'develop'
-        })
+      },
+      fail: function () {
+        if (append) {
+          wx.hideLoading()
+        }
       }
-    }
-  },
-  bindFoodItemTap:(e)=>{
-    const item=e.currentTarget.dataset.item
-    console.info(foodAppId)
-    if(item){
-      wx.navigateToMiniProgram({
-        appId: foodAppId,
-        path: `pages/food/foodinfo?id=${item.id}`,
-        envVersion: 'develop'
-      })
-    }
+    })
   },
   onShareAppMessage:function(options){
     return  share()
+  },
+  onReachBottom: function (options) {
+    this.setData({
+      page: this.data.page + 1
+    })
+    wx.showNavigationBarLoading();
+    this.loadRecommendList(this, true)
+    wx.hideNavigationBarLoading();
   }
 })

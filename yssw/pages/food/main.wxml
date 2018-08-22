@@ -1,8 +1,10 @@
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="*this">
-        <swiper-item bindtap="bindBannerTap" data-item="{{item}}">
-            <image src="{{item.imgSrc}}" class="slide-image" />
-            <view class='news-mask'>{{item.title}}</view>
+        <swiper-item >
+            <navigator target="{{item.target}}" app-id="{{item.appId}}" path="{{item.path}}" open-type='{{item.open}}' url="{{item.path}}">
+              <image src="{{item.imgSrc}}" class="slide-image" />
+              <view class='news-mask'>{{item.title}}</view>
+            </navigator>
         </swiper-item>
     </block>
 </swiper>
@@ -14,9 +16,10 @@
         <view class='f-one clearfix'  wx:for="{{item.list}}" wx:key="id"  wx:for-item="food"  data-item="{{food}}" bindtap='bindItemTap'>
             <image src='{{food.picUrl}}'></image>
             <view>
-                <text>{{food.name}}</text>
+                
                 <text class='tag' wx:if="{{food.tip==='宜'}}" >{{food.tip}}</text>
                   <text class='tag ji' wx:elif="{{food.tip==='忌'}}" >{{food.tip}}</text>
+                  <text style="padding-left:8rpx;">{{food.name}}</text>
             </view>
             <view>
               <text class='gx'>{{food.effect}}</text>

@@ -1,5 +1,5 @@
 <!--foodlist.wxml-->
-<view class='tz-title'>阳虚质</view>
+<view class='tz-title'>{{title}}</view>
 <view class='food-list'>
     <view class='food-item clearfix' bindtap='showDetail' wx:for="{{list}}" wx:key="*this" data-item='{{item}}' bindtap='bindItemTap'>
         <view class='food-img'>
