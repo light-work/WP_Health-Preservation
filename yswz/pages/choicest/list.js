@@ -2,8 +2,6 @@
 //获取应用实例
 const app = getApp()
 const { host, share, aritleType, mealappid, infoAppid, foodAppId } = require('../../utils/common.js')
-const { getPageIndex, setPageIndex} =require('../../utils/common.js')
-
 
 Page({
   data: {
@@ -14,6 +12,7 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 500,
+    page:0,
     newList: []
   },
   loadNewsList:function(append){
@@ -24,7 +23,7 @@ Page({
     wx.request({
       url: `${host}/article/${aritleType}/main`,
       data: {
-        start: getPageIndex('index')*10,
+        start: that.data.page*10,
         limit: 10
       },
       success: function ({ data }) {
@@ -38,7 +37,6 @@ Page({
               newList: data.list
             })
           }
-          setPageIndex('index',data.pageObj.currentPage)
         }
         wx.hideLoading()
       },
@@ -66,9 +64,20 @@ Page({
                   path = 'pages/food/main'
                 }
               } else if (item.target === infoAppid || item.target === mealappid) {
-                path = 'pages/choicest/main'
+                if (item.action.indexOf('article_')>-1){
+                  const infoArray = item.action.split('_')
+                  path = `pages/choicest/content?id=${infoArray[2]}&category=${infoArray[3]}&type=${infoArray[1]}` 
+                }else{
+                  path = 'pages/choicest/main'
+                }
+                
               } else if (!item.target) {
-                path = '/pages/time/list'
+                if (item.action.indexOf('article_') > -1) {
+                  const infoArray = item.action.split('_')
+                  path = `/pages/choicest/content?id=${infoArray[2]}&category=${infoArray[3]}&type=${infoArray[1]}` 
+                } else {
+                  path = '/pages/time/list'
+                }
               }
               array.push({
                 target: target,
@@ -89,6 +98,33 @@ Page({
   },
   onLoad: function () {
     this.loadNewsList()
+    var that=this
+    // if (app.globalData.userInfo) {
+    //   this.setData({
+    //     userInfo: app.globalData.userInfo,
+    //     hasUserInfo: true
+    //   })
+    // } else if (this.data.canIUse) {
+    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    //   // 所以此处加入 callback 以防止这种情况
+    //   app.userInfoReadyCallback = res => {
+    //     this.setData({
+    //       userInfo: res.userInfo,
+    //       hasUserInfo: true
+    //     })
+    //   }
+    // } else {
+    //   // 在没有 open-type=getUserInfo 版本的兼容处理
+    //   wx.getUserInfo({
+    //     success: res => {
+    //       app.globalData.userInfo = res.userInfo
+    //       this.setData({
+    //         userInfo: res.userInfo,
+    //         hasUserInfo: true
+    //       })
+    //     }
+    //   })
+    // }
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -106,12 +142,18 @@ Page({
     }
   },
   onPullDownRefresh:function(options){
+    this.setData({
+      page: 0
+    })
     wx.showNavigationBarLoading();
     this.loadNewsList()
     wx.hideNavigationBarLoading();
     wx.stopPullDownRefresh();
   },
   onReachBottom:function(options){
+    this.setData({
+      page: this.data.page+1
+    })
     wx.showNavigationBarLoading();
     this.loadNewsList(true)
     wx.hideNavigationBarLoading();
