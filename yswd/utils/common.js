@@ -43,3 +43,28 @@ exports.share = (title, successCallbak, failCallback) => {
     }
   }
 }
+exports.getPageIndex = (pageType) => {
+  try {
+    var value = wx.getStorageSync(pageType)
+    if (value) {
+      return value
+    }
+  } catch (e) {
+
+  }
+  return 0;
+}
+exports.setPageIndex = (pageType, num) => {
+  try {
+    if (num) {
+      wx.setStorageSync(pageType, num)
+    } else {
+      const page = getPageIndex(pageType)
+      wx.setStorageSync(pageType, page + 1)
+    }
+
+  } catch (ex) {
+
+  }
+  return 0;
+}

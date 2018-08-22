@@ -2,7 +2,7 @@
 //获取应用实例
 const app = getApp()
 const { host, share, aritleType, mealappid, infoAppid, foodAppId } = require('../../utils/common.js')
-
+const { getPageIndex, setPageIndex } = require('../../utils/common.js')
 
 Page({
   data: {
@@ -13,7 +13,6 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 500,
-    page:0,
     newList: []
   },
   loadNewsList:function(append){
@@ -24,7 +23,7 @@ Page({
     wx.request({
       url: `${host}/article/${aritleType}/main`,
       data: {
-        start: that.data.page*10,
+        start: getPageIndex('index') * 10,
         limit: 10
       },
       success: function ({ data }) {
@@ -38,6 +37,7 @@ Page({
               newList: data.list
             })
           }
+          setPageIndex('index', data.pageObj.currentPage)
         }
         wx.hideLoading()
       },
@@ -105,18 +105,12 @@ Page({
     }
   },
   onPullDownRefresh:function(options){
-    this.setData({
-      page: 0
-    })
     wx.showNavigationBarLoading();
     this.loadNewsList()
     wx.hideNavigationBarLoading();
     wx.stopPullDownRefresh();
   },
   onReachBottom:function(options){
-    this.setData({
-      page: this.data.page+1
-    })
     wx.showNavigationBarLoading();
     this.loadNewsList(true)
     wx.hideNavigationBarLoading();
