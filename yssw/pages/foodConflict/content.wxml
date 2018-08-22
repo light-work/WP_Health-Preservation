@@ -16,6 +16,11 @@
             <view>{{item.value}}</view>
         </view>
     </view>
+    <view style='margin-top:20rpx;'>
+      <navigator delta='1' open-type='navigateBack'>
+        <button  type='primary' >食物详情</button>
+      </navigator>
+    </view>
     <view class='foodke-box'>
         <view class='pbm wxParse-h3'>
             <view class='WxEmojiView wxParse-inline' wx:if="{{foodInfo.name}}">{{foodInfo.name}}的食物相克表</view>
