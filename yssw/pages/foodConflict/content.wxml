@@ -17,7 +17,7 @@
         </view>
     </view>
     <view style='margin-top:20rpx;'>
-      <navigator delta='1' open-type='navigateBack'>
+      <navigator url='/pages/food/foodinfo?id={{foodInfo.id}}' open-type='redirect'>
         <button  type='primary' >食物详情</button>
       </navigator>
     </view>
