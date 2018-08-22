@@ -4,6 +4,7 @@ Page({
   data: {
     page: 0,
     id:'',
+    title:'',
     list :[]
   },
   loadList:(that,append)=>{
@@ -46,7 +47,8 @@ Page({
   },
   onLoad:function(option){
      this.setData({
-       id:option.id
+       id:option.id,
+       title:option.title
      })
     this.loadList(this)
   },

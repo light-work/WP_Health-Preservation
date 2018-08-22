@@ -4,9 +4,11 @@
 </view> -->
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="*this">
-        <swiper-item bindtap="bindBannerTap" data-item="{{item}}">
-            <image src="{{item.imgSrc}}" class="slide-image" />
-            <view class='news-mask'>{{item.title}}</view>
+        <swiper-item >
+            <navigator target="{{item.target}}" app-id="{{item.appId}}" path="{{item.path}}" open-type='{{item.open}}' url="{{item.path}}">
+              <image src="{{item.imgSrc}}" class="slide-image" />
+              <view class='news-mask'>{{item.title}}</view>
+            </navigator>
         </swiper-item>
     </block>
 </swiper>

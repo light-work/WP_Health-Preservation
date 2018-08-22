@@ -18,8 +18,10 @@
 <view class="tj-content">
     <view class='tj-title'>推荐食物</view>
     <view class='tj-food'>
-        <text wx:for="{{foodList}}" wx:key="id" data-item="{{item}}" bindtap="bindFoodItemTap">{{item.name}}</text>
+        <navigator wx:for="{{foodList}}" wx:key="*this" target="miniProgram" app-id="{{foodAppId}}" path="pages/food/foodinfo?id={{item.id}}">
+        <text>{{item.name}}</text>
+        </navigator>
     </view>
 </view>
 
-<recommend-list list="{{articleArray}}" binditemtap="bindTapNewsView" title="相关文章"></recommend-list>
+<recommend-list list="{{articleArray}}" title="相关文章" openType="navigate" articleType='{{aritleType}}'></recommend-list>

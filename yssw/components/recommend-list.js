@@ -1,18 +1,18 @@
 // pages/components/recommend-list.js
+const { mealappid, foodAppId, aritleType, infoAppid } = require('../utils/common.js')
 Component({
   properties: {
     list:Array,
+    articleType:String,
+    openType:String,
     title:{
       type:String,
       value:'相关推荐'
     }
   },
-  methods: {
-    bindItemTap:function(e){
-      const item = e.currentTarget.dataset.item
-      if (item) {
-        this.triggerEvent('itemtap', item, {})
-      }
-    }
+  data:{
+    mealappid,
+    foodAppId,
+    infoAppid
   }
 })

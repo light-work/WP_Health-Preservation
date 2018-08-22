@@ -21,7 +21,7 @@
 </view>
 
 <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
-<recommend-list binditemtap="bindTapNewsView" list="{{articleArray}}" title="相关文章"></recommend-list>
+<recommend-list  list="{{articleArray}}" title="相关文章"></recommend-list>
 <view class='share-item'>
     <view style='border:0;'>
         <button open-type="share">
