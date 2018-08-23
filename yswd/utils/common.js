@@ -6,7 +6,7 @@ exports.mealappid = 'wxca42881e5a26343e'
 exports.infoAppid = 'wxb9ed9bd8f7f0fd79'
 
 
-exports.share = (title, successCallbak, failCallback) => {
+exports.share = (title, successCallbak, failCallback,imageUrl) => {
   const pages = getCurrentPages()
   const currentPage = pages[pages.length - 1]
   var url = currentPage.route
@@ -22,10 +22,10 @@ exports.share = (title, successCallbak, failCallback) => {
       }
     })
   }
-  console.info(url)
   return {
     title: title ? title : '',
     path: url,
+    imageUrl: imageUrl ? imageUrl:'',
     success: function (res) {
       if (typeof successCallbak === 'function') {
         successCallbak(res)

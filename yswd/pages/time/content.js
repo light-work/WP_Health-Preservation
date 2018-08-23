@@ -73,34 +73,9 @@ Page({
       }
     })
   },
-  bindTapNewsView: (e) => {
-    const item = e.detail
-    if (item && item.articleType) {
-      if (item.articleType === aritleType){
-        wx.navigateTo({
-          url: `../choicest/content?id=${item.id}&category=${item.category}&type=${item.articleType}`
-        })
-      } else if (item.articleType ==='information'){
-        wx.navigateToMiniProgram({
-          appId: infoAppid,
-          path: `pages/choicest/main?id=${item.id}&category=${item.category}&type=${item.articleType}`,
-          envVersion: 'develop'
-        })
-      }
-    }
-  },
-  bindFoodItemTap:(e)=>{
-    const item=e.currentTarget.dataset.item
-    if(item){
-      wx.navigateToMiniProgram({
-        appId: foodAppId,
-        path: `pages/food/foodinfo?id=${item.id}`,
-        envVersion: 'develop'
-      })
-    }
-  },
   onShareAppMessage:function(options){
-    return  share()
+    const info = this.data.data
+    return share(info.timeName + info.meridian + '养生', '', '', 'https://img.jinrongzhushou.com/banner/banner-regimen.png')
   },
   onReachBottom: function (options) {
     this.setData({

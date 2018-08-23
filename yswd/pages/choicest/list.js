@@ -67,7 +67,7 @@ Page({
                   const infoArray = item.action.split('_')
                   path = `pages/choicest/content?id=${infoArray[2]}&category=${infoArray[3]}&type=${infoArray[1]}` 
                 } else {
-                  path = 'pages/choicest/main'
+                  path = 'pages/choicest/list'
                 }
 
               } else if (!item.target) {
@@ -132,6 +132,6 @@ Page({
     wx.hideNavigationBarLoading();
   },
   onShareAppMessage: function (options) {
-    return share()
+    return share('养生问答大全', '', '','https://img.jinrongzhushou.com/banner/banner-meal2.png')
   }
 })

@@ -10,6 +10,7 @@ Page({
     id:'',
     title:'',
     upvoteText:'',
+    picUrl:'',
     _type:'',
     page:0,
     recommendList:[]
@@ -49,9 +50,11 @@ Page({
       success:function({data}){
         if (data.errorCode === 0 && data.errorMsg === 'ok') {
          var content= data.data.content
-          content = content.replace(new RegExp('/d/file', "gm"), cloudHost+'/d/file')
+          // content = content.replace(new RegExp('/d/file', "gm"), cloudHost+'/d/file')
           that.setData({
-            title: data.data.mealId ? data.data.mealId.title : data.data.infoId.title
+            title: data.data.mealId ? data.data.mealId.title : data.data.infoId.title,
+            picUrl: data.data.mealId ? data.data.mealId.picUrl : data.data.infoId.picUrl
+
           })
           WxParse.wxParse('article', 'html', content, that, 5);
         }
@@ -106,7 +109,7 @@ Page({
     const that=this
     return share(that.data.title,(res)=>{
       postRelay(that.data.id, that.data._type)
-    })
+    }, '', that.data.picUrl)
   },
   bindTapUpvote:function(e){
     const that=this

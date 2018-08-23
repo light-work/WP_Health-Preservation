@@ -109,7 +109,7 @@ Page({
       }
   },
   onShareAppMessage: function (ops) {
-    const that = this
-    return share()
+    const foodInfo = this.data.foodInfo
+    return share(foodInfo.name+'的相生相克', '', '', foodInfo.picUrl)
   }
 })
