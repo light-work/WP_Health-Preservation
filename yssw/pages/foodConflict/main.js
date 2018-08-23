@@ -12,8 +12,8 @@ Page({
     wx.request({
       url: host + '/fit/main',
       data: {
-        start: that.data.page * 5,
-        limit: 5
+        start: that.data.page * 10,
+        limit: 10
       },
       success: function ({ data }) {
         if (data.errorCode === 0 && data.errorMsg === 'ok') {
@@ -63,6 +63,6 @@ Page({
     wx.hideNavigationBarLoading();
   },
   onShareAppMessage: function (options) {
-    return share()
+    return share('', '', '', 'https://img.jinrongzhushou.com/banner/banner-foodFit.png')
   }
 })

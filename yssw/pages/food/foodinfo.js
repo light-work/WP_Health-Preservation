@@ -61,11 +61,7 @@ Page({
       })
   },
   onShareAppMessage: function (ops) {
-    return share(this.data.foodInfo.name,'',(s)=>{
-      wx.showToast({
-        title: '转发失败',
-        icon: 'none'
-      })
-    })
+    const foodInfo = this.data.foodInfo
+    return share(foodInfo.name + '的功效', '', '', foodInfo.picUrl)
   }
 })

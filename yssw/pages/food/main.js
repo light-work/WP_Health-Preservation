@@ -67,7 +67,7 @@ Page({
                   const infoArray = item.action.split('_')
                   path = `pages/choicest/content?id=${infoArray[2]}&category=${infoArray[3]}&type=${infoArray[1]}` 
                 } else {
-                  path = 'pages/choicest/main'
+                  path = 'pages/choicest/list'
                 }
               } else if (!item.target) {//food
                 if (item.action === 'foodFit'){
@@ -131,7 +131,7 @@ Page({
     }
   },
   onShareAppMessage: function (options) {
-    return share()
+    return share('健康食物', '', '','https://img.jinrongzhushou.com/banner/banner-food2.jpg')
   },
   bindBannerTap:(e)=>{
     const item=e.currentTarget.dataset.item

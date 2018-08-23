@@ -75,7 +75,8 @@ Page({
     })
   },
   onShareAppMessage:function(options){
-    return  share()
+    const info = this.data.data
+    return share(info.timeName + info.meridian + '养生', '', '', 'https://img.jinrongzhushou.com/banner/banner-regimen.png')
   },
   onReachBottom: function (options) {
     this.setData({
