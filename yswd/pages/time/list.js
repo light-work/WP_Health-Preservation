@@ -37,6 +37,6 @@ Page({
     }
   },
   onShareAppMessage: function (options) {
-    return share()
+    return share('12时辰养生时钟', '', '', 'https://img.jinrongzhushou.com/banner/banner-regimen.png')
   }
 })
