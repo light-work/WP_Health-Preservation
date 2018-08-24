@@ -1,5 +1,8 @@
 // pages/food/main.js
-const { host, cloudHost, share, foodAppId, mealappid,infoAppid} = require('../../utils/common.js')
+const { host, cloudHost, share, foodAppId, mealappid, infoAppid} = require('../../utils/common.js')
+const app = getApp()
+const { sendFormId } = require('../../utils/increase.js')
+
 Page({
   data: {
     bannerList:[],
@@ -11,7 +14,11 @@ Page({
     duration: 500,
     page:0,
     cloudHost,
-    list:[]
+    list: [],
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    userInfo: {},
+    hasUserInfo: false,
+    isReady: false
   },
   loadData:function(append){
     const that=this
@@ -96,8 +103,50 @@ Page({
   },
   onLoad: function (option) {
     this.loadData()
+    var that = this
+    setTimeout(() => {
+      that.setData({
+        isReady: true
+      })
+    }, 1000)
+
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
   },
-  bindItemTap:(e)=>{
+  getUserInfo: function (e) {
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+    }
+  },
+  bindItemTap:function(e){
+    if (e.detail.formId) {
+      sendFormId(e.detail.formId)
+    }
     const item = e.currentTarget.dataset.item
     if (item) {
       wx.navigateTo({

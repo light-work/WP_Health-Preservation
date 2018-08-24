@@ -2,6 +2,11 @@
 <!-- <view class="add-fork">
     <image src='../img/icon-add.png'></image>
 </view> -->
+<view class="take-app" wx:if="{{isReady && !hasUserInfo}}">
+    <text>关注我们，每天都能收到健康知识</text>
+    <button wx:if="{{!hasUserInfo && canIUse}}"  open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击关注</button>
+    <view wx:else>请升级微信版本</view>
+</view>
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="*this">
         <swiper-item >
@@ -12,24 +17,27 @@
         </swiper-item>
     </block>
 </swiper>
-<view class='news-list' wx:for="{{newList}}" wx:key="*this" bindtap='bindTapNewsView' data-item='{{item}}'>
-    <view class='news-item'>
-        <view class='news-img'>
-            <image src='{{item.picUrl}}'></image>
-        </view>
-        <view class='news-txt'>
-            <text>{{item.title}}</text>
-            <view class='user-like'>
-                <image src='../img/icon-eye.png' class='icon-eye'></image>
-                <text>{{item.viewCount}}</text>
-                <image src='../img/icon-share.png' class='icon-share'></image>
-                <text>{{item.relayCount}}</text>
-                <image src='../img/icon-hand.png' class='icon-hand'></image>
-                <text>{{item.likeCount}}</text>
-            </view>
-        </view>
-    </view>
-</view>
+<form bindsubmit="bindTapNewsView" report-submit="true" 
+wx:for="{{newList}}" wx:key="*this" data-item='{{item}}'>
+  <button class='news-list' formType="submit">
+      <view class='news-item'>
+          <view class='news-img'>
+              <image src='{{item.picUrl}}'></image>
+          </view>
+          <view class='news-txt'>
+              <text>{{item.title}}</text>
+              <view class='user-like'>
+                  <image src='../img/icon-eye.png' class='icon-eye'></image>
+                  <text>{{item.viewCount}}</text>
+                  <image src='../img/icon-share.png' class='icon-share'></image>
+                  <text>{{item.relayCount}}</text>
+                  <image src='../img/icon-hand.png' class='icon-hand'></image>
+                  <text>{{item.likeCount}}</text>
+              </view>
+          </view>
+      </view>
+  </button>
+</form>
 <view>
   <view class='news-item' >
     <view class='news-img'><image src=''></image></view>
@@ -39,3 +47,4 @@
   </view>
 </view>
 
+<top-tips></top-tips>

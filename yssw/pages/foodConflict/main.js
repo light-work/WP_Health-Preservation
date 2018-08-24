@@ -1,4 +1,6 @@
 const { host ,share} = require('../../utils/common.js')
+const { sendFormId } = require('../../utils/increase.js')
+
 Page({
   data:{
     page: 0,
@@ -38,6 +40,9 @@ Page({
    this.loadList()
   },
   showDetail :function(e){
+    if (e.detail.formId) {
+      sendFormId(e.detail.formId)
+    }
     const item = e.currentTarget.dataset.item
     if(item){
       wx.navigateTo({

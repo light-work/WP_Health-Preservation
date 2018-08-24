@@ -1,7 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp()
-const { host, share, aritleType, mealappid, infoAppid, foodAppId } = require('../../utils/common.js')
+const { host, share, aritleType, mealappid, infoAppid, foodAppId} = require('../../utils/common.js')
+const { sendFormId} =require('../../utils/increase.js')
 
 Page({
   data: {
@@ -13,7 +14,11 @@ Page({
     interval: 5000,
     duration: 500,
     page:0,
-    newList: []
+    newList: [],
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    userInfo: {},
+    hasUserInfo: false,
+    isReady:false
   },
   loadNewsList:function(append){
     wx.showLoading({
@@ -96,17 +101,52 @@ Page({
     })
   },
   onLoad: function () {
+
     this.loadNewsList()
     var that=this
+    setTimeout(()=>{
+      that.setData({
+        isReady: true
+      })
+    },1000)
+
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
   },
   getUserInfo: function (e) {
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    if (e.detail.errMsg === "getUserInfo:ok"){
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+    }
   },
   bindTapNewsView:function(e){
+    if (e.detail.formId){
+      sendFormId(e.detail.formId)
+    }
     const item=e.currentTarget.dataset.item
     if(item){
       wx.navigateTo({

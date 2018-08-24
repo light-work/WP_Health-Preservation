@@ -25,7 +25,7 @@
     flex-direction: row;
     font-size:28rpx;
     justify-content: center;
-    color:#66AC81;
+    color:#69e746;
 }
 .share-item view{
     width: 50%;
@@ -35,7 +35,7 @@
 }
 .share-item view:first-child{
     border-right:1px solid #666;
-    color:#66AC81;
+    color:#69e746;
 }
 .share-item view image{
     width:40rpx;
@@ -48,10 +48,61 @@
     border:0;
     font-size:28rpx;
     line-height:80rpx;
-    color:#66AC81;
+    color:#69e746;
+    position: relative;
+}
+.share-item view button view{
+    background: rgba(255, 215, 104,1);
+    border-radius:4px;
+    font-size:30rpx;
+    line-height:40rpx;
+    padding:20rpx 40rpx;
+    position: fixed;
+    z-index: 999;
+    bottom:60px;
+    right:100rpx;
+    animation: rotate 1s linear infinite;
+    float: none;
+    width:300rpx;
+    border:0!important;
+    color:#444!important;
+}
+.share-item view button view::before{
+    content: '';
+    border-right:15rpx solid transparent;
+    border-left:15rpx solid transparent;
+    border-top:16rpx solid rgba(255, 215, 104, 0.9);
+    position: absolute;
+    bottom:-13rpx;
+    left:50%;
+    margin-left:-8rpx;
+}
+@keyframes rotate {
+    0% {
+        transform: translateY(0) ;
+    }
+    25% {
+        transform: translateY(4px);
+    }
+    50% {
+        transform: translateY(8px);
+       
+    }
+    75% {
+        ransform: translateY(4px) ;
+    }
+    100% {
+        transform: translateY(0) ;
+    }
 }
 .news-list {
-  padding: 0 20rpx 5rpx 20rpx;
+    text-align: left;
+    line-height: normal;
+    padding: 0 20rpx 5rpx 20rpx;
+    background:#fafafa;
+}
+button::after{
+    border:none;
 }
 .tj-content .news-list {
   padding: 0 0 5rpx 0;
@@ -93,7 +144,7 @@
 }
 
 .user-like{
-  width:412rpx;
+  width:500rpx;
   position: absolute;
   bottom:10rpx;
   left:260rpx;
@@ -126,3 +177,4 @@
 .clearfix{
     zoom:1;
 }
+.floatright{float: right;}
