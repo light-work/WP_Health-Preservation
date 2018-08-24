@@ -1,0 +1,5 @@
+<!--components/to'p.wxml-->
+<view class='float-txt' wx:if="{{showTip}}">
+    <image src='../pages/img/off.png' bindtap='closeTip'></image>
+    <view>添加到桌面</view>
+</view>

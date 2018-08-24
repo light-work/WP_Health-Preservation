@@ -24,126 +24,236 @@ swiper-item image {
   font-size:19px;
   font-weight:bold;
 }
-.food-item{
-    padding:15px 0 10px 10px;
-    margin-bottom:10rpx;
+.food-item {
+    padding: 15px 0 10px 10px;
+    margin-bottom: 10rpx;
     background: #f5f5f5;
-    border:1px solid #eee;
-    border-width:1px 0;
-}
-.title{
-    color:#f29001;
-    font-size:36rpx;
-    font-weight:bold;
-    border-bottom:1px solid #ccc;
-    padding-bottom:10px;
-    margin-bottom:5px;
-}
-.icon-img{
-    width:48rpx;
-    height:48rpx;
-    vertical-align: -10rpx;
-    margin-right:10px;
-}
-.food-img text{
-    position: absolute;
-    background: rgba(0, 0, 0, .6);
-    color:#fff;
-    bottom:0;
-    left:0;
-    right:0;
-    z-index: 999;
-    font-size:28rpx;
-    padding:5px 0;
+    border: 1px solid #eee;
+    border-width: 1px 0;
 }
 
-.tj-fd {margin-top:10px;}
-.tj-fd text{
-    color:#999;
-    font-size:30rpx;
-    margin-right:5px;
+.title {
+    color: #f29001;
+    font-size: 36rpx;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
 }
-.clearfix:after{
+
+.icon-img {
+    width: 48rpx;
+    height: 48rpx;
+    vertical-align: -10rpx;
+    margin-right: 10px;
+}
+
+.food-img text {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    font-size: 28rpx;
+    padding: 5px 0;
+}
+
+.tj-fd {
+    margin-top: 10px;
+}
+
+.tj-fd text {
+    color: #999;
+    font-size: 30rpx;
+    margin-right: 5px;
+}
+
+.clearfix:after {
     display: block;
     clear: both;
     content: "";
     visibility: hidden;
     height: 0;
 }
-.clearfix{
-    zoom:1;
+
+.clearfix {
+    zoom: 1;
 }
-.more{
+
+.more {
     background: #ccc;
-    color:#999;
+    color: #999;
     line-height: 230rpx;
     text-align: center;
-    font-size:28rpx;
+    font-size: 28rpx;
 }
-.food-left{
+
+.food-left {
     /* width:120rpx; */
     float: left;
-    font-size:34rpx;
+    font-size: 34rpx;
     font-family: Helvetica, sans-serif;
-    background:#93c53e;
-    color:#fff;
-    padding:10rpx 15rpx;
-    border-radius:4px;
+    background: #93c53e;
+    color: #fff;
+    padding: 10rpx 15rpx;
+    border-radius: 4px;
 }
-.food-img .food-inner{
-    margin-left:150rpx;
+
+.food-img .food-inner {
+    margin-left: 150rpx;
 }
-.food-inner .v-img{
+
+.food-inner .v-img {
     float: left;
     margin: 0 25rpx 15rpx 0;
     position: relative;
 }
-.food-img .food-inner .v-img image{
-    width:260rpx;
-    height:180rpx;
+
+.food-img .food-inner .v-img image {
+    width: 260rpx;
+    height: 180rpx;
     vertical-align: bottom;
 }
-.food-img .food-inner .v-img text{
-    width:60rpx;
-    height:60rpx;
+
+.food-img .food-inner .v-img text {
+    width: 60rpx;
+    height: 60rpx;
     line-height: 60rpx;
     position: absolute;
     text-align: center;
-    background: rgba(0, 0, 0, .8);
-    color:#93c53e;
-    font-size:40rpx;
-    z-index:2;
-    top:0;
-    right:0;
-    left:inherit;
-    padding:0;
-    border-radius:0 0 0 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #93c53e;
+    font-size: 40rpx;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    left: inherit;
+    padding: 0;
+    border-radius: 0 0 0 10px;
 }
-.food-img .food-inner .v-img text.food-name{
-    color:#fff;
-    background: rgba(0, 0, 0, .5);
-    width:auto;
-    padding:5rpx 20rpx;
-    left:0;
-    top:inherit;
-    border-radius:0;
-    overflow : hidden;
+
+.food-img .food-inner .v-img text.food-name {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    width: auto;
+    padding: 5rpx 20rpx;
+    left: 0;
+    top: inherit;
+    border-radius: 0;
+    overflow: hidden;
     text-overflow: clip;
     display: -webkit-box;
-    -webkit-line-clamp:1;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
-.ji{color:#07793e!important;}
 
+.ji {
+    color: #07793e !important;
+}
 
-.f-list{background: #fff;}
-.f-list .f-one{padding:15rpx 25rpx;border:1px solid #eee;border-width:1px 0;margin-top:-1px;}
-.food-main image{width: 130rpx;height:90rpx;float: left;margin-right:20rpx;}
-.f-list .f-one view:first-child{font-weight:bold;}
-.f-list .f-one text.tag{display:inline-block;height:30rpx;line-height:30rpx;font-size:30rpx;background: #01cc00;color:#fff!important;padding:5rpx 20rpx;border-radius:2px;margin-left:20rpx;}
-.f-list .f-one text.ji{background: #b1251b!important;}
-.gx{width:550rpx;color:#999;font-size:30rpx;margin-top:10rpx;display: inline-block;overflow: hidden;text-overflow:clip;white-space: nowrap;}
-.f-title{line-height: 90rpx;padding-left:25rpx;font-weight:bold;text-align: right;}
-.f-title text:first-child{float: left;}
-.f-title image{float: none;width:50rpx;height:50rpx;vertical-align: -12rpx;}
-.get-more{padding:30rpx 0;color:#999;font-size: 36rpx;text-align: center;line-height: 40rpx;}
+.f-list {
+    background: #fff;
+}
+
+.f-list .f-one {
+    padding: 15rpx 25rpx;
+    border: 1px solid #eee;
+    border-width: 1px 0;
+    text-align: left;
+    line-height: normal;
+    border-radius:0;
+}
+button::after{
+    border:none;
+}
+
+.food-main image {
+    width: 130rpx;
+    height: 90rpx;
+    float: left;
+    margin-right: 20rpx;
+}
+
+.f-list .f-one view:first-child {
+    font-weight: bold;
+}
+
+.f-list .f-one text.tag {
+    display: inline-block;
+    height: 30rpx;
+    line-height: 30rpx;
+    font-size: 30rpx;
+    background: #01cc00;
+    color: #fff !important;
+    padding: 5rpx 20rpx;
+    border-radius: 2px;
+    margin-right: 20rpx;
+}
+
+.f-list .f-one text.ji {
+    background: #b1251b !important;
+}
+
+.gx {
+    width: 550rpx;
+    color: #999;
+    font-size: 30rpx;
+    margin-top: 10rpx;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.f-title {
+    line-height: 90rpx;
+    padding-left: 25rpx;
+    font-weight: bold;
+    text-align: right;
+}
+
+.f-title text:first-child {
+    float: left;
+}
+
+.f-title image {
+    float: none;
+    width: 50rpx;
+    height: 50rpx;
+    vertical-align: -12rpx;
+}
+
+.get-more {
+    padding: 30rpx 0;
+    color: #999;
+    font-size: 36rpx;
+    text-align: center;
+    line-height: 40rpx;
+}
+.get-more image{
+    float: none;
+    width:40rpx;
+    height:40rpx;
+    vertical-align:-6rpx;
+    animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+    0% {
+        transform: translateX(0) ;
+    }
+    25% {
+        transform: translateX(8px);
+    }
+    50% {
+        transform: translateX(16px);
+       
+    }
+    75% {
+        ransform: translateX(8px) ;
+    }
+    100% {
+        transform: translateX(0) ;
+    }
+}

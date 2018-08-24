@@ -1,0 +1,21 @@
+/* components/go-home.wxss */
+
+.back-home {
+    width: 100rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 50%;
+    background: rgba(41, 152, 55, 0.6);
+    position: fixed;
+    right: 10rpx;
+    bottom: 50rpx;
+    z-index: 9999;
+    color:#fff;
+    font-size:22rpx;
+    text-align: center;
+}
+.back-home image{
+    width:60rpx;
+    height:60rpx;
+    margin-top:15rpx;
+}

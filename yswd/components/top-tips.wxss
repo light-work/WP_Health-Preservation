@@ -1,0 +1,32 @@
+/* components/to'p.wxss */
+
+.float-txt{
+    background: rgba(255, 215, 104,1);
+    border-radius:4px;
+    color:#ae5626;
+    font-size:30rpx;
+    line-height:40rpx;
+    padding:20rpx 40rpx;
+    position: fixed;
+    z-index: 999;
+    top:20rpx;
+    right:50rpx;
+    animation: rotate 1s linear infinite;
+}
+.float-txt image{
+    position: absolute;
+    width:50rpx;
+    height:50rpx;
+    right:-20rpx;
+    top:-20rpx;
+}
+.float-txt::before{
+    content: '';
+    border-right:15rpx solid transparent;
+    border-left:15rpx solid transparent;
+    border-bottom:16rpx solid rgba(255, 215, 104, 0.9);
+    position: absolute;
+    top:-16rpx;
+    left:50%;
+    margin-left:-8rpx;
+}

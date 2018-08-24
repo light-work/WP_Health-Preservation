@@ -2,8 +2,12 @@ exports.aritleType='meal'//小程序名称
 exports.host = 'https://www.jinrongzhushou.com/v1'//host
 exports.cloudHost ='https:///yspic.oss-cn-beijing.aliyuncs.com/'
 exports.foodAppId = 'wx6256dbc93eae7488'
-exports.mealappid = 'wxca42881e5a26343e'
+
+exports.mealappid = 'wxca42881e5a26343e'//当前appid
+
 exports.infoAppid = 'wxb9ed9bd8f7f0fd79'
+
+exports.appid = 'wxca42881e5a26343e'//当前appid
 
 
 exports.share = (title, successCallbak, failCallback,imageUrl) => {

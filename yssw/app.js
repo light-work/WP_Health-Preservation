@@ -1,23 +1,34 @@
 //app.js
 const ald = require('./utils/ald-stat.js')
+const { host, appid } = require('./utils/common.js')
 App({
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    const that = this
+    wx.checkSession({
+      success: function () {
+        const userid = wx.getStorageSync("app_user_id")
+        if (!userid) {
+          that.getUserId()
+          console.info('user-id had removed ,reget')
+        } else {
+          that.globalData.userId = userid
+          console.info('user-id from storage')
+        }
+      },
+      fail: function () {
+        that.getUserId()
+        console.info(' get user_id when session time out or no session was not  found')
       }
     })
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
@@ -35,6 +46,32 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    userId: null
+  },
+  getUserId: function () {
+    const that = this
+    wx.login({
+      success: res => {
+        if (res.code) {
+          wx.request({
+            url: host + `/app/login/${appid}`,
+            method: 'POST',
+            data: {
+              code: res.code
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            success: ({ data }) => {
+              if (data.errorCode === 0 && data.errorMsg === 'ok') {
+                wx.setStorageSync("app_user_id", data.userId)
+                that.globalData.userId = data.userId
+              }
+            }
+          })
+        }
+      }
+    })
   }
 })

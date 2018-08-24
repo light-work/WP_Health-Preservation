@@ -2,6 +2,7 @@
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "go-home": "/components/go-home",
     "recommend-list": "/components/recommend-list"
   }
 }

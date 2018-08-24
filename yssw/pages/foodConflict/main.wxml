@@ -1,6 +1,7 @@
 <!--foodlist.wxml-->
 <view class='food-list'>
-    <view class='food-item clearfix' bindtap='showDetail' wx:for="{{list}}" wx:key="*this" data-item='{{item}}'>
+<form bindsubmit='showDetail' report-submit="true"  wx:for="{{list}}" wx:key="*this" data-item='{{item}}'>
+    <button class='food-item clearfix' formType="submit">
         <view class='food-img'>
             <text class='food-name'>{{item.name}}</text>
             <image src='{{item.picUrl}}'></image>
@@ -18,5 +19,6 @@
                 <text>{{item.bad}}</text>
             </view>
         </view>
-    </view>
+    </button>
+</form>
 </view>

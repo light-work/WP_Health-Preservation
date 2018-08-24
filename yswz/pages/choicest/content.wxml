@@ -6,9 +6,11 @@
 <recommend-list list="{{recommendList}}" articleType="{{aritleType}}" title="热门推荐"></recommend-list>
 <view class='share-item'>
     <view bindtap='bindTapUpvote'><image src='../img/hand-like.png'></image> {{upvoteText}}</view>
-    <view>
-    <button open-type="share">
-        <image src='../img/icon-share2.png'></image> 转给朋友
-    </button>
+<view>
+  <button open-type="share">
+      <view wx:if="{{showTip}}">喜欢就转给朋友吧！</view>
+      <image src='../img/icon-share2.png'></image> 转给朋友
+  </button>
 </view>
 </view>
+<go-home home="list"></go-home>
