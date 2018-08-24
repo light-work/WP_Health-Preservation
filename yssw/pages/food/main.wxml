@@ -38,4 +38,8 @@
         </view>
     </view>
 </view>
-<top-tips></top-tips>
+
+<view class='float-txt' wx:if="{{showTip}}">
+    <image src='../img/off.png' bindtap='closeTip'></image>
+    <view>添加到桌面</view>
+</view>

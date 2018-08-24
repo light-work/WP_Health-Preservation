@@ -18,7 +18,8 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: {},
     hasUserInfo: false,
-    isReady:false
+    isReady:false,
+    showTip:false
   },
   loadNewsList:function(append){
     wx.showLoading({
@@ -173,5 +174,26 @@ Page({
   },
   onShareAppMessage: function (options) {
     return share('养生问答大全', '', '','https://img.jinrongzhushou.com/banner/banner-meal2.png')
+  },
+  onPageScroll: function (res) {
+    const s = res.scrollTop
+    const mobileInfo = wx.getSystemInfoSync();
+    const isIOS=mobileInfo.system && mobileInfo.system.indexOf('iOS')>-1
+    const show=wx.getStorageSync('showTip')
+    if (s > 50 && !isIOS && !show) {
+      this.setData({
+        showTip: true
+      })
+    }else{
+      this.setData({
+        showTip: false
+      })
+    }
+  },
+  closeTip: function () {
+    wx.setStorageSync('showTip', 'N')
+    this.setData({
+      showTip: false
+    })
   }
 })

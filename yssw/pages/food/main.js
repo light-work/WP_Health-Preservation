@@ -18,7 +18,8 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: {},
     hasUserInfo: false,
-    isReady: false
+    isReady: false,
+    showTip:false
   },
   loadData:function(append){
     const that=this
@@ -210,5 +211,26 @@ Page({
        }
      }
     }
+  },
+  onPageScroll: function (res) {
+    const s = res.scrollTop
+    const mobileInfo = wx.getSystemInfoSync();
+    const isIOS = mobileInfo.system && mobileInfo.system.indexOf('iOS') > -1
+    const show = wx.getStorageSync('showTip')
+    if (s > 50 && !isIOS && !show) {
+      this.setData({
+        showTip: true
+      })
+    } else {
+      this.setData({
+        showTip: false
+      })
+    }
+  },
+  closeTip: function () {
+    wx.setStorageSync('showTip', 'N')
+    this.setData({
+      showTip: false
+    })
   }
 })

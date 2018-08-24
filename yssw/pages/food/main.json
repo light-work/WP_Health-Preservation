@@ -1,6 +1,4 @@
 {
   "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true,"usingComponents": {
-    "top-tips": "/components/top-tips"
-  }
+  "enablePullDownRefresh": true
 }
