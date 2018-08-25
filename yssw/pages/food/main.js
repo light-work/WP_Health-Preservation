@@ -217,7 +217,7 @@ Page({
     const mobileInfo = wx.getSystemInfoSync();
     const isIOS = mobileInfo.system && mobileInfo.system.indexOf('iOS') > -1
     const show = wx.getStorageSync('showTip')
-    if (s > 50 && !isIOS && !show) {
+    if (s > 150 && !isIOS && !show) {
       this.setData({
         showTip: true
       })
