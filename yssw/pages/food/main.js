@@ -135,7 +135,7 @@ Page({
   },
   bindItemTap:function(e){
     if (e.detail.formId) {
-      sendFormId(e.detail.formId)
+      sendFormId(e.detail.formId,'food')
     }
     const item = e.currentTarget.dataset.item
     if (item) {

@@ -51,7 +51,7 @@ exports.postLike = (id, callback)=> {
     }
   })
 }
-exports.sendFormId = (formId) => {
+exports.sendFormId = (formId,_type) => {
   wx.request({
     url: `${host}/app/submit/${appid}`,
     method: 'POST',
@@ -59,7 +59,8 @@ exports.sendFormId = (formId) => {
       appid: appid,
       formId: formId,
       userId: app.globalData.userId,
-      auth: app.globalData.userInfo?1:0
+      auth: app.globalData.userInfo?1:0,
+      type: _type
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'
