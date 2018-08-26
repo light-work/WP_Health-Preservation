@@ -8,11 +8,12 @@
     background: rgba(41, 152, 55, 0.6);
     position: fixed;
     right: 10rpx;
-    bottom: 50rpx;
+    bottom: 200rpx;
     z-index: 9999;
     color:#fff;
     font-size:22rpx;
     text-align: center;
+    font-weight: bold;
 }
 .back-home image{
     width:60rpx;
