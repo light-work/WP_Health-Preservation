@@ -1,4 +1,5 @@
 const { host, appid } = require('../utils/common.js') 
+const app=getApp()
 /**
  * 养生资讯 查看
  */
@@ -57,7 +58,8 @@ exports.sendFormId = (formId) => {
     data: {
       appid: appid,
       formId: formId,
-      userId: getApp().globalData.userId
+      userId: app.globalData.userId,
+      auth: app.globalData.userInfo?1:0
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'
