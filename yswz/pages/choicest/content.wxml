@@ -13,4 +13,4 @@
   </button>
 </view>
 </view>
-<go-home home="list"></go-home>
+<go-home home="list" wx:if="{{showHome}}"></go-home>

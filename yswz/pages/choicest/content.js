@@ -10,22 +10,21 @@ Page({
     id: '',
     title: '',
     upvoteText: '',
-    _type: '',
     page: 0,
     picUrl:'',
-    showTip:true,
+    showTip:false,
+    showHome:false,
     recommendList: []
   },
   onLoad: function (options) {
     const that = this;
     const id=options.id
-    const _type=options.type
     this.setData({
-      _type: _type,
       category:options.category,
-      id:options.id
+      id:options.id,
+      showHome:!!options.from
     }) 
-    postView(id, _type)
+    postView(id)
     wx.getStorage({
       key: id,
       success: function(res) {
@@ -46,14 +45,14 @@ Page({
       title: '文章加载中',
     });
     wx.request({
-      url: `${host}/article/${_type}/content/${id}`,
+      url: `${host}/article/content/${id}`,
       success:function({data}){
         if (data.errorCode === 0 && data.errorMsg === 'ok') {
           var content = data.data.content
           // content = content.replace(new RegExp('/d/file', "gm"), cloudHost+'/d/file')
           that.setData({
-            title: data.data.mealId ? data.data.mealId.title : data.data.infoId.title,
-            picUrl: data.data.mealId ? data.data.mealId.picUrl : data.data.infoId.picUrl
+            title: data.data.articleId.title,
+            picUrl: data.data.articleId.picUrl
 
           })
           WxParse.wxParse('article', 'html', content, that, 5);
@@ -75,7 +74,7 @@ Page({
       })
     }
     wx.request({
-      url: `${host}/article/${_type}/recommend/${id}`,
+      url: `${host}/article/recommend/${id}`,
       data: {
         start: that.data.page * 10,
         limit: 10,
@@ -107,7 +106,7 @@ Page({
   onShareAppMessage: function (ops) {
     const that=this
     return share(that.data.title,(res)=>{
-      postRelay(that.data.id, that.data._type)
+      postRelay(that.data.id)
     }, '', that.data.picUrl)
   },
   bindTapUpvote:function(e){
@@ -124,7 +123,7 @@ Page({
           upvoteText: '已赞'
         })
         //post ajax
-        postLike(that.data.id, that.data._type)
+        postLike(that.data.id)
       }
     })
   },
@@ -139,14 +138,14 @@ Page({
   },
   onPageScroll:function(res){
     const s=res.scrollTop
-    const height=wx.getSystemInfoSync().windowHeight-50
-    if (height < s && this.data.showTip){
-      const that=this
-      setTimeout(()=>{
-        that.setData({
-          showTip: false
-        })
-      },1000)
-    } 
+    if (s > 150 && !this.data.showTip){
+      this.setData({
+        showTip: true
+      })
+    } else if (s<150){
+      this.setData({
+        showTip: false
+      })
+    }
   }
 })

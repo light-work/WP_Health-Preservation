@@ -1,29 +1,4 @@
 /**index.wxss**/
-swiper {
-  background: #f2f4f4;
-  position: relative;
-  height: 350rpx;
-}
-.swiper-item{
-  height: 350rpx;
-}
-swiper-item image {
-  width: 100%;
-  height: 350rpx;
-}
-
-.news-mask {
-  position: absolute;
-  height: 100rpx;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 10rpx 20rpx;
-  font-size:19px;
-  font-weight:bold;
-}
 .food-list {
   padding: 0 20rpx 5rpx 20rpx;
 }
@@ -33,12 +8,8 @@ swiper-item image {
   padding: 50rpx 0;
   border-bottom: 1px solid rgba(221, 221, 221, 0.6);
   position: relative;
-  text-align: left;
-    line-height: normal;
 }
-button::after{
-    border:none;
-}
+
 .food-item .food-img {
   float: left;
   width: 240rpx;
@@ -72,11 +43,8 @@ button::after{
     font-weight: bold;
 }
 .food-txt view{
-    overflow : hidden;
-    text-overflow: clip;
-    display: -webkit-box;
-    -webkit-line-clamp:1;
-    -webkit-box-orient: vertical;
+    
+    overflow: hidden;text-overflow:clip;white-space: nowrap;
 }
 
 .food-item view:first-child text{
@@ -102,3 +70,28 @@ text.food-name{
 .clearfix{
     zoom:1;
 }
+/* .tag{
+    width:60rpx;
+    height:60rpx;
+    line-height: 60rpx;
+    position: absolute;
+    text-align: center;
+    background: rgba(0, 0, 0, .8);
+    color:#93c53e;
+    font-size:40rpx;
+    z-index:2;
+    top:0;
+    right:0;
+    left:inherit;
+    padding:0;
+    border-radius:0 0 0 10px;
+} */
+.tz-title{
+    padding:20rpx;
+    line-height: 50rpx;
+    font-size:40rpx;
+    background:#eee;
+    color:#444;
+}
+.food-txt text.tag{display:inline-block;height:30rpx;line-height:30rpx;font-size:30rpx;background: #01cc00;color:#fff!important;padding:5rpx 10rpx;border-radius:2px;margin-right:10rpx;}
+.food-txt text.ji{background: #b1251b!important;}

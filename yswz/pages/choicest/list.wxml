@@ -8,12 +8,10 @@
     <view wx:else>请升级微信版本</view>
 </view>
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{bannerList}}" wx:key="*this">
-        <swiper-item >
-            <navigator target="{{item.target}}" app-id="{{item.appId}}" path="{{item.path}}" open-type='{{item.open}}' url="{{item.path}}">
+    <block wx:for="{{bannerList}}" wx:key="id">
+        <swiper-item  data-item="{{item}}" bindtap="bannerItemTap">
               <image src="{{item.imgSrc}}" class="slide-image" />
               <view class='news-mask'>{{item.title}}</view>
-            </navigator>
         </swiper-item>
     </block>
 </swiper>

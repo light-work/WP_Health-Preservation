@@ -2,11 +2,9 @@
 <view class="tj-content" wx:if="{{list.length>0}}">
     <view class='tj-title'>{{title}}</view>
     <navigator  wx:for="{{list}}" wx:key="*this" 
-    target="{{articleType!==item.articleType?'miniProgram':''}}" 
-    app-id="{{articleType!==item.articleType?(item.articleType!=='meal'?infoAppid:mealappid):''}}"
-    path="{{articleType!==item.articleType?'pages/choicest/content?id='+item.id+'&category='+item.category+'&type='+item.articleType:''}}" 
-    url="{{articleType===item.articleType?'/pages/choicest/content?id='+item.id+'&category='+item.category+'&type='+item.articleType:''}}"
-    open-type="{{articleType!==item.articleType?'navigate':(openType?openType:'redirect')}}" >
+    target="miniProgram" 
+    app-id="{{infoAppid}}"
+    path="{{'pages/choicest/content?id='+item.id+'&category='+item.category}}" >
       <view class='news-list'>
         <view class='news-item'>
           <view class='news-img'>

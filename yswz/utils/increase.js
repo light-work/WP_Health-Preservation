@@ -2,10 +2,9 @@ const { host, appid } = require('../utils/common.js')
 /**
  * 养生资讯 查看
  */
-exports.postView =  (id,_type,callback)=>{
-  if (!_type) _type ='information'
+exports.postView =  (id,callback)=>{
   wx.request({
-    url: host + `/article/${_type}/view/${id}`,
+    url: host + `/article/view/${id}`,
     method: 'POST',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
@@ -20,10 +19,9 @@ exports.postView =  (id,_type,callback)=>{
 /**
  * 养生资讯 转发
  */
-exports.postRelay = (id,_type, callback)=> {
-  if (!_type) _type = 'information'
+exports.postRelay = (id, callback)=> {
   wx.request({
-    url: host + `/article/${_type}/relay/${id}`,
+    url: host + `/article/relay/${id}`,
     method: 'POST',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
@@ -38,10 +36,9 @@ exports.postRelay = (id,_type, callback)=> {
 /**
  * 养生资讯 点赞
  */
-exports.postLike = (id,_type, callback)=> {
-  if (!_type) _type = 'information'
+exports.postLike = (id, callback)=> {
   wx.request({
-    url: host + `/article/${_type}/like/${id}`,
+    url: host + `/article/like/${id}`,
     method: 'POST',
     header: {
       'content-type': 'application/x-www-form-urlencoded'

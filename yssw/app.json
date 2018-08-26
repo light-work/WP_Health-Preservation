@@ -3,13 +3,8 @@
     "pages/food/main",
     "pages/food/foodinfo",
     "pages/food/moreList",
-    "pages/food/article",
     "pages/foodConflict/main",
-    "pages/foodConflict/article",
     "pages/foodConflict/content",
-    "pages/time/list",
-    "pages/time/content",
-    "pages/time/article",
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -29,10 +24,10 @@
         "selectedIconPath": "pages/img/food-s.png"
       },
       {
-        "pagePath": "pages/time/list",
-        "text": "养生时钟",
-        "iconPath": "pages/img/icon-time.png",
-        "selectedIconPath": "pages/img/icon-time-h.png"
+        "pagePath": "pages/foodConflict/main",
+        "text": "食物相克",
+        "iconPath": "pages/img/foodFit.png",
+        "selectedIconPath": "pages/img/foodFit-s.png"
       }
     ]
   }
