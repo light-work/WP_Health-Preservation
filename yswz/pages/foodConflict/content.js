@@ -7,12 +7,47 @@ Page({
         bad:[],
         showTip:false,
         showHome:false,
-        articleArray: []
+        articleArray: [],
+        id:''
     },
+
+  loadRecommendList: (that, append) => {
+    const id = that.data.id
+    if (append) {
+      wx.showLoading({
+        title: '加载更多...',
+      })
+    }
+    wx.request({
+      url: `${host}/food/recommend/${id}`,
+      success: function ({ data }) {
+        if (data.errorCode === 0 && data.errorMsg === 'ok') {
+          if (append) {
+            that.setData({
+              articleArray: that.data.articleArray.concat(data.articleArray)
+            })
+          } else {
+            that.setData({
+              articleArray: data.articleArray
+            })
+          }
+        }
+        if (append) {
+          wx.hideLoading()
+        }
+      },
+      fail: function () {
+        if (append) {
+          wx.hideLoading()
+        }
+      }
+    })
+  },
     onLoad: function (options) {
         const that = this;
         const id = options.id
         that.setData({
+          id: id,
           showHome: !!options.from
         })
         wx.showLoading({
@@ -92,16 +127,7 @@ Page({
                 wx.hideLoading();
             }
         })
-        wx.request({
-            url: host + '/food/recommend/' + id,
-            success: function ({ data }) {
-                if (data.errorCode === 0 && data.errorMsg === 'ok') {
-                    that.setData({
-                        articleArray: data.articleArray
-                    })
-                }
-            }
-        })
+        this.loadRecommendList(this)
     },
   onShareAppMessage: function (ops) {
     const foodInfo = this.data.foodInfo
@@ -118,5 +144,13 @@ Page({
         showTip: false
       })
     }
+  },
+  onReachBottom: function (options) {
+    this.setData({
+      page: this.data.page + 1
+    })
+    wx.showNavigationBarLoading();
+    this.loadRecommendList(this, true)
+    wx.hideNavigationBarLoading();
   }
 })

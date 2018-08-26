@@ -34,9 +34,3 @@
 
 <go-home home="food" wx:if="{{showHome}}"></go-home>
 
-
-
-
-
-
-
