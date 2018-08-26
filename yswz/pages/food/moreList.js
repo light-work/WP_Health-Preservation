@@ -72,6 +72,6 @@ Page({
     wx.hideNavigationBarLoading();
   },
   onShareAppMessage: function (options) {
-    return share('健康食物', '', '', 'https://img.jinrongzhushou.com/banner/banner-food2.jpg')
+    return share('养生食物', '', '', 'https://img.jinrongzhushou.com/banner/banner-food2.jpg')
   }
 })
