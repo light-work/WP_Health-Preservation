@@ -6,6 +6,7 @@ Page({
       cloudHost,
       foodInfo:'',
       property:'',
+      showTip:true,
       articleArray:[],
       fitCount:0
     },
@@ -63,5 +64,17 @@ Page({
   onShareAppMessage: function (ops) {
     const foodInfo = this.data.foodInfo
     return share(foodInfo.name + '的功效', '', '', foodInfo.picUrl)
+  },
+  onPageScroll: function (res) {
+    const s = res.scrollTop
+    const height = wx.getSystemInfoSync().windowHeight - 50
+    if (height < s && this.data.showTip) {
+      const that = this
+      setTimeout(() => {
+        that.setData({
+          showTip: false
+        })
+      }, 1000)
+    }
   }
 })

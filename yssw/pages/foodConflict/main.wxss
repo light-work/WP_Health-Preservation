@@ -8,8 +8,12 @@
   padding: 50rpx 0;
   border-bottom: 1px solid rgba(221, 221, 221, 0.6);
   position: relative;
+  text-align: left;
+    line-height: normal;
 }
-
+button::after{
+    border:none;
+}
 .food-item .food-img {
   float: left;
   width: 240rpx;

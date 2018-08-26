@@ -1,10 +1,112 @@
 /**app.wxss**/
+
 .container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 200rpx 0;
+    box-sizing: border-box;
+}
+
+page {
+    background: #fafafa;
+}
+
+.back-home {
+    width: 100rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 50%;
+    background: rgba(41, 152, 55, 0.6);
+    position: fixed;
+    right: 10rpx;
+    bottom: 50rpx;
+    z-index: 9999;
+    color:#fff;
+    font-size:22rpx;
+    text-align: center;
+}
+.back-home image{
+    width:60rpx;
+    height:60rpx;
+    margin-top:15rpx;
+}
+.clearfix:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.clearfix{
+    zoom:1;
+}
+.float-txt{
+    background: rgba(255, 215, 104,1);
+    border-radius:4px;
+    color:#ae5626;
+    font-size:30rpx;
+    line-height:40rpx;
+    padding:20rpx 40rpx;
+    position: fixed;
+    z-index: 999;
+    top:20rpx;
+    right:50rpx;
+    animation: rotate 1s linear infinite;
+}
+.float-txt image{
+    position: absolute;
+    width:50rpx;
+    height:50rpx;
+    right:-20rpx;
+    top:-20rpx;
+}
+.float-txt::before{
+    content: '';
+    border-right:15rpx solid transparent;
+    border-left:15rpx solid transparent;
+    border-bottom:16rpx solid rgba(255, 215, 104, 0.9);
+    position: absolute;
+    top:-13rpx;
+    left:60%;
+}
+@keyframes rotate {
+    0% {
+        transform: translateY(0) ;
+    }
+    25% {
+        transform: translateY(4px);
+    }
+    50% {
+        transform: translateY(8px);
+       
+    }
+    75% {
+        ransform: translateY(4px) ;
+    }
+    100% {
+        transform: translateY(0) ;
+    }
+}
+.take-app{
+    padding:20rpx;
+    text-align: left;
+    font-size:32rpx;
+    background: rgba(255, 215, 104, 1);
+    color:#ae5626;
+}
+.take-app button{
+    display: inline-block;
+    background: none;
+    position: initial;
+    height:65rpx;
+    line-height: 65rpx;
+    vertical-align: -16rpx;
+    margin-left:40rpx;
+    font-size:34rpx;
+    color:#fff;
+    background:rgba(41, 152, 55, 0.6);
+    padding:0 20rpx;
+}

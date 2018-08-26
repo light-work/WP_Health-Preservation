@@ -22,14 +22,17 @@
 
 <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
 <recommend-list  list="{{articleArray}}" title="相关文章"></recommend-list>
+
 <view class='share-item'>
-    <view style='border:0;'>
-        <button open-type="share">
-            <image src='../img/icon-share2.png'></image> 转给朋友
-        </button>
+    <view style="border:0;">
+      <button open-type="share">
+        <view style="right:180rpx;" wx:if="{{showTip}}">喜欢就转给朋友吧！</view>
+        <image src='../img/icon-share2.png'></image> 转给朋友
+      </button>
     </view>
 </view>
 
+<go-home home="food"></go-home>
 
 
 

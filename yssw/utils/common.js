@@ -3,6 +3,7 @@ exports.cloudHost ='https:///yspic.oss-cn-beijing.aliyuncs.com/'
 exports.foodAppId ='wx6256dbc93eae7488'
 exports.mealappid ='wxca42881e5a26343e'
 exports.infoAppid ='wxb9ed9bd8f7f0fd79'
+exports.appid ='wx6256dbc93eae7488'
 
 
 exports.share = (title, successCallbak, failCallback,imgsrc) => {
@@ -21,7 +22,6 @@ exports.share = (title, successCallbak, failCallback,imgsrc) => {
       }
     })
   }
-  console.info(title)
   return {
     title: title ? title : '',
     path: url,

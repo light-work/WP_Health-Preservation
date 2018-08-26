@@ -9,6 +9,7 @@ Page({
       data:'',
       id:'',
       foodList:[],
+      showTip:true,
       articleArray: []
     },
     onLoad: function (options) {
@@ -84,5 +85,17 @@ Page({
     wx.showNavigationBarLoading();
     this.loadRecommendList(this, true)
     wx.hideNavigationBarLoading();
+  },
+  onPageScroll: function (res) {
+    const s = res.scrollTop
+    const height = wx.getSystemInfoSync().windowHeight - 50
+    if (height < s && this.data.showTip) {
+      const that = this
+      setTimeout(() => {
+        that.setData({
+          showTip: false
+        })
+      }, 1000)
+    }
   }
 })
