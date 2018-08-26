@@ -115,7 +115,7 @@ Page({
   },
   showDetail :function(e){
     if (e.detail.formId) {
-      sendFormId(e.detail.formId)
+      sendFormId(e.detail.formId,'foodFit')
     }
     const item = e.currentTarget.dataset.item
     if(item){
