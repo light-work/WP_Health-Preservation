@@ -1,4 +1,5 @@
 const { host, appid } = require('../utils/common.js') 
+const app=getApp()
 /**
  * 养生资讯 查看
  */
@@ -50,14 +51,16 @@ exports.postLike = (id, callback)=> {
     }
   })
 }
-exports.sendFormId = (formId) => {
+exports.sendFormId = (formId,_type) => {
   wx.request({
     url: `${host}/app/submit/${appid}`,
     method: 'POST',
     data: {
       appid: appid,
       formId: formId,
-      userId: getApp().globalData.userId
+      userId: app.globalData.userId,
+      auth: app.globalData.userInfo?1:0,
+      type: _type
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'

@@ -137,7 +137,7 @@ Page({
   },
   bindTapNewsView:function(e){
     if (e.detail.formId) {
-      sendFormId(e.detail.formId)
+      sendFormId(e.detail.formId,'article')
     }
     const item=e.currentTarget.dataset.item
     if(item){
