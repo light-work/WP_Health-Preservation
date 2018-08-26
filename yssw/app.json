@@ -11,7 +11,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#66ac81",
-    "navigationBarTitleText": "健康食物",
+    "navigationBarTitleText": "养生健康食物大全",
     "navigationBarTextStyle":"#fff"
   },
   "tabBar":{
