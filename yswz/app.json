@@ -19,7 +19,13 @@
     "list": [
       {
         "pagePath": "pages/choicest/list",
-        "text": "精选",
+        "text": "养生阅读",
+        "iconPath": "pages/img/yswz.png",
+        "selectedIconPath": "pages/img/yswz-s.png"
+      },
+      {
+        "pagePath": "pages/choicest/list",
+        "text": "养生食物",
         "iconPath": "pages/img/yswz.png",
         "selectedIconPath": "pages/img/yswz-s.png"
       },
