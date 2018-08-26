@@ -18,7 +18,7 @@
 <view class="tj-content">
     <view class='tj-title'>推荐食物</view>
     <view class='tj-food'>
-        <navigator wx:for="{{foodList}}" wx:key="*this" target="miniProgram" app-id="{{foodAppId}}" path="pages/food/foodinfo?id={{item.id}}">
+        <navigator wx:for="{{foodList}}" wx:key="*this"  url="/pages/food/foodinfo?id={{item.id}}">
         <text>{{item.name}}</text>
         </navigator>
     </view>
@@ -33,4 +33,4 @@
       </button>
     </view>
 </view>
-<go-home home="listTime"></go-home>
+<go-home home="listTime" wx:if="{{showHome}}"></go-home>

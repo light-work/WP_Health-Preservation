@@ -1,5 +1,5 @@
 // pages/food/main.js
-const { host, cloudHost, share, appid,infoAppid} = require('../../utils/common.js')
+const { host,  share, appid} = require('../../utils/common.js')
 const app = getApp()
 const { sendFormId } = require('../../utils/increase.js')
 
@@ -13,15 +13,12 @@ Page({
     interval: 5000,
     duration: 500,
     page:0,
-    cloudHost,
     list: [],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: {},
     hasUserInfo: false,
     isReady: false,
-    showTip:false,
-    infoAppid,
-    timeObj:''
+    showTip:false
   },
   loadData:function(append){
     const that=this
@@ -53,7 +50,8 @@ Page({
         wx.hideLoading()
       }
     })
-
+  },
+  loadBannerList:(that)=>{
     wx.request({
       url: `${host}/app/banner/${appid}`,
       success: function ({ data }) {
@@ -63,22 +61,28 @@ Page({
             const array = new Array()
 
             list.forEach((item) => {
-              var path = ''
-              if(item.target===infoAppid){
-                if(item.action==='main'){
-                  path = 'pages/choicest/list?from=share'
-                } else if (item.action ==='foodFit'){
-                  path = 'pages/foodConflict/main?from=share'
-                } else if (item.action ==='regimen'){
-                  path = 'pages/time/list?from=share'
-                } else if (item.action.indexOf('article_') > -1){
-                  const params = item.action.split('_')
-                  path = `pages/choicest/content?id=${params[1]}&category=${params[2]}&from=share` 
-                }
+              let openType = 'navigate'
+              var url = '', id = null
+              if (item.action.indexOf('foodFit_') > -1) {
+                openType = 'switchTab'
+                const params = item.action.split('_')
+                id = params[1]
+                url = `/pages/foodConflict/main`
+              } else if (item.action.indexOf('food_') > -1) {
+                const params = item.action.split('_')
+                id = params[1]
+                url = `/pages/food/foodinfo?id=${id}`
+              } else if (item.action.indexOf('article_') > -1) {
+                const params = item.action.split('_')
+                url = `/pages/choicest/content?id=${params[1]}&category=${params[2]}`
+              } else if (item.action === 'regimen') {
+                openType = 'switchTab'
+                url = '/pages/time/list'
               }
               array.push({
-                path: path,
-                appId: item.target,
+                id: id,
+                openType: openType,
+                url: url,
                 title: item.title,
                 imgSrc: item.imgSrc
               })
@@ -91,8 +95,25 @@ Page({
       }
     })
   },
+  onShow:function(option){
+    const show = wx.getStorageSync('showTip')
+    if (show) {
+      this.setData({
+        showTip: false
+      })
+    }
+    if (app.globalData.goDetail) {
+      const id = app.globalData.detailId
+      app.globalData.detailId = null
+      app.globalData.goDetail = null
+      wx.navigateTo({
+        url: `../food/foodinfo?id=${id}`,
+      })
+    }
+  },
   onLoad: function (option) {
     this.loadData()
+    this.loadBannerList(this)
     var that = this
     setTimeout(() => {
       that.setData({
@@ -172,6 +193,24 @@ Page({
   onShareAppMessage: function (options) {
     return share('健康食物', '', '','https://img.jinrongzhushou.com/banner/banner-food2.jpg')
   },
+  bindBannerTap:(e)=>{
+    const item = e.currentTarget.dataset.item
+    if (item) {
+      if (item.openType === 'navigate') {
+        wx.navigateTo({
+          url: item.url,
+        })
+      } else if (item.openType === 'switchTab') {
+        if(item.id){
+          app.globalData.goDetail = true
+          app.globalData.detailId = item.id
+        }
+        wx.switchTab({
+          url: item.url,
+        })
+      }
+    }
+  },
   onPageScroll: function (res) {
     const s = res.scrollTop
     const mobileInfo = wx.getSystemInfoSync();
@@ -191,30 +230,6 @@ Page({
     wx.setStorageSync('showTip', 'N')
     this.setData({
       showTip: false
-    })
-  },
-  onShow:function(e){
-    const show = wx.getStorageSync('showTip')
-    if (show){
-      this.setData({
-        showTip: false
-      })
-    }
-    const that=this
-    wx.request({
-      url: `${host}/regimen/time/tip`,
-      success:function({data}){
-        if (data.errorCode === 0 && data.errorMsg === 'ok') {
-          that.setData({
-            timeObj:{
-              id:data.data.id,
-              timeKey: data.data.timeKey,
-              timeHour: data.data.timeHour
-            }
-          })
-        }
-        
-      }
     })
   }
 })

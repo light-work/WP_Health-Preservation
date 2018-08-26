@@ -2,9 +2,13 @@
   "pages":[
     "pages/choicest/list",
     "pages/choicest/content",
+    "pages/food/main",
+    "pages/food/foodinfo",
+    "pages/food/moreList",
+    "pages/foodConflict/main",
+    "pages/foodConflict/content",
     "pages/time/list",
     "pages/time/content",
-    "pages/time/article",
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -24,10 +28,16 @@
         "selectedIconPath": "pages/img/yswz-s.png"
       },
       {
-        "pagePath": "pages/choicest/list",
+        "pagePath": "pages/food/main",
         "text": "养生食物",
-        "iconPath": "pages/img/yswz.png",
-        "selectedIconPath": "pages/img/yswz-s.png"
+        "iconPath": "pages/img/food.png",
+        "selectedIconPath": "pages/img/food-s.png"
+      },
+      {
+        "pagePath": "pages/foodConflict/main",
+        "text": "食物相克",
+        "iconPath": "pages/img/foodFit.png",
+        "selectedIconPath": "pages/img/foodFit-s.png"
       },
       {
         "pagePath": "pages/time/list",

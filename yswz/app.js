@@ -47,7 +47,9 @@ App({
   },
   globalData: {
     userInfo: null,
-    userId: null
+    userId: null,
+    goDetail:false,
+    detailId:null
   },
   getUserId: function () {
     const that = this

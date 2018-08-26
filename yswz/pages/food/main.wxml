@@ -6,11 +6,9 @@
 </view>
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="id">
-        <swiper-item >
-            <navigator target="miniProgram" app-id="{{item.appId}}" path="{{item.path}}">
+        <swiper-item  data-item="{{item}}" bindtap="bindBannerTap">
               <image src="{{item.imgSrc}}" class="slide-image" />
               <view class='news-mask'>{{item.title}}</view>
-            </navigator>
         </swiper-item>
     </block>
 </swiper>
@@ -42,12 +40,4 @@
 <view class='float-txt' wx:if="{{showTip}}">
     <image src='../img/off.png' bindtap='closeTip'></image>
     <view>添加到桌面</view>
-</view>
-<view class='now-ys' wx:if="{{timeObj}}">
-  <navigator target="miniProgram" app-id='{{infoAppid}}' 
-      path="{{'pages/time/content?from=share&id='+timeObj.id}}">
-    <image src='../img/clock.png'></image>
-    <text>{{timeObj.timeHour}}</text>
-    <view class=''>{{timeObj.timeKey}}</view>
-    </navigator>
 </view>

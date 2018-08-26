@@ -8,7 +8,8 @@ Page({
       cloudHost,
       data:'',
       id:'',
-      showTip:true,
+      showTip:false,
+      showHome:false,
       foodList:[],
       articleArray: []
     },
@@ -16,7 +17,8 @@ Page({
       const that = this;
       const id = options.id
       that.setData({
-        id:id
+        id:id,
+        showHome: !!options.from
       })
       wx.showLoading({
         title: '加载中',
@@ -89,14 +91,14 @@ Page({
   },
   onPageScroll: function (res) {
     const s = res.scrollTop
-    const height = wx.getSystemInfoSync().windowHeight - 50
-    if (height < s && this.data.showTip) {
-      const that = this
-      setTimeout(() => {
-        that.setData({
-          showTip: false
-        })
-      }, 1000)
+    if (s > 150 && !this.data.showTip) {
+      this.setData({
+        showTip: true
+      })
+    } else if (s < 150) {
+      this.setData({
+        showTip: false
+      })
     }
   }
 })

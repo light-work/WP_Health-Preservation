@@ -1,0 +1,9 @@
+@import '../css/newsItem.wxss';
+@import '../food/foodinfo.wxss';
+
+.x-x,.x-ke{width:130rpx;padding:15rpx 0;text-align:center;border-radius:4px;background:#07793e;color:#fff;font-size:34rpx;margin-bottom:20rpx;}
+.x-ke{background:#b1251b;}
+.x-list{font-size: 34rpx;line-height:1.6;color:#444;}
+.x-list view{background: #f5f5f5;padding:10rpx;margin:10rpx 0;}
+.x-x + .x-list text{color:#07793e;font-weight: bold;}
+.x-ke + .x-list text{color:#b1251b;font-weight: bold;}

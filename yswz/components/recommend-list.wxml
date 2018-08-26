@@ -1,12 +1,8 @@
 <!--pages/components/recommend-list.wxml-->
 <view class="tj-content" wx:if="{{list.length>0}}">
     <view class='tj-title'>{{title}}</view>
-    <navigator  wx:for="{{list}}" wx:key="*this" 
-    target="{{articleType!==item.articleType?'miniProgram':''}}" 
-    app-id="{{articleType!==item.articleType?(articleType==='meal'?infoAppid:mealappid):''}}"
-    path="{{articleType!==item.articleType?'pages/choicest/content?id='+item.id+'&category='+item.category+'&type='+item.articleType:''}}" 
-    url="{{articleType===item.articleType?'/pages/choicest/content?id='+item.id+'&category='+item.category+'&type='+item.articleType:''}}"
-    open-type="{{articleType!==item.articleType?'navigate':(openType?openType:'redirect')}}" >
+    <navigator  wx:for="{{list}}" 
+    url="{{'/pages/choicest/content?id='+item.id+'&category='+item.category}}" open-type="redirect" wx:key="*this">
       <view class='news-list'>
         <view class='news-item'>
           <view class='news-img'>
