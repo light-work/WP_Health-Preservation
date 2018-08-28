@@ -1,5 +1,6 @@
 // pages/food/food.js
 const { host, share} = require('../../utils/common.js')
+const app=getApp()
 Page({
   data: {
     page: 0,
@@ -47,11 +48,15 @@ Page({
     }
   },
   onLoad:function(option){
+    if (!app.globalData.showGoHome) {
+      app.globalData.showGoHome = !!option.from
+    }
      this.setData({
        id:option.id,
        title:option.title,
-       showHome: !!option.from
+       showHome: app.globalData.showGoHome
      })
+    
     this.loadList(this)
   },
   onPullDownRefresh: function (options) {

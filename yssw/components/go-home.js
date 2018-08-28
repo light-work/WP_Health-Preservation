@@ -1,4 +1,5 @@
 // components/go-home.js
+const app=getApp()
 Component({
   properties: {
     home:String
@@ -6,10 +7,10 @@ Component({
   data:{
     openType: '',
     url: String,
-    show: true,
     delta:1,
   },
-  ready:function(){
+  ready:function(e){
+    console.info(e)
     var url,openType
     if (this.data.home==='food'){
       url = '/pages/food/main'
@@ -42,6 +43,21 @@ Component({
         return ''
       } else {
         return "/"+pages[pages.length - 2].route
+      }
+    } ,
+    goHome() {
+      if (this.data.openType === 'navigateBack') {
+        // app.?.showGoHome = false
+        wx.navigateBack({
+          delta: this.data.delta
+        })
+      } else if (this.data.openType === 'switchTab') {
+        wx.switchTab({
+          url: this.data.url,
+          success: function () {
+            app.globalData.showGoHome = false
+          }
+        })
       }
     }
   }

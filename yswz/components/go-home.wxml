@@ -1,4 +1,4 @@
 <!--components/go-home.wxml-->
-<navigator url='{{url}}' open-type='{{openType}}' delta="{{delta}}">
-<view class='back-home'>回到首页</view>
-</navigator>
+<!-- <navigator url='{{url}}' open-type='{{openType}}' delta="{{delta}}"> -->
+<view class='back-home' bindtap='goHome'>回到首页</view>
+<!-- </navigator> -->

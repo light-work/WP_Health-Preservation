@@ -1,7 +1,7 @@
 // pages/food/main.js
 const { host,  share, appid} = require('../../utils/common.js')
 const app = getApp()
-const { sendFormId } = require('../../utils/increase.js')
+const { sendFormId } = require('../../utils/increase.js') 
 
 Page({
   data: {
@@ -120,7 +120,7 @@ Page({
         isReady: true
       })
     }, 1000)
-
+    app.globalData.showGoHome = false
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -156,6 +156,7 @@ Page({
   },
   bindItemTap:function(e){
     if (e.detail.formId) {
+      console.info(e.detail.formId)
       sendFormId(e.detail.formId,'food')
     }
     const item = e.currentTarget.dataset.item

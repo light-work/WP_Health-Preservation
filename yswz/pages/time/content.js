@@ -1,5 +1,6 @@
 var WxParse = require('../wxParse/wxParse.js');
 const { host, cloudHost, share, mealappid, foodAppId, aritleType} = require('../../utils/common.js')
+const app = getApp()
 Page({
     data: {
       aritleType,
@@ -14,11 +15,14 @@ Page({
       articleArray: []
     },
     onLoad: function (options) {
+      if (!app.globalData.showGoHome) {
+        app.globalData.showGoHome = !!options.from
+      }
       const that = this;
       const id = options.id
       that.setData({
         id:id,
-        showHome: !!options.from
+        showHome: !!app.globalData.showGoHome 
       })
       wx.showLoading({
         title: '加载中',

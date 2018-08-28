@@ -1,5 +1,5 @@
 const { host, cloudHost ,share} = require('../../utils/common.js')
-
+const app=getApp()
 Page({
   data:{
     cloudHost,
@@ -26,6 +26,7 @@ Page({
     })
   },
   onLoad:function(options){
+    app.globalData.showGoHome = false
     this.loadList(this)
   },
   bindItemTap: function (e) {
