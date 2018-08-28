@@ -97,6 +97,7 @@ Page({
     this.loadNewsList()
     this.loadBannderList(this)
     var that=this
+    app.globalData.showGoHome=false
     setTimeout(() => {
       that.setData({
         isReady: true

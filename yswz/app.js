@@ -49,7 +49,8 @@ App({
     userInfo: null,
     userId: null,
     goDetail:false,
-    detailId:null
+    detailId:null,
+    showGoHome:false
   },
   getUserId: function () {
     const that = this
@@ -57,7 +58,7 @@ App({
       success: res => {
         if (res.code) {
           wx.request({
-            url: host + `/app/login/${appid}`,
+            url: `${host}/app/login/${appid}`,
             method: 'POST',
             data: {
               code: res.code

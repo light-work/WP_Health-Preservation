@@ -93,6 +93,7 @@ Page({
   },
   onLoad: function (option) {
     this.loadData()
+    app.globalData.showGoHome = false
     var that = this
     setTimeout(() => {
       that.setData({

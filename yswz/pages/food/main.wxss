@@ -241,19 +241,19 @@ button::after{
 }
 @keyframes rotate {
     0% {
-        transform: translateY(0) ;
+        transform: translateX(0) ;
     }
     25% {
-        transform: translateY(8px);
+        transform: translateX(8px);
     }
     50% {
-        transform: translateY(16px);
+        transform: translateX(16px);
        
     }
     75% {
-        ransform: translateY(8px) ;
+        ransform: translateX(8px) ;
     }
     100% {
-        transform: translateY(0) ;
+        transform: translateX(0) ;
     }
 }

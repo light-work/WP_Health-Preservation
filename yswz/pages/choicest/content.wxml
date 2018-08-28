@@ -2,10 +2,11 @@
 <import src="../wxParse/wxParse.wxml"/>
 
 <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
-
+   <view id="article_end"></view>
 <recommend-list list="{{recommendList}}" articleType="{{aritleType}}" title="热门推荐"></recommend-list>
 <view class='share-item'>
     <view bindtap='bindTapUpvote'><image src='../img/hand-like.png'></image> {{upvoteText}}</view>
+ 
 <view>
   <button open-type="share">
       <view wx:if="{{showTip}}">喜欢就转给朋友吧！</view>
