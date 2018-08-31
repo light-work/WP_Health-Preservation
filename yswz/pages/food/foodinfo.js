@@ -1,17 +1,18 @@
 // pages/news/news.js
 var WxParse = require('../wxParse/wxParse.js');
 const { host, cloudHost, share, mealAppid, infoAppid} =require('../../utils/common.js')
+const app = getApp()
 Page({
-    data: {
-      cloudHost,
-      foodInfo:'',
-      property:'',
-      showTip:false,
-      articleArray:[],
-      fitCount:0,
-      showHome:false,
-      id:''
-    },
+  data: {
+    cloudHost,
+    foodInfo:'',
+    property:'',
+    showTip:false,
+    articleArray:[],
+    fitCount:0,
+    showHome:false,
+    id:''
+  },
   loadRecommendList:(that,append)=>{
       const id = that.data.id
       if (append) {
@@ -43,38 +44,41 @@ Page({
           }
         }
       })
-    },
-    onLoad: function(options) {
-      const that = this;
-      const id = options.id
-      this.setData({
-        id: id,
-        showHome: !!options.from
-      })
-      wx.showLoading({
-        title: '加载中...',
-      });
-      wx.request({
-        url: host + '/food/detail/' + id,
-        success: function ({ data }) {
-          if (data.errorCode === 0 && data.errorMsg === 'ok') {
-            var content = data.data.content
-            content = content.replace(new RegExp('/d/file', "gm"), cloudHost + '/d/file')
-            that.setData({
-              foodInfo:data.data.foodId,
-              fitCount: data.data.fitCount,
-              property: data.data.property
-            })
-            WxParse.wxParse('article', 'html', content, that, 5);
-          }
-          wx.hideLoading();
-        },
-        fail: function (error) {
-          wx.hideLoading();
+  },
+  onLoad: function(options) {
+    const that = this;
+    const id = options.id
+    if (!app.globalData.showGoHome) {
+      app.globalData.showGoHome = !!options.from
+    }
+    this.setData({
+      id: id,
+      showHome: !!app.globalData.showGoHome
+    })
+    wx.showLoading({
+      title: '加载中...',
+    });
+    wx.request({
+      url: host + '/food/detail/' + id,
+      success: function ({ data }) {
+        if (data.errorCode === 0 && data.errorMsg === 'ok') {
+          var content = data.data.content
+          content = content.replace(new RegExp('/d/file', "gm"), cloudHost + '/d/file')
+          that.setData({
+            foodInfo:data.data.foodId,
+            fitCount: data.data.fitCount,
+            property: data.data.property
+          })
+          WxParse.wxParse('article', 'html', content, that, 5);
         }
-      })
-      this.loadRecommendList(this)
-    },
+        wx.hideLoading();
+      },
+      fail: function (error) {
+        wx.hideLoading();
+      }
+    })
+    this.loadRecommendList(this)
+  },
   foodConflictTap : function(e){
       wx.navigateTo({
         url: '../foodConflict/content?id=' + this.data.foodInfo.id,

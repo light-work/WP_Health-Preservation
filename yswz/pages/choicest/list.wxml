@@ -46,7 +46,8 @@ wx:for="{{newList}}" wx:key="*this" data-item='{{item}}'>
 </view>
 
 
-<view class='float-txt' wx:if="{{showTip}}">
+<!-- <view class='float-txt' wx:if="{{showTip}}">
     <image src='../img/off.png' bindtap='closeTip'></image>
     <view>添加到桌面</view>
-</view>
+</view> -->
+<red-packets percent="{{percent}}" auth="{{hasUserInfo}}"></red-packets>

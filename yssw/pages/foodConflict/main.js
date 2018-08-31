@@ -91,7 +91,6 @@ Page({
         showTip: false
       })
     }
-    
     const that = this
     wx.request({
       url: `${host}/regimen/time/tip`,
@@ -111,6 +110,7 @@ Page({
   },
   onLoad:function(options){
     this.loadList()
+    app.globalData.showGoHome = false
     this.loadBannerList(this)
   },
   showDetail :function(e){

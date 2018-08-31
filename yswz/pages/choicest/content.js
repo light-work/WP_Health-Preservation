@@ -2,7 +2,7 @@
 var WxParse = require('../wxParse/wxParse.js');
 const { host, cloudHost, share, aritleType, mealappid} = require('../../utils/common.js')
 const {postView,postRelay,postLike}  =require('../../utils/increase.js')
-
+const app=getApp()
 Page({
   data: {
     aritleType,
@@ -14,15 +14,20 @@ Page({
     picUrl:'',
     showTip:false,
     showHome:false,
-    recommendList: []
+    recommendList: [],
+    top:0,
+    lastScroll:0
   },
   onLoad: function (options) {
+    if (!app.globalData.showGoHome) {
+      app.globalData.showGoHome = !!options.from
+    }
     const that = this;
     const id=options.id
     this.setData({
       category:options.category,
       id:options.id,
-      showHome:!!options.from
+      showHome: !!app.globalData.showGoHome
     }) 
     postView(id)
     wx.getStorage({
@@ -56,6 +61,9 @@ Page({
 
           })
           WxParse.wxParse('article', 'html', content, that, 5);
+          setTimeout(()=>{
+            that.getScrollOffset()
+          },100)
         }
         wx.hideLoading();
       },
@@ -138,6 +146,7 @@ Page({
   },
   onPageScroll:function(res){
     const s=res.scrollTop
+   // console.info(s)
     if (s > 150 && !this.data.showTip){
       this.setData({
         showTip: true
@@ -147,5 +156,24 @@ Page({
         showTip: false
       })
     }
+    if(s>this.data.top){
+      //console.info('阅读完毕!')
+    }
+    if(Math.abs(s-this.data.lastScroll)>=50 ){
+      app.globalData.setPercent = app.globalData.currentPercent+25
+    }
+  },
+  getScrollOffset: function () {
+    const that=this
+    var query = wx.createSelectorQuery();
+    query.select('#article_end').boundingClientRect()
+    query.exec(function (res) {
+      if(res[0]){
+        console.info(res[0].top)
+        that.setData({
+          top: res[0].top
+        })
+      }
+    })
   }
 })

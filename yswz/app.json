@@ -1,5 +1,6 @@
 {
-  "pages":[
+  "pages": [
+    
     "pages/choicest/list",
     "pages/choicest/content",
     "pages/food/main",
@@ -10,15 +11,18 @@
     "pages/time/list",
     "pages/time/content",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/choicest/redPackets",
+    "pages/redpackets/wallet",
+    "pages/redpackets/rules"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#66ac81",
     "navigationBarTitleText": "专家养生文摘",
-    "navigationBarTextStyle":"#fff"
+    "navigationBarTextStyle": "#fff"
   },
-  "tabBar":{
+  "tabBar": {
     "selectedColor": "#66ac81",
     "list": [
       {

@@ -1,0 +1,15 @@
+<!--components/red-packets.wxml-->
+<button class='gift'  open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{status===0&& !auth}}">
+   <image src='../pages/img/gift.png'></image>
+    <text>领红包</text>
+</button>
+<form class='circleBar' wx:if="{{status===1}}"  bindsubmit="bindViewWallet" report-submit="true">
+  <button formType="submit">
+  <view class="wrap">
+    <view class="top">
+        <canvas class="cir" style=' width:106px; height:106px;' canvas-id="canvasArc"></canvas>
+        <view class="centerWord"><image src='../pages/img/gift.png' mode="widthFix"></image></view>
+    </view>
+  </view>
+  </button>
+</form>

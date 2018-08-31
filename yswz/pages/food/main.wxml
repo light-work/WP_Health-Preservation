@@ -32,7 +32,10 @@
         </button>
         </form>
         <view class='get-more' bindtap='bindViewMoreTap' data-item="{{item}}">
-            <view>查看更多{{item.name}}食物</view>
+             <view>
+                <text>查看更多{{item.name}}食物</text>
+                <image src='../img/more-bt.png'></image>
+            </view>
         </view>
     </view>
 </view>

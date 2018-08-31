@@ -1,6 +1,7 @@
 // pages/news/news.js
 var WxParse = require('../wxParse/wxParse.js');
 const { host, cloudHost, share} =require('../../utils/common.js')
+const app=getApp()
 Page({
     data: {
       cloudHost,
@@ -17,8 +18,11 @@ Page({
       wx.showLoading({
         title: '加载中...',
       });
-      that.setData({
-        showHome: !!options.from
+      if (!app.globalData.showGoHome) {
+        app.globalData.showGoHome = !!options.from
+      }
+      this.setData({
+        showHome: !!app.globalData.showGoHome
       })
       wx.request({
         url: `${host}/food/detail/${id}`,
