@@ -15,7 +15,8 @@ Page({
     showTip:false,
     showHome:false,
     recommendList: [],
-    top:0
+    top:0,
+    lastScroll:0
   },
   onLoad: function (options) {
     if (!app.globalData.showGoHome) {
@@ -157,6 +158,9 @@ Page({
     }
     if(s>this.data.top){
       //console.info('阅读完毕!')
+    }
+    if(Math.abs(s-this.data.lastScroll)>=50 ){
+      app.globalData.setPercent = app.globalData.currentPercent+25
     }
   },
   getScrollOffset: function () {

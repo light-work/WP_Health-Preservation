@@ -126,6 +126,7 @@ Page({
     }
   },
   getUserInfo: function (e) {
+    console.info(e)
     if (e.detail.errMsg === "getUserInfo:ok") {
       app.globalData.userInfo = e.detail.userInfo
       this.setData({

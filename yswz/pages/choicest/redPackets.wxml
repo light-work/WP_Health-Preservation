@@ -1,0 +1,5 @@
+<!--pages/choicest/redpackets.wxml-->
+<!-- <view style='width:0;height:0;overflow:hidden'> -->
+ <view > 
+  <canvas canvas-id="test" style='height:568px;width:320px'></canvas>
+</view>

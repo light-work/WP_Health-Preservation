@@ -1,0 +1,56 @@
+<view class='wallet'>
+    <view class='wallet-box' style='background:;'>
+        <button class='get-cash'>立即提现</button>
+        <view style='padding-top:30rpx;'>当前余额</view>
+        <view>¥<text class='coin-num' style='font-size:70rpx;'>{{walletInfo.money}}</text></view>
+        <view class='clearfix'>
+            <view class='float'>
+                <view>已累计赚取</view>
+                <view>¥<text class='coin-num'>{{walletInfo.cash}}</text></view>
+            </view>
+            <view class='float'>
+                <view>今日金币</view>
+                <view><text class='coin-num'>{{walletInfo.goldCoin}}</text></view>
+            </view>
+        </view>
+        <view class='tip-txt'>
+            <view>通常情况下1600金币≈1元</view>
+            <view>金币转换汇率受每日运营收益影响（上下会有稍稍浮动）</view>
+        </view>
+    </view>
+    <view class='wallet-tab clearfix'>
+        <text class="{{tabType==='goldCoin'?'current':''}}"       bindtap='showGoldDetails' >金币</text>
+        <text class="{{tabType!=='goldCoin'?'current':''}}"  bindtap='showMoneyDetails'>零钱</text>
+    </view>
+    <view class='income'  hidden="{{tabType!=='goldCoin'}}">
+        <view class='in-one clearfix' wx:for="{{goldCoinList}}" wx:key="id">
+            <view >
+                <text>收益来源</text>
+                <text>{{item.type===0?'每日阅读':item.type===1?'转发':item.type===8?'开通红包':item.type===2?'兑换':''}}</text>
+            </view>
+            <view>
+                <text class='coin-num'>+{{item.number}}金币</text>
+                <text>{{item.created}}</text>
+            </view>
+        </view>
+    </view>
+    <view class='income' hidden="{{tabType==='goldCoin'}}">
+        <view class='in-one clearfix' wx:for="{{moneyDetailList}}" wx:key="id">
+            <view >
+                <text>收益来源</text>
+                <text>{{item.type===0?'每日阅读':item.type===1?'转发':item.type===8?'开通红包':item.type===2?'兑换':''}}</text>
+            </view>
+            <view>
+                <text class='coin-num'>+{{item.number}}元</text>
+                <text>{{item.created}}</text>
+            </view>
+        </view>
+    </view>
+    <view class='btn-bottom clearfix'>
+        <button bindtap='goReadEarnDetail'><text>阅读收益</text></button>
+        <button>
+            <image src='../img/coin.png'></image>
+            <text>晒收入赚50金币</text>
+        </button>
+    </view>
+</view>

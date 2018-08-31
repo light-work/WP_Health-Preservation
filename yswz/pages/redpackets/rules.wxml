@@ -1,0 +1,27 @@
+<view class="rules-box">
+    <view class='rule-item rule-top'>
+        <view class='rule-title'>
+            <image src='../img/coin.png'></image>
+            赚钱小技巧
+            <image src='../img/coin.png'></image>
+        </view>
+        <text>阅读资讯每30秒，即可获得最高10金币奖励。</text>
+        <text>请留意“红包-金币”，查看金币变化。</text>
+        <text>金币每天会定点兑换成零钱，零钱可提现至您的微信钱包或支付宝账号内。</text>
+    </view>
+    <view class='rule-item'>
+        <view class='rule-title'>今日阅读收益</view>
+        <view class='income'>
+            <view class='in-one clearfix' wx:for="{{list}}" wx:key="id">
+                <view>
+                    <text>阅读收益</text>
+                    <text>{{item.type===0?'每日阅读':item.type===1?'转发':item.type===8?'开通红包':item.type===2?'兑换':''}}</text>
+                </view>
+                <view>
+                    <text class='coin-num'>+{{item.number}}金币</text>
+                    <text>{{item.created}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
