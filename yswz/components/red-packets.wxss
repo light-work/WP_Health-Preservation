@@ -1,0 +1,90 @@
+/* components/red-packets.wxss */
+.circleBar {
+  /* width: 100%; */
+  height: auto;
+  overflow: hidden;
+  position: fixed;
+  z-index: 999;
+  bottom:150rpx;
+  right:10rpx;
+  background: none;
+  padding:0;
+}
+ 
+.cir {
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 100%;
+}
+ 
+.top {
+  text-align: center;
+}
+ 
+.centerWord {
+  width: 100%;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  text-align: center;
+  color: #fc9b10;
+}
+.centerWord image{
+    width:50px;
+    vertical-align: middle;
+}
+button::after{
+    border:none;
+}
+.gift{
+    font-size:30rpx;
+    width:151rpx;
+    height:180rpx;
+    position: fixed;
+    right:5rpx;
+    bottom:200rpx;
+    z-index: 999;
+    animation: rotate 1s linear infinite;
+    background: none;
+    padding:0;
+    line-height:normal;
+}
+.gift text{
+    color:#f15859;
+    display: block;
+    position: absolute;
+    width:100%;
+    text-align: center;
+    top:47rpx;
+    font-weight: bold;
+    text-shadow: 0 1px #fed140, 1px 0 #fed140, -1px 0 #fed140, 0 -1px #fed140;
+}
+.gift image{
+    width:151rpx;
+    height:180rpx;
+}
+.gift-pop{
+    position: fixed;
+    width:604rpx;
+    height:722rpx;
+    z-index: 999;
+    left:50%;
+    margin-left:-302rpx;
+    top:150rpx;
+    color:#fff;
+}
+.gift-pop image{
+    width:604rpx;
+    height:722rpx;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.gift-pop view{
+    font-size:30rpx;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color:#fff;
+    padding:10rpx 0;
+}

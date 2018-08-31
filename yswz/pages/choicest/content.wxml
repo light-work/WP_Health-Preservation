@@ -15,3 +15,4 @@
 </view>
 </view>
 <go-home home="list" wx:if="{{showHome}}"></go-home>
+<red-packets></red-packets>

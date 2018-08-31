@@ -112,6 +112,9 @@ Page({
     }
   },
   onLoad: function (option) {
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     this.loadData()
     this.loadBannerList(this)
     var that = this
@@ -156,7 +159,6 @@ Page({
   },
   bindItemTap:function(e){
     if (e.detail.formId) {
-      console.info(e.detail.formId)
       sendFormId(e.detail.formId,'food')
     }
     const item = e.currentTarget.dataset.item
@@ -192,8 +194,26 @@ Page({
     }
   },
   onShareAppMessage: function (options) {
-    return share('健康食物', '', '','https://img.jinrongzhushou.com/banner/banner-food2.jpg')
-  },
+    return share('健康食物', (res)=> {
+      if (res.shareTickets) {
+        wx.showToast({
+          title: '分享到群成功',
+        })
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '分享好友无效，请分享群',
+          success: function (res) {
+            if (res.confirm) {
+              //console.log('用户点击确定')
+            } else if (res.cancel) {
+              //console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    }, '','https://img.jinrongzhushou.com/banner/banner-food2.jpg')
+   },
   bindBannerTap:(e)=>{
     const item = e.currentTarget.dataset.item
     if (item) {

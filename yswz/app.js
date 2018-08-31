@@ -2,7 +2,10 @@
 const ald = require('./utils/ald-stat.js')
 const { host, appid } = require('./utils/common.js')
 App({
-  onLaunch: function () {
+  onShow:function(options){
+    console.info(options)
+  },
+  onLaunch: function (options) {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -50,7 +53,10 @@ App({
     userId: null,
     goDetail:false,
     detailId:null,
-    showGoHome:false
+    showGoHome:false,
+    currentPercent:0,
+    setPercent:null,
+    authStatus:null
   },
   getUserId: function () {
     const that = this

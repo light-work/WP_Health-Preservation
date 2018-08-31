@@ -19,7 +19,8 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     isReady: false,
-    showTip: false
+    showTip: false,
+    percent:null
   },
   loadNewsList:function(append){
     wx.showLoading({
@@ -103,29 +104,6 @@ Page({
         isReady: true
       })
     }, 1000)
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
   },
   getUserInfo: function (e) {
     if (e.detail.errMsg === "getUserInfo:ok") {
@@ -211,6 +189,32 @@ Page({
     if (show) {
       this.setData({
         showTip: false
+      })
+    }
+    this.setData({
+      percent:app.globalData.currentPercent||0
+    })
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
       })
     }
   }
