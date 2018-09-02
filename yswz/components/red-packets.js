@@ -17,10 +17,10 @@ Component({
       value:null,
       observer:'_percentChange'
     },
-    auth:{
-      type:Boolean,
-      value:false,
-      observer: '_authChange'
+    walletOpen:{
+      type:Number,
+      value:null,
+      observer: '_walletOpenChange'
     }
   },
 
@@ -32,8 +32,7 @@ Component({
     totalItems:100,
     timer: null, 
     initNum: null,
-    status: null, 
-    userInfo: {}
+    status: null//钱包开通状态
   },
   ready:function(){
     let that = this
@@ -59,81 +58,64 @@ Component({
         return val
       }
     })
-    //监听userid变化,ready事件中无法获取userid
-    let userId = app.globalData.userId
-    if (userId){
-      wx.request({
-        url: `${host}/assets/status/${userId}`,
-        success: ({ data }) => {
-          if (data.errorCode === 0 && data.errorMsg === 'ok') {
-            app.globalData.authStatus=data.status
-            that.setData({
-              status: data.status
-            })
-            //status=1(开通钱包)
-            if (data.status) {
-              that.initCycle()
-            }
-          }
-        }
-      })
-    }else{
-      Object.defineProperty(app.globalData, 'userId', {
-        configurable: true,
-        enumerable: true,
-        set: function (value) {
-          wx.request({
-            url: `${host}/assets/status/${value}`,
-            success: ({ data }) => {
-              if (data.errorCode === 0 && data.errorMsg === 'ok') {
-                app.globalData.authStatus = data.status
-                that.setData({
-                  status: data.status
-                })
-              }
-              //status=1(开通钱包)
-              if(data.status){
-                that.initCycle()
-              }
-            }
-          })
-          userId = value
-        },
-        get: function () {
-          return userId
-        }
+    if (app.globalData.walletOpen){
+      that.setData({
+        status: app.globalData.walletOpen
       })
     }
-    //监听userinfo
-    if (app.globalData.userInfo) {
-      that.setData({
-        userInfo: app.globalData.userInfo,
-        auth: true
-      })
-    } else if (this.data.canIUse) {
-      app.userInfoReadyCallback = res => {
-        that.setData({
-          userInfo: res.userInfo,
-          auth: true
+    
+    if (that.data.status===1){//status=1的时候代表钱包已经开通,不重复验证status
+      that.initCycle()
+    } else { //status!=1 监听userid变化,ready事件中无法获取异步的userid,
+      let userId = app.globalData.userId
+      if (userId) {
+        that.getWalletStatus(userId, (data) => {
+          //status=1(开通钱包)
+          if (data.status) {
+            that.initCycle()
+          }
+        }, 'user-id is not null')
+      } else {
+        Object.defineProperty(app.globalData, 'userId', {
+          configurable: true,
+          enumerable: true,
+          set: function (value) {
+            that.getWalletStatus(value, (data) => {
+              //status=1(开通钱包)
+              if (data.status) {
+                that.initCycle()
+              }
+            }, 'user-id is  null')
+            userId = value
+          },
+          get: function () {
+            return userId
+          }
         })
       }
-    } else {
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          that.setData({
-            userInfo: res.userInfo,
-            auth: true
-          })
-        }
-      })
     }
   },
   detached:function(){
     clearInterval(this.data.timer)
-    console.info('detached percent='+app.globalData.currentPercent)
   },
   methods: {
+    getWalletStatus: function (userId,callback, where){
+      const that=this
+      wx.request({
+        url: `${host}/assets/status/${userId}`,
+        success: ({ data }) => {
+          if (data.errorCode === 0 && data.errorMsg === 'ok') {
+            app.globalData.walletOpen = data.status
+            that.setData({
+              status: data.status
+            })
+            if(typeof callback==='function'){
+              callback(data)
+            }
+          }
+        }
+      })
+    },
     initCycle:function(){
       let that = this
       if (that.data.percent === null) {//非tab页面
@@ -247,10 +229,6 @@ Component({
     getUserInfo: function (e) {
       const that=this
       if (e.detail.errMsg === "getUserInfo:ok") {
-        that.setData({
-          userInfo: e.detail.userInfo,
-          auth: true
-        })
         wx.request({
           url: `${host}/assets/open`,
           method: 'POST',
@@ -262,7 +240,7 @@ Component({
           },
           success:  ({data})=> {
             if (data.errorCode === 0 && data.errorMsg === 'ok') {
-              app.globalData.authStatus = data.status
+              app.globalData.walletOpen = 1
               app.globalData.userInfo = e.detail.userInfo
               that.setData({
                 status: 1,
@@ -281,14 +259,14 @@ Component({
         })
       }
     },
-    _authChange:function(nV,oV){
-      console.info(nV)
-      this.setData({
-        status: nV?1:0
-      })
+    _walletOpenChange:function(nV,oV){
+      const that=this
+      if (nV===1 && that.data.status!==1){
+        console.info('homepage======' + nV)
+        that.getWalletStatus(app.globalData.userId,null, 'walletopen change')
+      }
     },
     bindViewWallet:function(e){
-      console.info(111)
       if (e.detail.formId) {
         sendFormId(e.detail.formId, 'redpackets')
       }

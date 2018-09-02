@@ -20,7 +20,9 @@ Page({
     hasUserInfo: false,
     isReady: false,
     showTip: false,
-    percent:null
+    percent:null,
+    walletStatus:null,
+    windowHeight: app.globalData.height
   },
   loadNewsList:function(append){
     wx.showLoading({
@@ -125,7 +127,7 @@ Page({
       })
     }
   },
-  onPullDownRefresh:function(options){
+  pullDownRefresh:function(options){
     this.setData({
       page: 0
     })
@@ -134,7 +136,7 @@ Page({
     wx.hideNavigationBarLoading();
     wx.stopPullDownRefresh();
   },
-  onReachBottom:function(options){
+  reachBottom:function(options){
     this.setData({
       page: this.data.page+1
     })
@@ -192,30 +194,8 @@ Page({
       })
     }
     this.setData({
-      percent:app.globalData.currentPercent||0
+      percent:app.globalData.currentPercent||0,
+      walletStatus: app.globalData.walletOpen||0
     })
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
   }
 })
