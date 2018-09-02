@@ -1,6 +1,6 @@
 <!--pages/news/news.wxml-->
 <import src="../wxParse/wxParse.wxml"/>
-
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;white-space:nowrap;' scroll-y bindscroll="pageScroll">
 <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
    <view id="article_end"></view>
 <recommend-list list="{{recommendList}}" articleType="{{aritleType}}" title="热门推荐"></recommend-list>
@@ -14,5 +14,6 @@
   </button>
 </view>
 </view>
+</scroll-view>
 <go-home home="list" wx:if="{{showHome}}"></go-home>
 <red-packets></red-packets>
