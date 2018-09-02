@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/choicest/list",
     "pages/choicest/content",
     "pages/food/main",
@@ -14,7 +13,8 @@
     "pages/logs/logs",
     "pages/choicest/redPackets",
     "pages/redpackets/wallet",
-    "pages/redpackets/rules"
+    "pages/redpackets/rules",
+        "pages/redpackets/test"
   ],
   "window": {
     "backgroundTextStyle": "light",

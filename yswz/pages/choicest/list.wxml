@@ -2,11 +2,12 @@
 <!-- <view class="add-fork">
     <image src='../img/icon-add.png'></image>
 </view> -->
-<view class="take-app" wx:if="{{isReady && !hasUserInfo}}">
+<!-- <view class="take-app" wx:if="{{isReady && !hasUserInfo}}">
     <text>关注我们，每天都能收到健康知识</text>
     <button wx:if="{{!hasUserInfo && canIUse}}"  open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击关注</button>
     <view wx:else>请升级微信版本</view>
-</view>
+</view> -->
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;white-space:nowrap;' scroll-y bindscrolltoupper="pullDownRefresh" bindscrolltolower="reachBottom">
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="id">
         <swiper-item  data-item="{{item}}" bindtap="bannerItemTap">
@@ -45,9 +46,9 @@ wx:for="{{newList}}" wx:key="*this" data-item='{{item}}'>
   </view>
 </view>
 
-
-<!-- <view class='float-txt' wx:if="{{showTip}}">
+</scroll-view>
+<view class='float-txt' wx:if="{{showTip}}">
     <image src='../img/off.png' bindtap='closeTip'></image>
     <view>添加到桌面</view>
-</view> -->
-<red-packets percent="{{percent}}" auth="{{hasUserInfo}}"></red-packets>
+</view>
+<red-packets percent="{{percent}}" wallet-open="{{walletStatus}}"></red-packets>

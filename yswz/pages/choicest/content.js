@@ -16,7 +16,8 @@ Page({
     showHome:false,
     recommendList: [],
     top:0,
-    lastScroll:0
+    lastScroll:0,
+    windowHeight: app.globalData.height
   },
   onLoad: function (options) {
     if (!app.globalData.showGoHome) {
@@ -144,9 +145,8 @@ Page({
     this.loadRecommendList(this, true)
     wx.hideNavigationBarLoading();
   },
-  onPageScroll:function(res){
-    const s=res.scrollTop
-   // console.info(s)
+  pageScroll:function(res){
+    const s = res.scrollTop || res.detail.scrollTop
     if (s > 150 && !this.data.showTip){
       this.setData({
         showTip: true

@@ -6,11 +6,16 @@ App({
     console.info(options)
   },
   onLaunch: function (options) {
+    const that=this
+    wx.getSystemInfo({
+      success: function (res) {
+        that.globalData.height = res.windowHeight
+      }
+    })
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    const that = this
     wx.checkSession({
       success: function () {
         const userid = wx.getStorageSync("app_user_id")
@@ -56,7 +61,8 @@ App({
     showGoHome:false,
     currentPercent:0,
     setPercent:null,
-    authStatus:null
+    walletOpen:null,
+    height:null
   },
   getUserId: function () {
     const that = this
