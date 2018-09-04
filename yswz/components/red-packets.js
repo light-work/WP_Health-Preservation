@@ -375,8 +375,12 @@ Component({
       })
     },
     _walletOpenChange:function(nV,oV){
+      this.setData({
+        showOpen: false
+      })
       const that=this
       if (nV===1 && that.data.status!==1){
+        
         that.getWalletStatus(app.globalData.userId,null, 'walletopen change')
       }
     },
