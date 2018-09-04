@@ -3,15 +3,14 @@ const ald = require('./utils/ald-stat.js')
 const { host, appid } = require('./utils/common.js')
 App({
   onShow:function(options){
-    console.info(options)
+    //console.info(options)
   },
   onLaunch: function (options) {
     const that=this
-    wx.getSystemInfo({
-      success: function (res) {
-        that.globalData.height = res.windowHeight
-      }
-    })
+    if (wx.getSystemInfo){
+      that.globalData.height = wx.getSystemInfoSync().windowHeight
+    }
+    
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -58,11 +57,13 @@ App({
     userId: null,
     goDetail:false,
     detailId:null,
-    showGoHome:false,
     currentPercent:0,
     setPercent:null,
     walletOpen:null,
-    height:null
+    height:null,
+    showRedPackets:null,
+    exhangeRate:null,
+    customerId:null
   },
   getUserId: function () {
     const that = this

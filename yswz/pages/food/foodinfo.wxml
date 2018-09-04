@@ -1,4 +1,5 @@
 <import src="../wxParse/wxParse.wxml"/>
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y bindscroll="pageScroll" bindscrolltolower="reachBottom">
 <view class='food-content'>
     <view class='food-title'>
         <text class='food-name'>{{foodInfo.name}}</text>
@@ -31,6 +32,6 @@
       </button>
     </view>
 </view>
-
-<go-home home="food" wx:if="{{showHome}}"></go-home>
+</scroll-view>
+<red-packets></red-packets>
 

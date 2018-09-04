@@ -3,7 +3,10 @@ const app=getApp()
 Page({
   data:{
     cloudHost,
-    list:[]
+    list: [],
+    percent: null,
+    walletStatus: null,
+    windowHeight: app.globalData.height
   },
   loadList:(that)=>{
     wx.showLoading({
@@ -18,26 +21,37 @@ Page({
             list: data.list
           })
         }
-        wx.hideLoading()
       },
-      fail: function () {
+      complete: function () {
         wx.hideLoading()
       }
     })
   },
   onLoad:function(options){
-    app.globalData.showGoHome = false
+    //forward 
+    if (options.from === 'share') {
+      const id = options.id
+      wx.navigateTo({
+        url: `../time/content?id=${id}`,
+      })
+    }
     this.loadList(this)
   },
   bindItemTap: function (e) {
     const item = e.currentTarget.dataset.item
     if(item){
       wx.navigateTo({
-        url: '../time/content?id='+item.id,
+        url: `../time/content?id=${item.id}`
       })
     }
   },
   onShareAppMessage: function (options) {
     return share('12时辰养生时钟', '', '', 'https://img.jinrongzhushou.com/banner/banner-regimen.png')
+  },
+  onShow:function(options){
+    this.setData({
+      percent: app.globalData.currentPercent || 0,
+      walletStatus: app.globalData.walletOpen || 0
+    })
   }
 })

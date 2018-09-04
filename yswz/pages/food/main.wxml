@@ -1,9 +1,11 @@
 
-<view class="take-app" wx:if="{{isReady && !hasUserInfo}}">
+<!-- <view class="take-app" wx:if="{{isReady && !hasUserInfo}}">
     <text>关注我们，每天都能收到健康知识</text>
     <button wx:if="{{!hasUserInfo && canIUse}}"  open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击关注</button>
     <view wx:else>请升级微信版本</view>
-</view>
+</view> -->
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y bindscrolltoupper="pullDownRefresh"
+    bindscroll="pageScroll" bindscrolltolower="reachBottom">
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="id">
         <swiper-item  data-item="{{item}}" bindtap="bindBannerTap">
@@ -44,3 +46,5 @@
     <image src='../img/off.png' bindtap='closeTip'></image>
     <view>添加到桌面</view>
 </view>
+</scroll-view>
+<red-packets percent="{{percent}}" wallet-open="{{walletStatus}}"></red-packets>

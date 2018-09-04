@@ -14,11 +14,10 @@ Page({
     duration: 500,
     page:0,
     list: [],
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    userInfo: {},
-    hasUserInfo: false,
-    isReady: false,
-    showTip:false
+    showTip:false,
+    percent: null,
+    walletStatus: null,
+    windowHeight: app.globalData.height
   },
   loadData:function(append){
     const that=this
@@ -27,7 +26,7 @@ Page({
     })
     //load top list
     wx.request({
-      url: host + '/food/main',
+      url: `${host}/food/main`,
       data: {
         start: that.data.page * 5,
         limit: 5
@@ -102,6 +101,7 @@ Page({
         showTip: false
       })
     }
+    //banner forward
     if (app.globalData.goDetail) {
       const id = app.globalData.detailId
       app.globalData.detailId = null
@@ -110,43 +110,28 @@ Page({
         url: `../food/foodinfo?id=${id}`,
       })
     }
-  },
-  onLoad: function (option) {
-    wx.showShareMenu({
-      withShareTicket: true
+    //redpackets
+    this.setData({
+      percent: app.globalData.currentPercent || 0,
+      walletStatus: app.globalData.walletOpen || 0
     })
-    this.loadData()
-    this.loadBannerList(this)
-    var that = this
-    setTimeout(() => {
-      that.setData({
-        isReady: true
-      })
-    }, 1000)
-    app.globalData.showGoHome = false
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+  },
+  onLoad: function (options) {
+    if (options.from === 'share') {
+      const id = options.id
+      if (options.target ==='foodinfo'){
+        wx.navigateTo({
+          url: `../food/foodinfo?id=${id}`,
+        })
+      } else if (options.target ==='moreList'){
+        const title=options.title
+        wx.navigateTo({
+          url: `../food/moreList?id=${id}&title=${title}`,
         })
       }
-    } else {
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
     }
+    this.loadData()
+    this.loadBannerList(this)
   },
   getUserInfo: function (e) {
     if (e.detail.errMsg === "getUserInfo:ok") {
@@ -164,11 +149,11 @@ Page({
     const item = e.currentTarget.dataset.item
     if (item) {
       wx.navigateTo({
-        url: '../food/foodinfo?id=' + item.id
+        url: `../food/foodinfo?id=${item.id}` 
       })
     }
   },
-  onPullDownRefresh: function (options) {
+  pullDownRefresh: function (options) {
     this.setData({
       page: 0
     })
@@ -177,7 +162,7 @@ Page({
     wx.hideNavigationBarLoading();
     wx.stopPullDownRefresh();
   },
-  onReachBottom: function (options) {
+  reachBottom: function (options) {
     this.setData({
       page: this.data.page + 1
     })
@@ -194,25 +179,7 @@ Page({
     }
   },
   onShareAppMessage: function (options) {
-    return share('健康食物', (res)=> {
-      if (res.shareTickets) {
-        wx.showToast({
-          title: '分享到群成功',
-        })
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '分享好友无效，请分享群',
-          success: function (res) {
-            if (res.confirm) {
-              //console.log('用户点击确定')
-            } else if (res.cancel) {
-              //console.log('用户点击取消')
-            }
-          }
-        })
-      }
-    }, '','https://img.jinrongzhushou.com/banner/banner-food2.jpg')
+    return share('健康食物', null, null,'https://img.jinrongzhushou.com/banner/banner-food2.jpg')
    },
   bindBannerTap:(e)=>{
     const item = e.currentTarget.dataset.item
@@ -232,8 +199,8 @@ Page({
       }
     }
   },
-  onPageScroll: function (res) {
-    const s = res.scrollTop
+  pageScroll: function (res) {
+    const s = res.scrollTop || res.detail.scrollTop
     const mobileInfo = wx.getSystemInfoSync();
     const isIOS = mobileInfo.system && mobileInfo.system.indexOf('iOS') > -1
     const show = wx.getStorageSync('showTip')

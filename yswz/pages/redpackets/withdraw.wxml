@@ -1,0 +1,37 @@
+<scroll-view style='height:{{windowHeight}}px;overflow:scroll;' scroll-y>
+    <view class='rule-container'>
+        <view class='clearfix'>
+            <view class='code-box' bindtap='bindQRCodePreview'>
+                <image src='{{walletInfo.QRCode}}'></image>
+            </view>
+            <view style='color:#333;font-size:28rpx;'>提现金额会在三个工作日内入账到这个收款码<text></text></view>
+        </view>
+        <view class='money'>
+            <view>
+                <text>我的零钱：</text>
+                <text>¥{{walletInfo.money}}</text>
+            </view>
+            <view class="section">
+                <text class="section__title">选择提现金额：</text>
+                <picker class='choose' bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+                    <text class="picker">{{array[index]}}</text>
+                </picker>
+            </view>
+        </view>
+        <button size='' type='primary' bindtap='bindFormSubmit'>确认提现</button>
+        <view class='step-box'>
+            <view class='rule-item rule-top'>
+                <view class='rule-title'>
+                    <image src='../img/coin.png'></image>
+                    提现说明
+                    <image src='../img/coin.png'></image>
+                </view>
+                <text>阅读资讯每30秒，即可获得最高10金币奖励。</text>
+                <text>观看视频每到30-60秒，即可获得最高5金币奖励。</text>
+                <text>请留意“我的钱包-金币”，查看金币变化。</text>
+                <text>金币每天会定点兑换成零钱，零钱可提现至您的微信钱包或支付宝账号内。</text>
+                <view style='color:#fe5147;font-size:28rpx;margin-top:20rpx;'>注：提现问题咨询可以加专属客服微信：{{customerId}}</view>
+            </view>
+        </view>
+    </view>
+</scroll-view>

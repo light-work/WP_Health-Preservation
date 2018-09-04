@@ -13,7 +13,10 @@ Page({
     duration: 500,
     page: 0,
     list: [],
-    showTip: false
+    showTip: false,
+    percent: null,
+    walletStatus: null,
+    windowHeight: app.globalData.height
   },
   loadList:function(append){
     wx.showLoading({
@@ -103,10 +106,21 @@ Page({
         url: `../foodConflict/content?id=${id}`,
       })
     }
+    //red-packets
+    this.setData({
+      percent: app.globalData.currentPercent || 0,
+      walletStatus: app.globalData.walletOpen || 0
+    })
   },
   onLoad:function(options){
+    //forward 
+    if (options.from === 'share') {
+      const id = options.id
+      wx.navigateTo({
+        url: `../foodConflict/content?id=${id}`,
+      })
+    }
     this.loadList()
-    app.globalData.showGoHome = false
     this.loadBannerList(this)
   },
   showDetail :function(e){
@@ -116,11 +130,11 @@ Page({
     const item = e.currentTarget.dataset.item
     if(item){
       wx.navigateTo({
-        url: '../foodConflict/content?id='+item.id,
+        url: `../foodConflict/content?id=${item.id}`,
       })
     }
   },
-  onPullDownRefresh: function (options) {
+  pullDownRefresh: function (options) {
     this.setData({
       page: 0
     })
@@ -129,7 +143,7 @@ Page({
     wx.hideNavigationBarLoading();
     wx.stopPullDownRefresh();
   },
-  onReachBottom: function (options) {
+  reachBottom: function (options) {
     this.setData({
       page: this.data.page + 1
     })
@@ -158,8 +172,8 @@ Page({
       }
     }
   },
-  onPageScroll: function (res) {
-    const s = res.scrollTop
+  pageScroll: function (res) {
+    const s = res.scrollTop || res.detail.scrollTop
     const mobileInfo = wx.getSystemInfoSync();
     const isIOS = mobileInfo.system && mobileInfo.system.indexOf('iOS') > -1
     const show = wx.getStorageSync('showTip')

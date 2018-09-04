@@ -1,6 +1,6 @@
 // pages/news/news.js
 var WxParse = require('../wxParse/wxParse.js');
-const { host, cloudHost, share, mealAppid, infoAppid} =require('../../utils/common.js')
+const { host, cloudHost, shareContent} =require('../../utils/common.js')
 const app = getApp()
 Page({
   data: {
@@ -10,50 +10,69 @@ Page({
     showTip:false,
     articleArray:[],
     fitCount:0,
-    showHome:false,
-    id:''
+    id:'',
+    percent: null,
+    hide:false,
+    showTime:0,
+    lastScroll: 0,
+    windowHeight: 300
   },
   loadRecommendList:(that,append)=>{
-      const id = that.data.id
-      if (append) {
-        wx.showLoading({
-          title: '加载更多...',
-        })
-      }
-      wx.request({
-        url:`${host}/food/recommend/${id}`,
-        success: function ({ data }) {
-          if (data.errorCode === 0 && data.errorMsg === 'ok') {
-            if (append) {
-              that.setData({
-                articleArray: that.data.articleArray.concat(data.articleArray)
-              })
-            } else {
-              that.setData({
-                articleArray: data.articleArray
-              })
-            }
-          }
+    const id = that.data.id
+    if (append) {
+      wx.showLoading({
+        title: '加载更多...',
+      })
+    }
+    wx.request({
+      url:`${host}/food/recommend/${id}`,
+      success: function ({ data }) {
+        if (data.errorCode === 0 && data.errorMsg === 'ok') {
           if (append) {
-            wx.hideLoading()
-          }
-        },
-        fail: function () {
-          if (append) {
-            wx.hideLoading()
+            that.setData({
+              articleArray: that.data.articleArray.concat(data.articleArray)
+            })
+          } else {
+            that.setData({
+              articleArray: data.articleArray
+            })
           }
         }
+        if (append) {
+          wx.hideLoading()
+        }
+      },
+      fail: function () {
+        if (append) {
+          wx.hideLoading()
+        }
+      }
+    })
+  },
+  onShow:function(options){
+    //redpackets
+    if (app.globalData.currentPercent){
+      this.setData({
+        hide: false
       })
+    }
+  },
+  onHide:function(options){
+    this.setData({
+      hide: true
+    })
   },
   onLoad: function(options) {
+    const systeminfo = wx.getSystemInfoSync()
+    if (wx.getSystemInfoSync()) {
+      this.setData({
+        windowHeight: systeminfo.windowHeight
+      })
+    }
     const that = this;
     const id = options.id
-    if (!app.globalData.showGoHome) {
-      app.globalData.showGoHome = !!options.from
-    }
-    this.setData({
-      id: id,
-      showHome: !!app.globalData.showGoHome
+    that.setData({
+      id: id
     })
     wx.showLoading({
       title: '加载中...',
@@ -80,16 +99,17 @@ Page({
     this.loadRecommendList(this)
   },
   foodConflictTap : function(e){
-      wx.navigateTo({
-        url: '../foodConflict/content?id=' + this.data.foodInfo.id,
-      })
+    wx.redirectTo({
+      url: '../foodConflict/content?id=' + this.data.foodInfo.id,
+    })
   },
   onShareAppMessage: function (ops) {
     const foodInfo = this.data.foodInfo
-    return share(foodInfo.name + '的功效', '', '', foodInfo.picUrl)
+    return shareContent(foodInfo.name + '的功效', null, null,
+     foodInfo.picUrl,'pages/food/main',{target:'foodinfo'})
   },
-  onPageScroll: function (res) {
-    const s = res.scrollTop
+  pageScroll: function (res) {
+    const s = res.scrollTop || res.detail.scrollTop
     if (s > 150 && !this.data.showTip) {
       this.setData({
         showTip: true
@@ -99,8 +119,11 @@ Page({
         showTip: false
       })
     }
+    if (Math.abs(s - this.data.lastScroll) >= 50) {
+      app.globalData.setPercent = app.globalData.currentPercent + 25
+    }
   },
-  onReachBottom: function (options) {
+  reachBottom: function (options) {
     this.setData({
       page: this.data.page + 1
     })

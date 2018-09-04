@@ -11,10 +11,11 @@
     "pages/time/content",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/choicest/redPackets",
+    "pages/repackets/shareRedPackets",
     "pages/redpackets/wallet",
     "pages/redpackets/rules",
-        "pages/redpackets/test"
+    "pages/redpackets/withdraw",
+    "pages/redpackets/uploadQRCode"
   ],
   "window": {
     "backgroundTextStyle": "light",

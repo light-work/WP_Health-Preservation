@@ -1,0 +1,11 @@
+.rule-container{padding:30rpx;background:#fff;}
+.code-box{width:300rpx;height:300rpx;background:#ccc;margin:20rpx auto;}
+.code-box image{width:300rpx;height:300rpx;}
+.step-box{padding-top:30rpx;}
+.step-title{font-size:32rpx;color:#444;padding:20rpx 0;font-weight: bold;}
+.step-box image{display:block;margin:20rpx auto;width:70%;}
+
+
+
+
+
