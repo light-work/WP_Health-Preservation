@@ -39,7 +39,7 @@ Page({
         if (data.errorCode === 0 && data.errorMsg === 'ok') {  
           if(append){
             that.setData({
-              newList: that.data.newList.concat(data.list) 
+              newList: that.data.newList.concat(data.list)
             })
           }else{
             that.setData({
@@ -51,6 +51,9 @@ Page({
       },
       fail: function (r) {
         wx.hideLoading()
+        that.setData({
+          refreshing: false
+        })
       }
     })
   },
@@ -96,11 +99,18 @@ Page({
       }
     })
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    //forward 
+    if(options.from==='share'){
+      const id=options.id
+      const category = options.category
+      wx.navigateTo({
+        url: `../choicest/content?id=${id}&category=${category}`,
+      })
+    }
     this.loadNewsList()
     this.loadBannderList(this)
     var that=this
-    app.globalData.showGoHome=false
     setTimeout(() => {
       that.setData({
         isReady: true
@@ -128,8 +138,9 @@ Page({
     }
   },
   pullDownRefresh:function(options){
+    console.info(111)
     this.setData({
-      page: 0
+      page: 0,
     })
     wx.showNavigationBarLoading();
     this.loadNewsList()
@@ -147,8 +158,8 @@ Page({
   onShareAppMessage: function (options) {
     return share('专家养生文摘', '', '', 'https://img.jinrongzhushou.com/banner/banner-Information3.png')
   },
-  onPageScroll: function (res) {
-    const s = res.scrollTop
+  pageScroll: function (res) {
+    const s = res.scrollTop || res.detail.scrollTop
     const mobileInfo = wx.getSystemInfoSync();
     const isIOS = mobileInfo.system && mobileInfo.system.indexOf('iOS') > -1
     const show = wx.getStorageSync('showTip')

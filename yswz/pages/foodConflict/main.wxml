@@ -1,4 +1,5 @@
 <!--foodlist.wxml-->
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y bindscroll="pageScroll" bindscrolltolower="reachBottom">
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="id">
         <swiper-item  data-item="{{item}}" bindtap="bindBannerTap">
@@ -34,3 +35,5 @@
     <image src='../img/off.png' bindtap='closeTip'></image>
     <view>添加到桌面</view>
 </view>
+</scroll-view>
+<red-packets percent="{{percent}}" wallet-open="{{walletStatus}}"></red-packets>

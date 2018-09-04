@@ -1,4 +1,7 @@
 {
   "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "red-packets": "/components/red-packets"
+  }
 }

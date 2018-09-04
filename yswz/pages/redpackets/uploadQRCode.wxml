@@ -1,0 +1,16 @@
+<scroll-view style='height:{{windowHeight}}px;overflow:scroll;' scroll-y>
+    <view class='rule-container'>
+        <!-- <view class='code-box'></view> -->
+        <button style="margin-top:20px;" type='primary' bindtap='uploadQRCode'>上传收款码</button>
+        <view style='color:#fe5147;font-size:28rpx;margin-top:20rpx;'>注：提现问题咨询可以加专属客服微信：{{customerId}}</view>
+        <view class='step-box'>
+            <view class='step-title'>第一步：点击微信右上角“+”，选择“收付款”</view>
+            <view><image src='../img/step-1.jpg' mode='widthFix' bindtap='previewStepImg' data-item='1'></image></view>
+            <view class='step-title' >第二步：选择“二维码收款”并点击</view>
+            <view><image src='../img/step-2.jpg' mode='widthFix'bindtap='previewStepImg' data-item='2'></image></view>
+            <view class='step-title'>第三步：选择“保存收款码”并点击</view>
+            <view><image src='../img/step-3.jpg' mode='widthFix' bindtap='previewStepImg' data-item='3'></image></view>
+            <view class='step-title'>第四步：在相册找到你的“微信收款码”上传到后台</view>
+        </view>
+    </view>
+</scroll-view>

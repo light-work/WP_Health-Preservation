@@ -1,11 +1,10 @@
 // pages/news/news.js
 var WxParse = require('../wxParse/wxParse.js');
-const { host, cloudHost, share, aritleType, mealappid} = require('../../utils/common.js')
+const { host, cloudHost, shareContent } = require('../../utils/common.js')
 const {postView,postRelay,postLike}  =require('../../utils/increase.js')
 const app=getApp()
 Page({
   data: {
-    aritleType,
     category: '',
     id: '',
     title: '',
@@ -13,22 +12,24 @@ Page({
     page: 0,
     picUrl:'',
     showTip:false,
-    showHome:false,
     recommendList: [],
     top:0,
     lastScroll:0,
-    windowHeight: app.globalData.height
+    windowHeight: 300
   },
   onLoad: function (options) {
-    if (!app.globalData.showGoHome) {
-      app.globalData.showGoHome = !!options.from
+    const systeminfo=wx.getSystemInfoSync()
+    if (wx.getSystemInfoSync()){
+      this.setData({
+        windowHeight:systeminfo.windowHeight
+      })
     }
+    
     const that = this;
     const id=options.id
     this.setData({
       category:options.category,
-      id:options.id,
-      showHome: !!app.globalData.showGoHome
+      id:options.id
     }) 
     postView(id)
     wx.getStorage({
@@ -62,9 +63,9 @@ Page({
 
           })
           WxParse.wxParse('article', 'html', content, that, 5);
-          setTimeout(()=>{
-            that.getScrollOffset()
-          },100)
+          // setTimeout(()=>{
+          //   that.getScrollOffset()
+          // },100)
         }
         wx.hideLoading();
       },
@@ -114,9 +115,9 @@ Page({
   },
   onShareAppMessage: function (ops) {
     const that=this
-    return share(that.data.title,(res)=>{
+    return shareContent(that.data.title,(res)=>{
       postRelay(that.data.id)
-    }, '', that.data.picUrl)
+    }, '', that.data.picUrl,'pages/choicest/list')
   },
   bindTapUpvote:function(e){
     const that=this
@@ -137,7 +138,7 @@ Page({
     })
   },
 
-  onReachBottom: function (options) {
+  reachBottom: function (options) {
     this.setData({
       page: this.data.page + 1
     })

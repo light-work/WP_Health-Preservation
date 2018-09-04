@@ -1,13 +1,15 @@
 // pages/food/food.js
-const { host, share} = require('../../utils/common.js')
+const { host, shareContent} = require('../../utils/common.js')
 const app=getApp()
 Page({
   data: {
     page: 0,
     id:'',
     title:'',
-    list :[],
-    showHome:false
+    list: [],
+    percent: null,
+    walletStatus: null,
+    windowHeight: 300
   },
   loadList:(that,append)=>{
     wx.showLoading({
@@ -47,28 +49,28 @@ Page({
       })
     }
   },
-  onLoad:function(option){
-    if (!app.globalData.showGoHome) {
-      app.globalData.showGoHome = !!option.from
-    }
-     this.setData({
-       id:option.id,
-       title:option.title,
-       showHome: app.globalData.showGoHome
-     })
-    
-    this.loadList(this)
-  },
-  onPullDownRefresh: function (options) {
+  onShow:function(options){
+    //redpackets
     this.setData({
-      page: 0
+      percent: app.globalData.currentPercent || 0,
+      walletStatus: app.globalData.walletOpen || 0
     })
-    wx.showNavigationBarLoading();
-    this.loadList(this)
-    wx.hideNavigationBarLoading();
-    wx.stopPullDownRefresh();
   },
-  onReachBottom: function (options) {
+  onLoad:function(option){
+    this.setData({
+      id:option.id,
+      title:option.title
+    })
+    this.loadList(this)
+    
+    const systeminfo = wx.getSystemInfoSync()
+    if (wx.getSystemInfoSync()) {
+      this.setData({
+        windowHeight: systeminfo.windowHeight
+      })
+    }
+  },
+  reachBottom: function (options) {
     this.setData({
       page: this.data.page + 1
     })
@@ -77,6 +79,7 @@ Page({
     wx.hideNavigationBarLoading();
   },
   onShareAppMessage: function (options) {
-    return share('养生食物', '', '', 'https://img.jinrongzhushou.com/banner/banner-food2.jpg')
+    return shareContent('养生食物', '', '', 'https://img.jinrongzhushou.com/banner/banner-food2.jpg', 
+      'pages/food/main', { target: 'moreList' })
   }
 })

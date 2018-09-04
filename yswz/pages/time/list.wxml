@@ -1,4 +1,5 @@
-<view>
+
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y>
     <view class='time-clock clearfix' bindtap='bindItemTap' wx:for="{{list}}" wx:key="id" data-item="{{item}}">
         <view class='time-left'>
             <text>{{item.timeName}}</text>
@@ -18,4 +19,5 @@
             </view>
         </view>
     </view>
-</view>
+</scroll-view>
+<red-packets percent="{{percent}}" wallet-open="{{walletStatus}}"></red-packets>
