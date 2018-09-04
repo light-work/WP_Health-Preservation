@@ -46,7 +46,8 @@ Page({
     }
   },
   onShareAppMessage: function (options) {
-    return share('12时辰养生时钟', '', '', 'https://img.jinrongzhushou.com/banner/banner-regimen.png')
+    const title = app.globalData.shareTab4 || '12时辰养生时钟'
+    return share(title, null, null, 'https://img.jinrongzhushou.com/banner/banner-regimen.png')
   },
   onShow:function(options){
     this.setData({

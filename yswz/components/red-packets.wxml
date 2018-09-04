@@ -23,7 +23,7 @@
     <image src='../pages/img/get-coin.png' mode='widthFix'></image>
     <text>{{addGoldCoin}}金币</text>
 </view>
-<view class='coin-tip' hidden='{{!showTip || !goldCoin || !moneyTip}}'>
+<view class='coin-tip' hidden='{{!showTip || !goldCoin || !moneyTip || !openMoney}}'>
     <image src='../pages/img/coin.png' class='coin'></image>
     <text class='txt'>{{moneyTip}} </text>
     <image src='../pages/img/off.png' class='off' bindtap='closeTip'></image>
