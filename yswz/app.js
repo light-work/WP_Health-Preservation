@@ -63,7 +63,12 @@ App({
     height:null,
     showRedPackets:null,
     exhangeRate:null,
-    customerId:null
+    customerId:null,
+
+    redPacketsTip: null,
+    showRedPacketsTip:true,
+    todayCoin:null,
+    ruleTip:null
   },
   getUserId: function () {
     const that = this
