@@ -1,4 +1,5 @@
 <!--foodlist.wxml-->
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y bindscrolltolower="reachBottom">
 <view class='tz-title'>{{title}}</view>
 <view class='food-list'>
     <view class='food-item clearfix' bindtap='showDetail' wx:for="{{list}}" wx:key="*this" data-item='{{item}}' bindtap='bindItemTap'>
@@ -24,4 +25,5 @@
         </view>
     </view>
 </view>
-<go-home home="food" wx:if="{{showHome}}"></go-home>
+</scroll-view>
+<red-packets percent="{{percent}}" wallet-open="{{walletStatus}}"></red-packets>

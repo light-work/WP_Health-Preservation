@@ -6,7 +6,8 @@ Page({
     walletInfo:null,
     goldCoinList:null,
     moneyDetailList:null,
-    tabType:'goldCoin'
+    tabType:'goldCoin',
+    exchangeRate:null
   },
   loadCoinList:function(){
     wx.request({
@@ -22,6 +23,9 @@ Page({
   },
   onLoad: function (options) {
     this.loadCoinList()
+    this.setData({
+      exchangeRate: app.globalData.exchangeRate||''
+    })
   },
   onShow:function(options){
     wx.showLoading({
@@ -75,5 +79,25 @@ Page({
     this.setData({
       tabType: 'goldCoin'
     })
+  },
+  uploadQRCodePage:function(){
+    if(!this.data.walletInfo.QRCode){
+      wx.showModal({
+        title: '温馨提示',
+        content: '您还没有上传收款码,去上传专属二维码?',
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../redpackets/uploadQRCode'
+            })
+          } 
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: '../redpackets/withdraw'
+      })
+    }
+    
   }
 })

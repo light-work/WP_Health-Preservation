@@ -1,6 +1,6 @@
 // components/red-packets.js
 const app=getApp()
-const {host} =require('../utils/common.js')
+const {host,appid} =require('../utils/common.js')
 const { sendFormId } = require('../utils/increase.js')
 
 Component({
@@ -17,6 +17,11 @@ Component({
       value:null,
       observer:'_percentChange'
     },
+    parentHide:{//两个都能增长的页面互相跳转,返回以后重置percent
+      type: Boolean,
+      value: false,
+      observer: '_parentHideChange'
+    },
     walletOpen:{
       type:Number,
       value:null,
@@ -28,20 +33,43 @@ Component({
    * 组件的初始数据
    */
   data: {
-    startPercent:0,//该参数只作为进度条不增长的页面使用
     totalItems:100,
     timer: null, 
     initNum: null,
-    status: null//钱包开通状态
+    status: null,//钱包开通状态,
+    showToast:false,
+    toastTitle:null,
+    addGoldCoin:null,
+    openMoney:false
   },
   ready:function(){
     let that = this
+    if (!app.globalData.showRedPackets){
+      wx.request({
+        url: `${host}/app/info/${appid}`,
+        success: ({ data }) => {
+          if (data.errorCode === 0 && data.errorMsg === 'ok') {
+            app.globalData.showRedPackets = data.data.openMoney
+            app.globalData.exchangeRate = data.data.exchangeRate
+            app.globalData.customerId = data.data.customerId
+            that.setData({
+              openMoney: app.globalData.showRedPackets  === 'Y'
+            })
+          }
+        }
+      })
+    }else{
+      this.setData({
+        openMoney: app.globalData.showRedPackets==='Y'
+      })
+    }
     //监听setPrecent 增长. 
     let val = app.globalData.setPercent
     Object.defineProperty(app.globalData, 'setPercent', {
       configurable: true,
       enumerable: true,
       set: function (value) {
+        //console.info('page scroll--- '+value)
         if(value!==val){
           if (!that.data.timer){
             const timer = setInterval(() => {
@@ -122,8 +150,7 @@ Component({
         const percent = app.globalData.currentPercent
         if (percent) {//初始进度
           this.setData({
-            initNum: 0,
-            startPercent: percent
+            initNum: 0
           })
           that.showScoreAnimation(percent, 1)
         }
@@ -137,6 +164,7 @@ Component({
       }
     },
     readSucess:function(){
+      const that=this
       wx.request({
         url: `${host}/assets/view`,
         method: 'POST',
@@ -148,12 +176,17 @@ Component({
         },
         success: ({ data }) => {
           if (data.errorCode === 0 && data.errorMsg === 'ok') {
-            wx.showToast({
-              title: '恭喜你,获取了' + data.addGoldCoin + '金币',
-              icon: 'none'
+            that.setData({
+              showToast:true,
+              addGoldCoin: data.addGoldCoin,
+              toastTitle:'阅读奖励'
             })
             setTimeout(() => {
-              wx.hideToast()
+              that.setData({
+                showToast: false,
+                addGoldCoin:null,
+                toastTitle: ''
+              })
             }, 2000)
           }
         }
@@ -185,14 +218,14 @@ Component({
           cxt_arc.setStrokeStyle('#f8f2f2');//绘线的颜色
           cxt_arc.setLineCap('round');//线条端点样式
           cxt_arc.beginPath();//开始一个新的路径
-          cxt_arc.arc(53, 53, 50, 0, 2 * Math.PI, false);//设置一个原点(53,53)，半径为50的圆的路径到当前路径
+        cxt_arc.arc(43, 43, 40, 0, 2 * Math.PI, false);//设置一个原点(53,53)，半径为40的圆的路径到当前路径
           cxt_arc.stroke();//对当前路径进行描边
           //这部分是蓝色部分
           cxt_arc.setLineWidth(6);
           cxt_arc.setStrokeStyle('#ff532d');
           cxt_arc.setLineCap('round')
           cxt_arc.beginPath();//开始一个新的路径
-        cxt_arc.arc(53, 53, 50, -Math.PI * 1 / 2, 2 * Math.PI * (initNum / totalItems) - Math.PI * 1 / 2, false);
+        cxt_arc.arc(43, 43, 40, -Math.PI * 1 / 2, 2 * Math.PI * (initNum / totalItems) - Math.PI * 1 / 2, false);
           cxt_arc.stroke();//对当前路径进行描边
           cxt_arc.draw();
         }
@@ -202,17 +235,28 @@ Component({
       })
     },
     _percentChange:function(n,o){
-      console.info('_percentChange percent=' + app.globalData.currentPercent + ' start percent= ' + this.data.startPercent)
+      // console.info('_percentChange percent=' + app.globalData.currentPercent + ' start percent= ' + this.data.initNum)
       if(n){
         const that=this
-        const start = that.data.startPercent || 0
+        const start = that.data.initNum || 0
         that.setData({
-          initNum: start>n?0:start,
-          startPercent: n
+          initNum: start>n?0:start
         })
         that.showScoreAnimation(n, 1)
       }
      
+    },
+    _parentHideChange:function(n,o){
+      if(o&& !n){//由hide变show
+       console.info('页面切换 timer='+this.data.timer)
+        const that = this
+        const start = that.data.initNum || 0
+        that.setData({
+          initNum: start > app.globalData.currentPercent ? 0 : start
+        })
+        clearInterval(that.data.timer)
+        that.showScoreAnimation(app.globalData.currentPercent, 1)
+      }
     },
     endPercent:function(){
       const percent=app.globalData.currentPercent
@@ -236,7 +280,13 @@ Component({
             'content-type': 'application/x-www-form-urlencoded'
           },
           data:{
-            userId: app.globalData.userId 
+            userId: app.globalData.userId,
+            userAvatarUrl: e.detail.userInfo.avatarUrl,
+            userNickName: e.detail.userInfo.nickName,
+            userGender: e.detail.userInfo.gender,
+            userCity: e.detail.userInfo.city,
+            userProvince: e.detail.userInfo.province,
+            userCountry: e.detail.userInfo.country
           },
           success:  ({data})=> {
             if (data.errorCode === 0 && data.errorMsg === 'ok') {
@@ -246,13 +296,22 @@ Component({
                 status: 1,
                 initNum:0
               })
-              wx.showToast({
-                title: '开通红包成功,奖励' + data.addGoldCoin+'金币',
-                icon:'none'
+              that.setData({
+                showToast: true,
+                addGoldCoin: data.addGoldCoin,
+                toastTitle: '开通奖励'
               })
-              setTimeout(()=>{
-                wx.hideToast()
-              },2000)
+              wx.setStorage({
+                key: "postInfoDate",
+                data: that.getDateStr()
+              })
+              setTimeout(() => {
+                that.setData({
+                  showToast: false,
+                  addGoldCoin:null,
+                  toastTitle: ''
+                })
+              }, 2000)
               that.initCycle()
             }
           }
@@ -262,7 +321,6 @@ Component({
     _walletOpenChange:function(nV,oV){
       const that=this
       if (nV===1 && that.data.status!==1){
-        console.info('homepage======' + nV)
         that.getWalletStatus(app.globalData.userId,null, 'walletopen change')
       }
     },
@@ -273,6 +331,39 @@ Component({
       wx.navigateTo({
         url: `../redpackets/wallet`,
       })
+      const date = wx.getStorageSync("postInfoDate")
+      const today = this.getDateStr()
+      const userInfo = app.globalData.userInfo
+      if ((!date || date != today )&& userInfo && app.globalData.userId){
+        wx.setStorage({
+          key: "postInfoDate",
+          data: today
+        })
+        wx.request({
+          url: `${host}/app/updateUserInfo`,
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          data: {
+            userId: app.globalData.userId,
+            userAvatarUrl: userInfo.avatarUrl,
+            userNickName: userInfo.nickName,
+            userGender: userInfo.gender,
+            userCity: userInfo.city,
+            userProvince: userInfo.province,
+            userCountry: userInfo.country
+          }
+        })
+      }
+     
+    },
+    getDateStr:()=>{
+      const date=new Date()
+      var year = date.getFullYear()
+      var month = date.getMonth() + 1
+      var day = date.getDate()
+      return [year, month, day].join('-')
     }
   }
 })

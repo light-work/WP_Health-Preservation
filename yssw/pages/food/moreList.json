@@ -1,7 +1,4 @@
 {
   "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "go-home": "/components/go-home"
-  }
+  "enablePullDownRefresh": true
 }

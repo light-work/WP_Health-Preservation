@@ -1,9 +1,9 @@
 <!--pages/news/news.wxml-->
 <import src="../wxParse/wxParse.wxml"/>
-<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;white-space:nowrap;' scroll-y bindscroll="pageScroll">
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y bindscroll="pageScroll" bindscrolltolower="reachBottom">
 <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
    <view id="article_end"></view>
-<recommend-list list="{{recommendList}}" articleType="{{aritleType}}" title="热门推荐"></recommend-list>
+<recommend-list list="{{recommendList}}" title="热门推荐"></recommend-list>
 <view class='share-item'>
     <view bindtap='bindTapUpvote'><image src='../img/hand-like.png'></image> {{upvoteText}}</view>
  
@@ -15,5 +15,4 @@
 </view>
 </view>
 </scroll-view>
-<go-home home="list" wx:if="{{showHome}}"></go-home>
 <red-packets></red-packets>

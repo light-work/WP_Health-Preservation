@@ -11,9 +11,14 @@ exports.share = (title, successCallbak, failCallback,imageUrl) => {
   var url = currentPage.route
   var opts = currentPage.options
   if (opts) {
-    url +='?from=share'
+    var first = true
     Object.keys(opts).forEach((i) => {
-      url += `&${i}=${opts[i]}`
+      if (first) {
+        url += `?${i}=${opts[i]}`
+        first = false
+      } else {
+        url += `&${i}=${opts[i]}`
+      }
     })
   }
   return {
@@ -62,17 +67,19 @@ exports.setPageIndex=(pageType,num)=>{
   }
   return 0;
 }
-exports.shareContent = (title, successCallbak, failCallback, imageUrl) => {
+exports.shareContent = (title, successCallbak, failCallback, imageUrl,url,params) => {
+  if(!params)params={}
   const pages = getCurrentPages()
   const currentPage = pages[pages.length - 1]
-  var url = currentPage.route
-  var opts = currentPage.options
-  if (opts) {
+  var opts = Object.assign(params, currentPage.options)
+  
+  if (opts) {//params
     url += '?from=share'
     Object.keys(opts).forEach((i) => {
       url += `&${i}=${opts[i]}`
     })
   }
+  console.info(url)
   return {
     title: title ? title : '',
     path: url,

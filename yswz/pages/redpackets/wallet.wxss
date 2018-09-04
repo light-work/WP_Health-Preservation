@@ -1,16 +1,16 @@
 .wallet{
     padding:20rpx;
-    padding-bottom:80rpx;
+    padding-bottom:140rpx;
 }
 .wallet-box{
-    height:383rpx;
+    min-height:300rpx;
     border-radius:10px;
     overflow: hidden;
     background-size:120%;
     box-shadow: 0 0 15px rgba(0, 0, 0, .1);
     color:#fff;
     font-size:30rpx;
-    padding:0 40rpx;
+    padding:30rpx 40rpx;
     position: relative;
     background: #f09658;
     background: linear-gradient(to bottom, #ffc813 10%,#f09658 100%);
@@ -19,10 +19,10 @@
 .clearfix .float{
     float: left;
     width:200rpx;
-    margin-top:30rpx;
+    margin-top:20rpx;
 }
 .tip-txt{
-    padding-top:20rpx;
+    padding-top:15rpx;
     font-size:24rpx;
 }
 .get-cash{
@@ -55,11 +55,15 @@
 .income{padding-top: 20rpx;}
 .income .in-one:last-child{border:0;}
 .btn-bottom{
+    height:84rpx;
     position: fixed;
     width:100%;
     left:0;
     bottom:0;
     text-align: center;
+    padding:15rpx 0;
+    box-shadow:-1px -1px 6px rgba(167, 169, 185, .3);
+    background: #fff;
 }
 .btn-bottom button{
     width:55%;
@@ -90,6 +94,7 @@
     width: 50%;
     float: left;
     display:block;
+    
 }
 .wallet-tab text.current{color:#fbd824;border-bottom:2px solid #fbd824;}
-
+.bz-txt{font-size:30rpx;color:#ccc;text-align: center;padding:20rpx 0;}

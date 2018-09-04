@@ -7,7 +7,8 @@
     <button wx:if="{{!hasUserInfo && canIUse}}"  open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击关注</button>
     <view wx:else>请升级微信版本</view>
 </view> -->
-<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;white-space:nowrap;' scroll-y bindscrolltoupper="pullDownRefresh" bindscrolltolower="reachBottom">
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y bindscrolltoupper="pullDownRefresh"
+    bindscroll="pageScroll" bindscrolltolower="reachBottom">
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="id">
         <swiper-item  data-item="{{item}}" bindtap="bannerItemTap">
