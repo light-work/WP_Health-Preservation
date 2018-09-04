@@ -7,7 +7,8 @@ Page({
     index: 0,
     walletInfo:null,
     windowHeight:300,
-    customerId:null
+    customerId:null,
+    ruleTip:null
   },
   onLoad:function(options){
     const that = this
@@ -18,7 +19,8 @@ Page({
       })
     }
     this.setData({
-      customerId: app.globalData.customerId
+      customerId: app.globalData.customerId,
+      ruleTip: app.globalData.ruleTip
     })
     wx.showLoading({
       title: '努力加载中...',

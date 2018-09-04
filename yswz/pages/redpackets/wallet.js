@@ -37,6 +37,7 @@ Page({
       url: `${host}/assets/info/${app.globalData.userId}`,
       success:({data})=>{
         if (data.errorCode === 0 && data.errorMsg === 'ok') {
+          app.globalData.todayCoin = data.data.todaySum
           that.setData({
             walletInfo:data.data
           })

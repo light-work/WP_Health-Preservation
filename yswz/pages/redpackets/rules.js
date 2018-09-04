@@ -4,10 +4,14 @@ const app = getApp()
 Page({
 
   data: {
-    list:null
+    list:null,
+    ruleTip:[]
   },
 
   onLoad: function (options) {
+    this.setData({
+      ruleTip: app.globalData.ruleTip
+    })
     wx.showLoading({
       title: '努力加载中....',
     })
