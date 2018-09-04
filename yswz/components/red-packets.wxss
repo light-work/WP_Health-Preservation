@@ -4,7 +4,7 @@
     overflow: hidden;
     position: fixed;
     z-index: 999;
-    bottom: 150rpx;
+    bottom: 200rpx;
     right: 10rpx;
     background: none;
     padding: 0;
@@ -27,7 +27,7 @@
     width: 86px;
     height: 86px;
     position: fixed;
-    bottom: 150rpx;
+    bottom: 200rpx;
     right: 10rpx;
     z-index: 999;
 }
