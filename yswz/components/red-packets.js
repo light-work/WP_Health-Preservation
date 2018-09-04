@@ -280,7 +280,13 @@ Component({
             'content-type': 'application/x-www-form-urlencoded'
           },
           data:{
-            userId: app.globalData.userId 
+            userId: app.globalData.userId,
+            userAvatarUrl: e.detail.userInfo.avatarUrl,
+            userNickName: e.detail.userInfo.nickName,
+            userGender: e.detail.userInfo.gender,
+            userCity: e.detail.userInfo.city,
+            userProvince: e.detail.userInfo.province,
+            userCountry: e.detail.userInfo.country
           },
           success:  ({data})=> {
             if (data.errorCode === 0 && data.errorMsg === 'ok') {
@@ -294,6 +300,10 @@ Component({
                 showToast: true,
                 addGoldCoin: data.addGoldCoin,
                 toastTitle: '开通奖励'
+              })
+              wx.setStorage({
+                key: "postInfoDate",
+                data: that.getDateStr()
               })
               setTimeout(() => {
                 that.setData({
@@ -321,6 +331,39 @@ Component({
       wx.navigateTo({
         url: `../redpackets/wallet`,
       })
+      const date = wx.getStorageSync("postInfoDate")
+      const today = this.getDateStr()
+      const userInfo = app.globalData.userInfo
+      if ((!date || date != today )&& userInfo && app.globalData.userId){
+        wx.setStorage({
+          key: "postInfoDate",
+          data: today
+        })
+        wx.request({
+          url: `${host}/app/updateUserInfo`,
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          data: {
+            userId: app.globalData.userId,
+            userAvatarUrl: userInfo.avatarUrl,
+            userNickName: userInfo.nickName,
+            userGender: userInfo.gender,
+            userCity: userInfo.city,
+            userProvince: userInfo.province,
+            userCountry: userInfo.country
+          }
+        })
+      }
+     
+    },
+    getDateStr:()=>{
+      const date=new Date()
+      var year = date.getFullYear()
+      var month = date.getMonth() + 1
+      var day = date.getDate()
+      return [year, month, day].join('-')
     }
   }
 })

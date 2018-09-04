@@ -100,6 +100,7 @@ Page({
     })
   },
   onLoad: function (options) {
+   // wx.removeStorageSync('postInfoDate')
     //forward 
     if(options.from==='share'){
       const id=options.id
