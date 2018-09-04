@@ -152,7 +152,8 @@ Page({
     wx.hideNavigationBarLoading();
   },
   onShareAppMessage: function (options) {
-    return share('', '', '', 'https://img.jinrongzhushou.com/banner/banner-foodFit.png')
+    const title = app.globalData.shareTab3 || ''
+    return share(title, null, null, 'https://img.jinrongzhushou.com/banner/banner-foodFit.png')
   },
   bindBannerTap: (e) => {
     const item = e.currentTarget.dataset.item

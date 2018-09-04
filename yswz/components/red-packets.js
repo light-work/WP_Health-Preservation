@@ -66,6 +66,10 @@ Component({
             app.globalData.customerId = data.data.customerId
             app.globalData.redPacketsTip = data.data.moneyTip
             app.globalData.ruleTip = data.data.ruleTip
+            app.globalData.shareTab1 = data.data.shareTab1
+            app.globalData.shareTab2 = data.data.shareTab2
+            app.globalData.shareTab3 = data.data.shareTab3
+            app.globalData.shareTab4 = data.data.shareTab4
             that.setData({
               openMoney: app.globalData.showRedPackets  === 'Y',
               tipTemplate: app.globalData.redPacketsTip

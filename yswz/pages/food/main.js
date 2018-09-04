@@ -179,7 +179,8 @@ Page({
     }
   },
   onShareAppMessage: function (options) {
-    return share('健康食物', null, null,'https://img.jinrongzhushou.com/banner/banner-food2.jpg')
+    const title = app.globalData.shareTab2 || '健康食物'
+    return share(title, null, null,'https://img.jinrongzhushou.com/banner/banner-food2.jpg')
    },
   bindBannerTap:(e)=>{
     const item = e.currentTarget.dataset.item
