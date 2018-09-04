@@ -4,7 +4,7 @@
             <view class='code-box' bindtap='bindQRCodePreview'>
                 <image src='{{walletInfo.QRCode}}'></image>
             </view>
-            <view style='color:#333;font-size:28rpx;'>提现金额会在三个工作日内入账到这个收款码<text></text></view>
+            <view style='color:#333;font-size:28rpx;'>提现金额会在1~3个工作日内入账到这个收款码<text></text></view>
         </view>
         <view class='money'>
             <view>
@@ -26,10 +26,7 @@
                     提现说明
                     <image src='../img/coin.png'></image>
                 </view>
-                <text>阅读资讯每30秒，即可获得最高10金币奖励。</text>
-                <text>观看视频每到30-60秒，即可获得最高5金币奖励。</text>
-                <text>请留意“我的钱包-金币”，查看金币变化。</text>
-                <text>金币每天会定点兑换成零钱，零钱可提现至您的微信钱包或支付宝账号内。</text>
+                <text wx:for="{{ruleTip}}" wx:key="*this">{{item}}</text>
                 <view style='color:#fe5147;font-size:28rpx;margin-top:20rpx;'>注：提现问题咨询可以加专属客服微信：{{customerId}}</view>
             </view>
         </view>

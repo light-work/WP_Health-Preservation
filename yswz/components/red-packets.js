@@ -26,6 +26,15 @@ Component({
       type:Number,
       value:null,
       observer: '_walletOpenChange'
+    },
+    showTip:{
+      type:Boolean,
+      value:false
+    },
+    goldCoin:{
+      type: Number,
+      value: false,
+      observer: '_goldCoinChange'
     }
   },
 
@@ -38,9 +47,12 @@ Component({
     initNum: null,
     status: null,//钱包开通状态,
     showToast:false,
-    toastTitle:null,
-    addGoldCoin:null,
-    openMoney:false
+    toastTitle:null,//toast title
+    addGoldCoin:null,//toast 奖励红包数量
+    openMoney:false,//是否开通钱包
+    tipTemplate:null,//显示模板
+    moneyTip:null,//显示金币tip
+    showOpen:false//是否打开红包
   },
   ready:function(){
     let that = this
@@ -52,15 +64,19 @@ Component({
             app.globalData.showRedPackets = data.data.openMoney
             app.globalData.exchangeRate = data.data.exchangeRate
             app.globalData.customerId = data.data.customerId
+            app.globalData.redPacketsTip = data.data.moneyTip
+            app.globalData.ruleTip = data.data.ruleTip
             that.setData({
-              openMoney: app.globalData.showRedPackets  === 'Y'
+              openMoney: app.globalData.showRedPackets  === 'Y',
+              tipTemplate: app.globalData.redPacketsTip
             })
           }
         }
       })
     }else{
       this.setData({
-        openMoney: app.globalData.showRedPackets==='Y'
+        openMoney: app.globalData.showRedPackets==='Y',
+        tipTemplate: app.globalData.redPacketsTip
       })
     }
     //监听setPrecent 增长. 
@@ -103,6 +119,7 @@ Component({
             that.initCycle()
           }
         }, 'user-id is not null')
+        that.getGoldCoin(userId)
       } else {
         Object.defineProperty(app.globalData, 'userId', {
           configurable: true,
@@ -113,6 +130,7 @@ Component({
               if (data.status) {
                 that.initCycle()
               }
+              that.getGoldCoin(value)
             }, 'user-id is  null')
             userId = value
           },
@@ -127,6 +145,28 @@ Component({
     clearInterval(this.data.timer)
   },
   methods: {
+    getGoldCoin:function(userId){
+      const that=this
+      if (app.globalData.todayCoin==null){
+        wx.request({
+          url: `${host}/assets/info/${userId}`,
+          success: ({ data }) => {
+            if (data.errorCode === 0 && data.errorMsg === 'ok') {
+              const coin=app.globalData.todayCoin||0
+              app.globalData.todayCoin = coin + (data.data.todaySum||0)
+              let template =that.data.tipTemplate
+              if (app.globalData.todayCoin && template) {
+                template = template.replace(new RegExp('{{todaySum}}', "gm"), app.globalData.todayCoin)
+                that.setData({
+                  moneyTip: template,
+                  goldCoin: (data.data.todaySum || 0)
+                })
+              }
+            }
+          }
+        })
+      }
+    },
     getWalletStatus: function (userId,callback, where){
       const that=this
       wx.request({
@@ -181,6 +221,8 @@ Component({
               addGoldCoin: data.addGoldCoin,
               toastTitle:'阅读奖励'
             })
+            const coin = app.globalData.todayCoin || 0
+            app.globalData.todayCoin = coin + (data.addGoldCoin || 0)
             setTimeout(() => {
               that.setData({
                 showToast: false,
@@ -273,50 +315,64 @@ Component({
     getUserInfo: function (e) {
       const that=this
       if (e.detail.errMsg === "getUserInfo:ok") {
-        wx.request({
-          url: `${host}/assets/open`,
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          data:{
-            userId: app.globalData.userId,
-            userAvatarUrl: e.detail.userInfo.avatarUrl,
-            userNickName: e.detail.userInfo.nickName,
-            userGender: e.detail.userInfo.gender,
-            userCity: e.detail.userInfo.city,
-            userProvince: e.detail.userInfo.province,
-            userCountry: e.detail.userInfo.country
-          },
-          success:  ({data})=> {
-            if (data.errorCode === 0 && data.errorMsg === 'ok') {
-              app.globalData.walletOpen = 1
-              app.globalData.userInfo = e.detail.userInfo
-              that.setData({
-                status: 1,
-                initNum:0
-              })
-              that.setData({
-                showToast: true,
-                addGoldCoin: data.addGoldCoin,
-                toastTitle: '开通奖励'
-              })
-              wx.setStorage({
-                key: "postInfoDate",
-                data: that.getDateStr()
-              })
-              setTimeout(() => {
-                that.setData({
-                  showToast: false,
-                  addGoldCoin:null,
-                  toastTitle: ''
-                })
-              }, 2000)
-              that.initCycle()
-            }
-          }
+        app.globalData.userInfo = e.detail.userInfo
+        that.setData({
+          showOpen:true
         })
       }
+    },
+    openWallet:function(){
+      const that=this
+      wx.request({
+        url: `${host}/assets/open`,
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          userId: app.globalData.userId,
+          userAvatarUrl: app.globalData.userInfo.avatarUrl,
+          userNickName: app.globalData.userInfo.nickName,
+          userGender: app.globalData.userInfo.gender,
+          userCity: app.globalData.userInfo.city,
+          userProvince: app.globalData.userInfo.province,
+          userCountry: app.globalData.userInfo.country
+        },
+        success: ({ data }) => {
+          if (data.errorCode === 0 && data.errorMsg === 'ok') {
+            app.globalData.walletOpen = 1
+           
+            that.setData({
+              status: 1,
+              initNum: 0,
+              showOpen: false
+            })
+            const coin = app.globalData.todayCoin || 0
+            app.globalData.todayCoin = coin + (data.addGoldCoin || 0)
+
+            that.setData({
+              showToast: true,
+              addGoldCoin: data.addGoldCoin,
+              toastTitle: '开通奖励'
+            })
+            wx.setStorage({
+              key: "postInfoDate",
+              data: that.getDateStr()
+            })
+            setTimeout(() => {
+              that.setData({
+                showToast: false,
+                addGoldCoin: null,
+                toastTitle: ''
+              })
+              wx.navigateTo({
+                url: '../redpackets/wallet',
+              })
+            }, 2000)
+            //that.initCycle()
+          }
+        }
+      })
     },
     _walletOpenChange:function(nV,oV){
       const that=this
@@ -356,7 +412,6 @@ Component({
           }
         })
       }
-     
     },
     getDateStr:()=>{
       const date=new Date()
@@ -364,6 +419,21 @@ Component({
       var month = date.getMonth() + 1
       var day = date.getDate()
       return [year, month, day].join('-')
+    },
+    closeTip:function(){
+      app.globalData.showRedPacketsTip=false
+      this.setData({
+        showTip:false
+      })
+    },
+    _goldCoinChange:function(n,o){
+      let template = this.data.tipTemplate
+      if (n && template ){
+        template = template.replace(new RegExp('{{todaySum}}', "gm"), n)
+        this.setData({
+          moneyTip: template
+        })
+      }
     }
   }
 })

@@ -1,12 +1,17 @@
 <!--components/red-packets.wxml-->
-
+<view class='gift-pop' bindtap='openWallet' wx:if="{{showOpen}}">
+    <image src='../pages/img/hb-bg.png'></image>
+    <view style='padding-top:200rpx;'>恭喜你获得一个收益红包。</view>
+    <view style='font-size:40rpx;padding-top:50rpx;'>立刻领取 188金币</view>
+    <view style='padding-top:80rpx;'>当天即可提现</view>
+</view>
 <button class='gift' open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{status===0 && openMoney}}">
    <image src='../pages/img/gift.png'></image>
     <text>领红包</text>
 </button>
 
-<canvas class="cir" canvas-id="canvasArc" wx:if="{{status===1 && openMoney}}" ></canvas>
- <form class='circleBar' wx:if="{{status===1 && openMoney}}"  bindsubmit="bindViewWallet" report-submit="true">
+<canvas class="cir" canvas-id="canvasArc" wx:if="{{status===1 && openMoney && !showOpen}}" ></canvas>
+ <form class='circleBar' wx:if="{{status===1 && openMoney && !showOpen}}"  bindsubmit="bindViewWallet" report-submit="true">
       <button class="wrap" formType="submit">
           <view class="top">
               <view class="centerWord"><image src='../pages/img/gift.png'></image></view>
@@ -18,9 +23,9 @@
     <image src='../pages/img/get-coin.png' mode='widthFix'></image>
     <text>{{addGoldCoin}}金币</text>
 </view>
-<view class='coin-tip' hidden='true'>
+<view class='coin-tip' hidden='{{!showTip || !goldCoin || !moneyTip}}'>
     <image src='../pages/img/coin.png' class='coin'></image>
-    <text class='txt'>您已获得<text>55金币</text>阅读收益，打败全国45%的用户！昨天有80%的用户获得了<text>800金币</text></text>
-    <image src='../pages/img/off.png' class='off'></image>
+    <text class='txt'>{{moneyTip}} </text>
+    <image src='../pages/img/off.png' class='off' bindtap='closeTip'></image>
 </view>
     

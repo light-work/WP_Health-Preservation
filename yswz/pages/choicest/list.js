@@ -22,7 +22,9 @@ Page({
     showTip: false,
     percent:null,
     walletStatus:null,
-    windowHeight: app.globalData.height
+    windowHeight: app.globalData.height,
+    goldCoin:null,
+    showMoneyTip:null
   },
   loadNewsList:function(append){
     wx.showLoading({
@@ -139,7 +141,6 @@ Page({
     }
   },
   pullDownRefresh:function(options){
-    console.info(111)
     this.setData({
       page: 0,
     })
@@ -205,9 +206,12 @@ Page({
         showTip: false
       })
     }
+    
     this.setData({
       percent:app.globalData.currentPercent||0,
-      walletStatus: app.globalData.walletOpen||0
+      walletStatus: app.globalData.walletOpen||0,
+      goldCoin: app.globalData.todayCoin,
+      showMoneyTip: app.globalData.showRedPacketsTip === null ? true : app.globalData.showRedPacketsTip
     })
   }
 })

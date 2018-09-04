@@ -52,4 +52,5 @@ wx:for="{{newList}}" wx:key="*this" data-item='{{item}}'>
     <image src='../img/off.png' bindtap='closeTip'></image>
     <view>添加到桌面</view>
 </view>
-<red-packets percent="{{percent}}" wallet-open="{{walletStatus}}"></red-packets>
+<red-packets percent="{{percent}}" 
+wallet-open="{{walletStatus}}" showTip="{{showMoneyTip}}" goldCoin="{{goldCoin}}" ></red-packets>

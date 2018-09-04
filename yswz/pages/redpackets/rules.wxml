@@ -5,9 +5,7 @@
             赚钱小技巧
             <image src='../img/coin.png'></image>
         </view>
-        <text>阅读资讯每30秒，即可获得最高10金币奖励。</text>
-        <text>请留意“红包-金币”，查看金币变化。</text>
-        <text>金币每天会定点兑换成零钱，零钱可提现至您的微信钱包或支付宝账号内。</text>
+        <text wx:for="{{ruleTip}}" wx:key="*this">{{item}}</text>
     </view>
     <view class='rule-item'>
         <view class='rule-title'>今日阅读收益</view>
