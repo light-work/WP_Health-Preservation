@@ -1,9 +1,9 @@
 
-<view class="take-app" wx:if="{{isReady && !hasUserInfo}}">
+<!-- <view class="take-app" wx:if="{{isReady && !hasUserInfo}}">
     <text>关注我们，每天都能收到健康知识</text>
     <button wx:if="{{!hasUserInfo && canIUse}}"  open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击关注</button>
     <view wx:else>请升级微信版本</view>
-</view>
+</view> -->
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerList}}" wx:key="id">
         <swiper-item >

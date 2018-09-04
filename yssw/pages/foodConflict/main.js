@@ -59,14 +59,14 @@ Page({
               var path = ''
               if (item.target === infoAppid) {
                 if (item.action === 'main') {
-                  path = 'pages/choicest/list?from=share'
+                  path = 'pages/choicest/list'
                 } else if (item.action === 'foodFit') {
-                  path = 'pages/foodConflict/main?from=share'
+                  path = 'pages/foodConflict/main'
                 } else if (item.action === 'regimen') {
-                  path = 'pages/time/list?from=share'
+                  path = 'pages/time/list'
                 } else if (item.action.indexOf('article_') > -1) {
                   const params = item.action.split('_')
-                  path = `pages/choicest/content?id=${params[1]}&category=${params[2]}&from=share`
+                  path = `pages/choicest/list?id=${params[1]}&category=${params[2]}&from=share`
                 }
               }
               array.push({
@@ -109,8 +109,14 @@ Page({
     })
   },
   onLoad:function(options){
+    //forward 
+    if (options.from === 'share') {
+      const id = options.id
+      wx.navigateTo({
+        url: `../foodConflict/content?id=${id}`,
+      })
+    }
     this.loadList()
-    app.globalData.showGoHome = false
     this.loadBannerList(this)
   },
   showDetail :function(e){

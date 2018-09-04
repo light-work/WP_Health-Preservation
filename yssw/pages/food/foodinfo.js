@@ -1,6 +1,6 @@
 // pages/news/news.js
-var WxParse = require('../wxParse/wxParse.js');
-const { host, cloudHost, share} =require('../../utils/common.js')
+var WxParse = require('../wxParse/wxParse.js')
+const { host, cloudHost, shareContent} =require('../../utils/common.js')
 const app=getApp()
 Page({
     data: {
@@ -9,20 +9,13 @@ Page({
       property:'',
       showTip:false,
       articleArray:[],
-      fitCount:0,
-      showHome:false
+      fitCount:0
     },
     onLoad: function(options) {
       const that = this;
       const id = options.id
       wx.showLoading({
         title: '加载中...',
-      });
-      if (!app.globalData.showGoHome) {
-        app.globalData.showGoHome = !!options.from
-      }
-      this.setData({
-        showHome: !!app.globalData.showGoHome
       })
       wx.request({
         url: `${host}/food/detail/${id}`,
@@ -61,7 +54,8 @@ Page({
   },
   onShareAppMessage: function (ops) {
     const foodInfo = this.data.foodInfo
-    return share(foodInfo.name + '的功效', '', '', foodInfo.picUrl)
+    return shareContent(foodInfo.name + '的功效', null, null,
+      foodInfo.picUrl, 'pages/food/main', { target: 'foodinfo' })
   },
   onPageScroll: function (res) {
     const s = res.scrollTop

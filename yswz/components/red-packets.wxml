@@ -1,5 +1,6 @@
 <!--components/red-packets.wxml-->
-<button class='wrap'  open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{status===0 && openMoney}}">
+
+<button class='gift' open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{status===0 && openMoney}}">
    <image src='../pages/img/gift.png'></image>
     <text>领红包</text>
 </button>

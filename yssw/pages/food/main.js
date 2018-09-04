@@ -66,14 +66,14 @@ Page({
               var path = ''
               if(item.target===infoAppid){
                 if(item.action==='main'){
-                  path = 'pages/choicest/list?from=share'
+                  path = 'pages/choicest/list'
                 } else if (item.action ==='foodFit'){
-                  path = 'pages/foodConflict/main?from=share'
+                  path = 'pages/foodConflict/main'
                 } else if (item.action ==='regimen'){
-                  path = 'pages/time/list?from=share'
+                  path = 'pages/time/list'
                 } else if (item.action.indexOf('article_') > -1){
                   const params = item.action.split('_')
-                  path = `pages/choicest/content?id=${params[1]}&category=${params[2]}&from=share` 
+                  path = `pages/choicest/list?id=${params[1]}&category=${params[2]}&from=share` 
                 }
               }
               array.push({
@@ -92,8 +92,20 @@ Page({
     })
   },
   onLoad: function (option) {
+    if (option.from === 'share') {
+      const id = option.id
+      if (option.target === 'foodinfo') {
+        wx.navigateTo({
+          url: `../food/foodinfo?id=${id}`,
+        })
+      } else if (option.target === 'moreList') {
+        const title = option.title
+        wx.navigateTo({
+          url: `../food/moreList?id=${id}&title=${title}`,
+        })
+      }
+    }
     this.loadData()
-    app.globalData.showGoHome = false
     var that = this
     setTimeout(() => {
       that.setData({

@@ -1,5 +1,5 @@
 // pages/news/news.js
-const { host, share} = require('../../utils/common.js')
+const { host, shareContent} = require('../../utils/common.js')
 const app=getApp()
 Page({
   data: {
@@ -7,18 +7,11 @@ Page({
       good:[],
       bad:[],
       showTip:false,
-      showHome:false,
       articleArray: []
   },
   onLoad: function (options) {
       const that = this;
       const id = options.id
-      if (!app.globalData.showGoHome) {
-        app.globalData.showGoHome = !!options.from
-      }
-      that.setData({
-        showHome: !!app.globalData.showGoHome
-      })
       wx.showLoading({
           title: '加载中...',
       });
@@ -109,7 +102,8 @@ Page({
   },
   onShareAppMessage: function (ops) {
     const foodInfo = this.data.foodInfo
-    return share(foodInfo.name+'的相生相克', '', '', foodInfo.picUrl)
+     return shareContent(foodInfo.name + '的相生相克', '', '', foodInfo.picUrl,
+      'pages/foodConflict/main')
   },
   onPageScroll: function (res) {
     const s = res.scrollTop
