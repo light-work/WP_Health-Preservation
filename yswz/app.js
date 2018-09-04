@@ -68,7 +68,11 @@ App({
     redPacketsTip: null,
     showRedPacketsTip:true,
     todayCoin:null,
-    ruleTip:null
+    ruleTip:null,
+    shareTab1:null,
+    shareTab2: null,
+    shareTab3: null,
+    shareTab4: null
   },
   getUserId: function () {
     const that = this

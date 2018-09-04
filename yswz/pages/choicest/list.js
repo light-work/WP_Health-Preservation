@@ -158,7 +158,8 @@ Page({
     wx.hideNavigationBarLoading();
   },
   onShareAppMessage: function (options) {
-    return share('专家养生文摘', '', '', 'https://img.jinrongzhushou.com/banner/banner-Information3.png')
+    const title = app.globalData.shareTab1 || '专家养生文摘'
+    return share(title, '', '', 'https://img.jinrongzhushou.com/banner/banner-Information3.png')
   },
   pageScroll: function (res) {
     const s = res.scrollTop || res.detail.scrollTop
