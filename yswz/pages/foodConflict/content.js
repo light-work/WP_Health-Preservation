@@ -143,7 +143,7 @@ Page({
   },
   onShareAppMessage: function (ops) {
     const foodInfo = this.data.foodInfo
-    return shareContent(foodInfo.name+'的相生相克', '', '', foodInfo.picUrl,
+    return shareContent('好友邀请您@来了解食用#'+foodInfo.name+'的相生相克#', '', '', foodInfo.picUrl,
     'pages/foodConflict/main')
   },
   pageScroll: function (res) {

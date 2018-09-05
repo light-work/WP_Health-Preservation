@@ -84,6 +84,8 @@ Page({
                 url = `/pages/choicest/content?id=${params[1]}&category=${params[2]}`
               } else if (item.action === 'regimen') {
                 url = '/pages/time/list'
+              } else if (item.action === 'money') {
+                url = '/pages/redpackets/wallet'
               }
               array.push({
                 id: id,
