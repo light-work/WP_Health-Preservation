@@ -79,7 +79,7 @@ Page({
   },
   onShareAppMessage:function(options){
     const info = this.data.data
-    return shareContent(info.timeName + info.meridian + '养生', null, null, 'https://img.jinrongzhushou.com/banner/banner-regimen.png','pages/time/list')
+    return shareContent('好友邀请您@来了解#' + info.timeHour +'养生秘诀', null, null, 'https://img.jinrongzhushou.com/banner/banner-regimen.png','pages/time/list')
   },
   reachBottom: function (options) {
     this.setData({

@@ -105,7 +105,7 @@ Page({
   },
   onShareAppMessage: function (ops) {
     const foodInfo = this.data.foodInfo
-    return shareContent(foodInfo.name + '的功效', null, null,
+    return shareContent('好友邀请您@来了解#'+foodInfo.name + '的功效#', null, null,
      foodInfo.picUrl,'pages/food/main',{target:'foodinfo'})
   },
   pageScroll: function (res) {

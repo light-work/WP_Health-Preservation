@@ -74,6 +74,8 @@ Page({
               } else if (item.action === 'regimen') {
                 openType = 'switchTab'
                 url = '/pages/time/list'
+              } else if (item.action === 'money') {
+                url = '/pages/redpackets/wallet'
               }
               array.push({
                 id: id,
