@@ -188,9 +188,19 @@ Page({
     const item = e.currentTarget.dataset.item
     if (item) {
       if (item.openType === 'navigate') {
-        wx.navigateTo({
-          url: item.url,
-        })
+        if (item.url === '/pages/redpackets/wallet' && !app.globalData.walletOpen) {
+          wx.showToast({
+            title: app.globalData.openTip || '未开通钱包',
+            icon: 'none'
+          })
+          setTimeout(() => {
+            wx.hideToast()
+          }, 1500)
+        } else {
+          wx.navigateTo({
+            url: item.url,
+          })
+        }
       } else if (item.openType === 'switchTab') {
         if(item.id){
           app.globalData.goDetail = true

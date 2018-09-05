@@ -1,5 +1,5 @@
 <import src="../wxParse/wxParse.wxml"/>
-<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y bindscroll="pageScroll" bindscrolltolower="reachBottom">
+<scroll-view style='width:100%;height:{{windowHeight}}px;overflow:scroll;' scroll-y bindscroll="pageScroll">
 <view class='food-content'>
     <view class='food-title'>
         <text class='food-name'>{{foodInfo.name}}</text>

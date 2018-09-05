@@ -69,7 +69,7 @@ Page({
             const array = new Array()
 
             list.forEach((item) => {
-              const openType = item.action.indexOf('article_') > -1 ? 'navigate' : 'switchTab'
+              let openType = item.action.indexOf('article_') > -1 ? 'navigate' : 'switchTab'
               var url = '', id = null
               if (item.action.indexOf('foodFit_') > -1) {
                 const params = item.action.split('_')
@@ -85,6 +85,7 @@ Page({
               } else if (item.action === 'regimen') {
                 url = '/pages/time/list'
               } else if (item.action === 'money') {
+                openType ="navigate"
                 url = '/pages/redpackets/wallet'
               }
               array.push({
@@ -188,9 +189,19 @@ Page({
     const item=e.currentTarget.dataset.item
     if(item){
       if (item.openType ==='navigate'){
-        wx.navigateTo({
-          url: item.url,
-        })
+        if (item.url === '/pages/redpackets/wallet' && !app.globalData.walletOpen){
+          wx.showToast({
+            title: app.globalData.openTip||'未开通钱包',
+            icon:'none'
+          })
+          setTimeout(()=>{
+            wx.hideToast()
+          },1500)
+        }else{
+          wx.navigateTo({
+            url: item.url,
+          })
+        }
       } else if (item.openType === 'switchTab'){
         if (item.id) {
           app.globalData.goDetail = true

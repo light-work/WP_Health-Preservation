@@ -70,6 +70,7 @@ Component({
             app.globalData.shareTab2 = data.data.shareTab2
             app.globalData.shareTab3 = data.data.shareTab3
             app.globalData.shareTab4 = data.data.shareTab4
+            app.globalData.openTip = data.data.openTip
             that.setData({
               openMoney: app.globalData.showRedPackets  === 'Y',
               tipTemplate: app.globalData.redPacketsTip
