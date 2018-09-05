@@ -72,7 +72,8 @@ App({
     shareTab1:null,
     shareTab2: null,
     shareTab3: null,
-    shareTab4: null
+    shareTab4: null,
+    openTip:null
   },
   getUserId: function () {
     const that = this
