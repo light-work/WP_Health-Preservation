@@ -319,12 +319,17 @@ Component({
     },
     getUserInfo: function (e) {
       const that=this
-      if (e.detail.errMsg === "getUserInfo:ok") {
-        app.globalData.userInfo = e.detail.userInfo
-        that.setData({
-          showOpen:true
-        })
-      }
+     // console.info(111)
+      // if (e.detail.errMsg === "getUserInfo:ok") {
+      // app.globalData.userInfo = e.detail.userInfo
+      // that.setData({
+      //   showOpen: true
+      // })
+      // }
+      //app.globalData.userInfo = e.detail.userInfo
+      that.setData({
+        showOpen: true
+      })
     },
     openWallet:function(){
       const that=this
@@ -335,13 +340,13 @@ Component({
           'content-type': 'application/x-www-form-urlencoded'
         },
         data: {
-          userId: app.globalData.userId,
-          userAvatarUrl: app.globalData.userInfo.avatarUrl,
-          userNickName: app.globalData.userInfo.nickName,
-          userGender: app.globalData.userInfo.gender,
-          userCity: app.globalData.userInfo.city,
-          userProvince: app.globalData.userInfo.province,
-          userCountry: app.globalData.userInfo.country
+          userId: app.globalData.userId
+          // userAvatarUrl: app.globalData.userInfo.avatarUrl,
+          // userNickName: app.globalData.userInfo.nickName,
+          // userGender: app.globalData.userInfo.gender,
+          // userCity: app.globalData.userInfo.city,
+          // userProvince: app.globalData.userInfo.province,
+          // userCountry: app.globalData.userInfo.country
         },
         success: ({ data }) => {
           if (data.errorCode === 0 && data.errorMsg === 'ok') {
@@ -396,31 +401,31 @@ Component({
       wx.navigateTo({
         url: `../redpackets/wallet`,
       })
-      const date = wx.getStorageSync("postInfoDate")
-      const today = this.getDateStr()
-      const userInfo = app.globalData.userInfo
-      if ((!date || date != today )&& userInfo && app.globalData.userId){
-        wx.setStorage({
-          key: "postInfoDate",
-          data: today
-        })
-        wx.request({
-          url: `${host}/app/updateUserInfo`,
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          data: {
-            userId: app.globalData.userId,
-            userAvatarUrl: userInfo.avatarUrl,
-            userNickName: userInfo.nickName,
-            userGender: userInfo.gender,
-            userCity: userInfo.city,
-            userProvince: userInfo.province,
-            userCountry: userInfo.country
-          }
-        })
-      }
+      // const date = wx.getStorageSync("postInfoDate")
+      // const today = this.getDateStr()
+      // const userInfo = app.globalData.userInfo
+      // if ((!date || date != today )&& userInfo && app.globalData.userId){
+      //   wx.setStorage({
+      //     key: "postInfoDate",
+      //     data: today
+      //   })
+      //   wx.request({
+      //     url: `${host}/app/updateUserInfo`,
+      //     method: 'POST',
+      //     header: {
+      //       'content-type': 'application/x-www-form-urlencoded'
+      //     },
+      //     data: {
+      //       userId: app.globalData.userId,
+      //       userAvatarUrl: userInfo.avatarUrl,
+      //       userNickName: userInfo.nickName,
+      //       userGender: userInfo.gender,
+      //       userCity: userInfo.city,
+      //       userProvince: userInfo.province,
+      //       userCountry: userInfo.country
+      //     }
+      //   })
+      // }
     },
     getDateStr:()=>{
       const date=new Date()
