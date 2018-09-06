@@ -5,7 +5,11 @@
     <view style='font-size:40rpx;padding-top:50rpx;'>立刻领取 188金币</view>
     <view style='padding-top:80rpx;'>当天即可提现</view>
 </view>
-<button class='gift' open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{status===0 && openMoney}}">
+<button class='gift' open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{false}}">
+   <image src='../pages/img/gift.png'></image>
+    <text>领红包</text>
+</button>
+<button class='gift' bindtap="getUserInfo" wx:if="{{status===0 && openMoney}}">
    <image src='../pages/img/gift.png'></image>
     <text>领红包</text>
 </button>
